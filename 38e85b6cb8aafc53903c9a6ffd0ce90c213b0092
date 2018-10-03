@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "bada0100_a604d715",
+        "filename": "config/application.properties",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015
+      },
+      "writtenOn": "2018-10-03T19:52:43Z",
+      "side": 1,
+      "message": "License info is missing",
+      "revId": "38e85b6cb8aafc53903c9a6ffd0ce90c213b0092",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_46096b2b",
+        "filename": "config/logback.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015
+      },
+      "writtenOn": "2018-10-03T19:52:43Z",
+      "side": 1,
+      "message": "license is missing",
+      "revId": "38e85b6cb8aafc53903c9a6ffd0ce90c213b0092",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_cb2ec6a5",
         "filename": "src/test/java/org/onap/pomba/contextbuilder/sdnc/unittest/service/SdncContextBuilderTest.java",
         "patchSetId": 1
