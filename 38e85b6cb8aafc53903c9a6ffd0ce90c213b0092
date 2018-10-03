@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_cb2ec6a5",
+        "filename": "src/test/java/org/onap/pomba/contextbuilder/sdnc/unittest/service/SdncContextBuilderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-03T19:32:09Z",
+      "side": 1,
+      "message": "Whitespace on \"+\"",
+      "revId": "38e85b6cb8aafc53903c9a6ffd0ce90c213b0092",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_eb2b8a92",
+        "filename": "src/test/java/org/onap/pomba/contextbuilder/sdnc/unittest/service/SdncContextBuilderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-03T19:32:09Z",
+      "side": 1,
+      "message": "Whitespace on \"+\"",
+      "revId": "38e85b6cb8aafc53903c9a6ffd0ce90c213b0092",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_8b18be85",
+        "filename": "src/test/java/org/onap/pomba/contextbuilder/sdnc/unittest/service/SdncContextBuilderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-03T19:32:09Z",
+      "side": 1,
+      "message": "Line too long",
+      "revId": "38e85b6cb8aafc53903c9a6ffd0ce90c213b0092",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
