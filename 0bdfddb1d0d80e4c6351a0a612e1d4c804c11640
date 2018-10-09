@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "bada0100_0e7e0aaf",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-09T16:24:05Z",
+      "side": 1,
+      "message": "I think this was a fix Mohammad put in that you backed out.",
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_ae4a5e81",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-09T16:24:05Z",
+      "side": 1,
+      "message": "I think this was a fix Mohammad put in that you backed out.",
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_bd185685",
         "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/Application.java",
         "patchSetId": 4
