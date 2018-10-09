@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_bd185685",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/Application.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "remove Exception. It can not be thrown from method\u0027s body",
+      "range": {
+        "startLine": 43,
+        "startChar": 43,
+        "endLine": 43,
+        "endChar": 59
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_bd4a9681",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "not needed. not used",
+      "range": {
+        "startLine": 59,
+        "startChar": 161,
+        "endLine": 59,
+        "endChar": 174
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_dd367a03",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/rs/RestServiceImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "throw new UnsupportedOperationException();",
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_1da72251",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "Add a private constructor to hide the implicit public class",
+      "range": {
+        "startLine": 38,
+        "startChar": 13,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_3d7786d6",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "use , instead of +",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 117
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_9d49d28d",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "fix them",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_5d74cace",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "not used.",
+      "range": {
+        "startLine": 107,
+        "startChar": 81,
+        "endLine": 107,
+        "endChar": 101
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_3d2546c2",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "new string not needed.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 30
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_fd801e8d",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 126,
+        "startChar": 95,
+        "endLine": 126,
+        "endChar": 109
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_3db0e68a",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "Use already-defined \u0027AUTHORIZATION\u0027",
+      "range": {
+        "startLine": 130,
+        "startChar": 25,
+        "endLine": 130,
+        "endChar": 38
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_1d7e42af",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T03:57:44Z",
+      "side": 1,
+      "message": "add space and use \",\"",
+      "range": {
+        "startLine": 136,
+        "startChar": 62,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "0bdfddb1d0d80e4c6351a0a612e1d4c804c11640",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
