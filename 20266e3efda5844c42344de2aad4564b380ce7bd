@@ -33,6 +33,142 @@
       "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_acd107cf",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_ecc70f11",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_6cdb1fee",
+        "filename": "pomba-sdnc-context-builder.iml",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_8cd8c3f0",
+        "filename": "pomba-sdnc-context-builder.iml",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_2ce517a8",
+        "filename": "pomba-sdnc-context-builder.iml",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_ccd6cbc5",
+        "filename": "pomba-sdnc-context-builder.iml",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_4ce2dba0",
+        "filename": "pomba-sdnc-context-builder.iml",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_0cf4d359",
+        "filename": "pomba-sdnc-context-builder.iml",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 659
+      },
+      "writtenOn": "2018-10-09T18:16:08Z",
+      "side": 1,
+      "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
