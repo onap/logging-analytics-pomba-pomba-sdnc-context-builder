@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bada0100_8fdaf576",
+        "filename": "config/application.properties",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "This will be overwritten during deployment.",
+      "parentUuid": "bada0100_2c4e77c2",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_ecee2f8b",
         "filename": "config/application.properties",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-09T18:15:28Z",
       "side": 1,
       "message": "You should be able to use the private port 8282 instead of the 30202 nodeport",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_6fdd5170",
+        "filename": "config/application.properties",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "This will be overwritten during deployment.",
+      "parentUuid": "bada0100_ecee2f8b",
       "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bada0100_af0fb9e0",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "The jjb jobs are not going to my repo\njjb jobs have to go to ci-management",
+      "parentUuid": "bada0100_8f10b54f",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_acd107cf",
         "filename": "pom.xml",
         "patchSetId": 5
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "bada0100_efd38136",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bada0100_acd107cf",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_ecc70f11",
         "filename": "pom.xml",
         "patchSetId": 5
@@ -81,6 +153,24 @@
       "writtenOn": "2018-10-09T18:16:08Z",
       "side": 1,
       "message": "I think this needs to be removed due to licensing",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_4f172dee",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bada0100_ecc70f11",
       "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -206,6 +296,24 @@
     },
     {
       "key": {
+        "uuid": "bada0100_cf5d5deb",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bada0100_8f93d5a2",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_efe9411b",
         "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
         "patchSetId": 5
@@ -217,6 +325,24 @@
       "writtenOn": "2018-10-09T19:14:40Z",
       "side": 1,
       "message": "fix whitespace",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_6f4b112c",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2399
+      },
+      "writtenOn": "2018-10-09T19:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bada0100_efe9411b",
       "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
