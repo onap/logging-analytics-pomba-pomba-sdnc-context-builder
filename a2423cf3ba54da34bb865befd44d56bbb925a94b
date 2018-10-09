@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_cf3a3d36",
+        "filename": "pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-09T19:49:17Z",
+      "side": 1,
+      "message": "no problem what I meant was that the ci-management change to enable the jjb jobs will be done before this patch is merged in the future",
+      "revId": "a2423cf3ba54da34bb865befd44d56bbb925a94b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
