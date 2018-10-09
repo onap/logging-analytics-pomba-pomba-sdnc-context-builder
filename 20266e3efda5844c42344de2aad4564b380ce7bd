@@ -186,6 +186,23 @@
       "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_8f93d5a2",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-09T19:10:54Z",
+      "side": 1,
+      "message": "remove whitespace before comma",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
