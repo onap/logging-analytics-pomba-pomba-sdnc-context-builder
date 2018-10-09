@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_2c4e77c2",
+        "filename": "config/application.properties",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-09T18:15:28Z",
+      "side": 1,
+      "message": "this should be a kubernetes DNS service name - not an IP - like sdnc-portal\n\nsee\nhttps://git.onap.org/oom/tree/kubernetes/sdnc/charts/sdnc-portal/values.yaml#n66\n\nexample use in\nhttps://git.onap.org/oom/tree/kubernetes/robot/resources/config/eteshare/config/vm_properties.py#n69\n\n\"sdnc-portal.{{include \"common.namespace\" .}}\"",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_ecee2f8b",
+        "filename": "config/application.properties",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-09T18:15:28Z",
+      "side": 1,
+      "message": "You should be able to use the private port 8282 instead of the 30202 nodeport",
+      "revId": "20266e3efda5844c42344de2aad4564b380ce7bd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
