@@ -18,11 +18,13 @@
 
 package org.onap.pomba.contextbuilder.sdnc.service;
 
-import javax.ws.rs.client.Client;
+import org.apache.camel.ProducerTemplate;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 import org.onap.pomba.common.datatypes.ModelContext;
 import org.onap.pomba.contextbuilder.sdnc.exception.AuditException;
 import org.onap.pomba.contextbuilder.sdnc.service.rs.RestService;
-import org.onap.pomba.contextbuilder.sdnc.util.RestUtil;
+import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,42 +35,55 @@ public class SpringServiceImpl implements SpringService {
     private static Logger log = LoggerFactory.getLogger(RestService.class);
 
     @Autowired
-    private Client jerseyClient;
-    @Autowired
-    private String sdncBaseUrl;
-    @Autowired
-    private String sdncBasicAuthorization;
-    @Autowired
-    private String sdncGenericResourcePath;
-    @Autowired
     private String sdncCtxBuilderBasicAuthorization;
+    private KieContainer kieContainer;
+    @Autowired
+    private ProducerTemplate producerTemplate;
+
 
     public SpringServiceImpl() {
         // needed for instantiation
     }
 
+    @Autowired
+    public SpringServiceImpl(KieContainer kieContainer) {
+        this.kieContainer = kieContainer;
+
+    }
 
     @Override
     public ModelContext getContext(String serviceInstanceId, String transactionId) throws AuditException {
         ModelContext context = null;
-        String url = "serviceInstanceId=" + serviceInstanceId + " transactionId=" + transactionId;
-        log.info("URL Query the SDN-C model data with URL: " , url);
 
-        // Retrieve the service instance information from SDNC and AAI
-        try {
-            String sdncResponse = RestUtil.getSdncGenericResource(jerseyClient, sdncBaseUrl, sdncBasicAuthorization, sdncGenericResourcePath, serviceInstanceId);
-            log.info("sdncResponse: ", sdncResponse);
-            context = RestUtil.transform(sdncResponse);
-        } catch (AuditException ae) {
-            throw ae;
-        } catch (Exception e) {
-            throw new AuditException(e.getLocalizedMessage());
-        }
+// This is dummy part of the call to AAI and population serviceData
+        // Call AAI system to populate ServiceData
+        ServiceEntity serviceEntity = new ServiceEntity();
+        serviceEntity.setServiceType("vFW");
+        serviceEntity.setServiceInstanceId(serviceInstanceId);
+
+        processApiMappingRules(serviceEntity);
+        log.info("SDN-C determined API: " + serviceEntity.getApiName());
+
+        context = producerTemplate.requestBody("direct:startRoutingProcess", serviceEntity, ModelContext.class);
+
         return context;
+    }
+
+    private void processApiMappingRules(ServiceEntity serviceData){
+
+        KieSession kieSession = kieContainer.newKieSession();
+        log.info ("KIE Session is created");
+        kieSession.insert(serviceData);
+        kieSession.fireAllRules();
+        log.info("Rules are fired");
+        kieSession.getFactHandles().forEach(fh -> kieSession.delete(fh));
+        kieSession.dispose();
     }
 
     public String getSdncAuthoriztion() {
         return sdncCtxBuilderBasicAuthorization;
     }
+
+
 
 }
