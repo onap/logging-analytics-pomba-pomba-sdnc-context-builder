@@ -88,6 +88,23 @@
     },
     {
       "key": {
+        "uuid": "bada0100_c1f9a2c9",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/handlers/VnfApiHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-12T18:34:59Z",
+      "side": 1,
+      "message": "This onap not d2 - a LOG task",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_613d568f",
         "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
         "patchSetId": 2
@@ -117,6 +134,23 @@
       "side": 1,
       "message": "This will be handled by:\nhttp://d2athena:8080/browse/PIE-1092\nThis will be returned by call to AAI to get serviceType",
       "parentUuid": "bada0100_613d568f",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_81039ab7",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-12T18:34:59Z",
+      "side": 1,
+      "message": "please reference ONAP LOG jiras not the internal JIRA system in public",
       "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
