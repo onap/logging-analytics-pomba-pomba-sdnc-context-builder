@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "bada0100_a169fe8c",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/handlers/VnfApiHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-12T18:31:22Z",
+      "side": 1,
+      "message": "http://d2athena:8080/browse/PIE-1092",
+      "parentUuid": "bada0100_21474e21",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_613d568f",
         "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
         "patchSetId": 2
