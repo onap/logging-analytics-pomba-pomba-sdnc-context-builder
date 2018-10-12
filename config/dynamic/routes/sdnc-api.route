@@ -1,0 +1,17 @@
+<route xmlns="http://camel.apache.org/schema/spring" trace="true" id="apiMapperRoute">
+   <from uri="direct:startRoutingProcess" />
+           <choice>
+               <when>
+                   <simple>${in.body.apiName} == 'VNF-API'</simple>
+                   <log message="Processing ${in.body.apiName} by Camel Routing Context"/>
+                   <to uri="bean:vnfApiHandler?method=process"/>
+               </when>
+               <when>
+                   <simple>${in.body.apiName} == 'GENERIC-RESOURCE-API'</simple>
+                   <log message="Processing ${in.body.apiName} by Camel Routing Context"/>
+                   <to uri="bean:genericResourceApiHandler?method=process"/>
+               </when>
+           </choice>
+</route>
+
+
