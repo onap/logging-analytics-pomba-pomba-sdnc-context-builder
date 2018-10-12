@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_017d6a6e",
+        "filename": "config/rules/api-mapping-rules.drl",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-12T17:59:05Z",
+      "side": 1,
+      "message": "Is this always going to be sufficient? or should it need to be explicitly \"genericResource\"?",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
