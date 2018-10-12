@@ -33,6 +33,57 @@
       "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_a1525edb",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/Application.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-12T18:26:45Z",
+      "side": 1,
+      "message": "may want to parameterize this string",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_21474e21",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/handlers/VnfApiHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-12T18:26:45Z",
+      "side": 1,
+      "message": "Raise a JIRA task for dublin to address this and reference the line from a git link",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_613d568f",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/service/SpringServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-12T18:26:45Z",
+      "side": 1,
+      "message": "\"vFW\" needs an reference enum or static string array here",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
