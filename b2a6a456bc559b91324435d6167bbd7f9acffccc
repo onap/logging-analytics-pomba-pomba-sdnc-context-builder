@@ -16,6 +16,23 @@
       "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_c1c44294",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1077
+      },
+      "writtenOn": "2018-10-12T18:21:44Z",
+      "side": 1,
+      "message": "We will likely need 1.5.15 here to pull in tomcat embedded 8.5.32 - the first version to pass CLM",
+      "revId": "b2a6a456bc559b91324435d6167bbd7f9acffccc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
