@@ -50,20 +50,43 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.onap.aai.restclient.client.RestClient;
+import org.onap.pomba.contextbuilder.sdnc.Application;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.UUID;
+import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @WebAppConfiguration
-@SpringBootTest
-@TestPropertySource(properties = {"sdnc.host=localhost", "sdnc.port=30202"})
+@SpringBootTest (classes = Application.class)
+@TestPropertySource(properties = {"sdnc.host=localhost", "sdnc.port=30202",
+        "aai.httpProtocol=http", "aai.serviceName=localhost", "aai.servicePort=9808"})
 public class SdncContextBuilderTest {
 
-    private String serviceInstanceId = "c6456519-6acf-4adb-997c-3c363dd4caaf";
+    private String serviceInstanceId = "7d518257-49bd-40ac-8d17-017a726ec12a"; //match to the test data in junit/queryNodeData-1.json
     private String testRestHeaders = "testRestHeaders";
-    @Autowired
+    private String customerId = "DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2"; // match to queryNodeData-1.json and customerData-1.json
+   @Autowired
     RestService service;
     @Autowired
     private String sdncCtxBuilderBasicAuthorization;
+
+    //AAI related
+    @Autowired
+    private String aaiBasicAuthorization;
+    @Autowired
+    private RestClient aaiClient;
+    @Autowired
+    private String aaiBaseUrl;
+    @Autowired
+    private String aaiPathToSearchNodeQuery;
+    @Autowired
+    private String aaiPathToCustomerQuery;
+    @Rule
+    public WireMockRule aaiEnricherRule = new WireMockRule(wireMockConfig().port(9808));
 
     @Rule
     public WireMockRule sdncRule = new WireMockRule(wireMockConfig().port(30202));
@@ -129,6 +152,12 @@ public class SdncContextBuilderTest {
                 "testVerifyServiceDecomposition", "test1", sdncCtxBuilderBasicAuthorization);
 
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl);
+
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
+        addResponse(queryNodeUrl, "junit/queryNodeData-1.json", aaiEnricherRule);
+        String customerUrl = aaiPathToCustomerQuery + customerId;
+        addResponse(customerUrl, "junit/customerData-1.json", aaiEnricherRule);
+
         Response response = this.service.getContext(mockHttpHeaders, serviceInstanceId);
         assertEquals(Status.OK.getStatusCode(), response.getStatus());
 
@@ -151,5 +180,69 @@ public class SdncContextBuilderTest {
             headers.put(RestUtil.AUTHORIZATION, Collections.singletonList(authorization));
         }
         return headers;
+    }
+
+    //AAI related
+
+    @Test
+    public void testObtainResouceLinkBasedOnServiceInstanceFromAAI() throws Exception {
+        String transactionId = UUID.randomUUID().toString();
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
+        addResponse(queryNodeUrl, "junit/queryNodeData-1.json", aaiEnricherRule);
+        String customerUrl = aaiPathToCustomerQuery + customerId;
+        addResponse(customerUrl, "junit/customerData-1.json", aaiEnricherRule);
+
+        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient,aaiBaseUrl,aaiBasicAuthorization,  aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
+
+        assertEquals(serviceInstanceId, serviceEntity.getServiceInstanceId());
+        assertEquals("vFW", serviceEntity.getServiceType());   // serviceType is hard-coded in queryNodeData-1.json
+        assertEquals(customerId, serviceEntity.getCustomerId());   // customerId is hard-coded in queryNodeData-1.json
+        assertEquals("DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2", serviceEntity.getCustomerName());   // customerName is hard-coded in queryNodeData-1.json
+        assertEquals("CUST", serviceEntity.getCustomerType()); //customerType is hard-coded in customerData-1.json
+    }
+
+    @Test
+    public void testObtainResouceLinkBasedOnServiceInstanceFromAAI_nullResourceLink() throws Exception {
+        String transactionId = UUID.randomUUID().toString();
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
+        addResponse(queryNodeUrl, "junit/queryNodeData-nullResourceLink.json", aaiEnricherRule);
+
+        try {
+            RestUtil.getServiceEntity(aaiClient,aaiBaseUrl,aaiBasicAuthorization,  aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
+        } catch (Exception e) {
+            assertTrue(e.getMessage().contains("JSONObject[\"resource-link\"] not found"));
+        }
+    }
+
+    @Test
+    public void testObtainResouceLinkBasedOnServiceInstanceFromAAI_nullCustomerType() throws Exception {
+        String transactionId = UUID.randomUUID().toString();
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
+        addResponse(queryNodeUrl, "junit/queryNodeData-1.json", aaiEnricherRule);
+        String customerUrl = aaiPathToCustomerQuery + customerId;
+        addResponse(customerUrl, "junit/customerData-CustomerIdNotFound.json", aaiEnricherRule);
+
+        try {
+            RestUtil.getServiceEntity(aaiClient,aaiBaseUrl,aaiBasicAuthorization,  aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
+        } catch (Exception e) {
+            assertTrue(e.getMessage().contains("Customer ID cannot be found from AAI"));
+        }
+    }
+
+    private void addResponse(String path, String classpathResource, WireMockRule thisMock) throws IOException {
+        String payload = readFully(ClassLoader.getSystemResourceAsStream(classpathResource));
+        thisMock.stubFor(get(path).willReturn(okJson(payload)));
+    }
+
+    private String readFully(InputStream in) throws IOException {
+        char[] cbuf = new char[1024];
+        StringBuilder content = new StringBuilder();
+        try (InputStreamReader reader = new InputStreamReader(in, "UTF-8")) {
+            int count;
+            while ((count = reader.read(cbuf)) >= 0) {
+                content.append(cbuf, 0, count);
+            }
+        }
+        return content.toString();
     }
 }

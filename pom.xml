@@ -31,11 +31,13 @@ limitations under the License.
     </parent>
 
     <properties>
+        <camel-spring-boot.version>2.21.1</camel-spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <swagger.directory>${project.build.directory}/generated-resources/swagger</swagger.directory>
         <!--docker -->
         <docker.tag>${project.version}-${timestamp}</docker.tag>
         <docker.latest.tag>${project.version}-latest</docker.latest.tag>
+        <kie.version>7.1.0.Final</kie.version>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +47,13 @@ limitations under the License.
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>1.5.12.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-spring-boot-dependencies</artifactId>
+                <version>${camel-spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -95,7 +104,21 @@ limitations under the License.
              </exclusion>
            </exclusions>
         </dependency>
-
+        <!--  camel dependencies -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-boot-starter</artifactId>
+            <version>${camel-spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>${camel-spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-servlet-starter</artifactId>
+        </dependency>
         <!--  logging dependencies -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -146,12 +169,17 @@ limitations under the License.
           <artifactId>json-utils</artifactId>
           <version>0.1.0</version>
         </dependency>
-                <dependency>
+        <dependency>
             <groupId>org.onap.aai</groupId>
             <artifactId>rest-client</artifactId>
             <version>1.2.1</version>
         </dependency>
-
+        <!-- Drools dependencies -->
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-ci</artifactId>
+            <version>${kie.version}</version>
+        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
