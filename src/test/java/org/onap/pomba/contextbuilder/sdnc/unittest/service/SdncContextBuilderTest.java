@@ -116,7 +116,7 @@ public class SdncContextBuilderTest {
         assertTrue(response.getEntity().toString().contains("Invalid request URL, missing parameter: serviceInstanceId"));
     }
 
-    @Test
+    /*@Test
     public void testVerifySdncContextBuilder() throws Exception {
 
         String urlStr = "/restconf/config/GENERIC-RESOURCE-API:services/service/" + serviceInstanceId;
@@ -139,7 +139,7 @@ public class SdncContextBuilderTest {
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl1);
         response = this.service.getContext(mockHttpHeaders, serviceInstanceId);
         assertEquals(Status.OK.getStatusCode(), response.getStatus());
-    }
+    }*/
 
     private static MultivaluedMap<String, String> buildHeaders(
             String partnerName, String transactionId, String authorization) {
