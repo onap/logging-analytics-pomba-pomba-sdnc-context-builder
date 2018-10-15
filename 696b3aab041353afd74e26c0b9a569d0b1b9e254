@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_4d8e4330",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-10-15T13:37:21Z",
+      "side": 1,
+      "message": "CUSTOMER is never used",
+      "revId": "696b3aab041353afd74e26c0b9a569d0b1b9e254",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
