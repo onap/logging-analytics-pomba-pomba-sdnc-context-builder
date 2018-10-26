@@ -19,10 +19,11 @@
 package org.onap.pomba.contextbuilder.sdnc.service;
 
 
+import javax.servlet.http.HttpServletRequest;
 import org.onap.pomba.common.datatypes.ModelContext;
 import org.onap.pomba.contextbuilder.sdnc.exception.AuditException;
 
 public interface SpringService {
-    public ModelContext getContext(String serviceInstanceId, String transactionId) throws AuditException;
+    public ModelContext getContext(HttpServletRequest request, String serviceInstanceId, String transactionId, String partnerName) throws AuditException;
     public String getSdncAuthoriztion();
 }

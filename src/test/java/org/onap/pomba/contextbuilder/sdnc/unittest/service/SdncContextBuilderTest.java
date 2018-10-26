@@ -29,10 +29,13 @@ import static org.mockito.Mockito.when;
 import com.github.jknack.handlebars.internal.Files;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
+import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import org.junit.After;
@@ -40,6 +43,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.onap.aai.restclient.client.RestClient;
+import org.onap.pomba.contextbuilder.sdnc.Application;
+import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
 import org.onap.pomba.contextbuilder.sdnc.service.rs.RestService;
 import org.onap.pomba.contextbuilder.sdnc.util.RestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,30 +56,37 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.onap.aai.restclient.client.RestClient;
-import org.onap.pomba.contextbuilder.sdnc.Application;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.UUID;
-import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @WebAppConfiguration
 @SpringBootTest (classes = Application.class)
-@TestPropertySource(properties = {"sdnc.host=localhost", "sdnc.port=30202",
-        "aai.httpProtocol=http", "aai.serviceName=localhost", "aai.servicePort=9808"})
+@TestPropertySource(properties = {"sdnc.serviceName=localhost",
+                                  "sdnc.servicePort=30202",
+                                  "aai.httpProtocol=http",
+                                  "aai.serviceName=localhost",
+                                  "aai.servicePort=9808"})
+
 public class SdncContextBuilderTest {
 
-    private String serviceInstanceId = "7d518257-49bd-40ac-8d17-017a726ec12a"; //match to the test data in junit/queryNodeData-1.json
     private String testRestHeaders = "testRestHeaders";
-    private String customerId = "DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2"; // match to queryNodeData-1.json and customerData-1.json
-   @Autowired
+    private String servicePath = "/service-subscriptions/service-subscription/vFW/service-instances/service-instance/";
+    private String genericVnfPath = "/aai/v11/network/generic-vnfs/generic-vnf/";
+    private String genericResourcePath = "/restconf/config/GENERIC-RESOURCE-API:services/service/";
+    private String vnfPath = "/restconf/config/VNF-API:vnfs/vnf-list/";
+    private String serviceInstanceIdVfw = "7d518257-49bd-40ac-8d17-017a726ec12a"; // customerData.json
+    private String serviceInstanceIdVcpe = "68352304-7bba-4609-8551-0d0b819376c3"; // queryNodeDataVcpe.json
+    private String customerIdVfw = "DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2"; // customerData.json
+    private String customerIdVcpe = "SDN-ETHERNET-INTERNET";
+    private String genericVnfId = "d94daff6-7d5b-4d2e-bc99-c9af0754b59d";
+    private String moduleId = "2c3f8902-f278-4ee3-93cf-9d2364cbafca";
+
+    HttpServletRequest httpServletRequest = mock(HttpServletRequest.class);
+
+    @Autowired
     RestService service;
     @Autowired
     private String sdncCtxBuilderBasicAuthorization;
-
     //AAI related
     @Autowired
     private String aaiBasicAuthorization;
@@ -108,7 +121,7 @@ public class SdncContextBuilderTest {
                 null, testRestHeaders, sdncCtxBuilderBasicAuthorization);
 
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl);
-        Response response = service.getContext(mockHttpHeaders, serviceInstanceId);
+        Response response = service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVfw);
         assertTrue(response.getEntity().toString().contains("Missing header parameter: " + RestUtil.FROM_APP_ID));
 
         // Test with no Authorization
@@ -116,15 +129,15 @@ public class SdncContextBuilderTest {
                 "test2", testRestHeaders, null);
 
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl1);
-        response = service.getContext(mockHttpHeaders, serviceInstanceId);
+        response = service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVfw);
         assertTrue(response.getEntity().toString().contains("Missing header parameter: " + RestUtil.AUTHORIZATION));
 
         // Test with garbage Authorization
         final MultivaluedMap<String, String> multivaluedMapImpl2 = buildHeaders(
-                "test2", testRestHeaders, "garbage");
+                "test3", testRestHeaders, "garbage");
 
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl2);
-        response = service.getContext(mockHttpHeaders, serviceInstanceId);
+        response = service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVfw);
         assertTrue(response.getEntity().toString().contains("Failed Basic " + RestUtil.AUTHORIZATION));
     }
 
@@ -135,40 +148,139 @@ public class SdncContextBuilderTest {
                 "testRestParameterServiceInstanceId", "test1", sdncCtxBuilderBasicAuthorization);
 
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl);
-        Response response = service.getContext(mockHttpHeaders, null);
-        assertTrue(response.getEntity().toString().contains("Invalid request URL, missing parameter: serviceInstanceId"));
+        Response response = service.getContext(httpServletRequest, mockHttpHeaders, null);
+        assertTrue(response
+                   .getEntity()
+                   .toString()
+                   .contains("Invalid request URL, missing parameter: serviceInstanceId"));
     }
 
-    /*@Test
+    @Test
     public void testVerifySdncContextBuilder() throws Exception {
 
-        String urlStr = "/restconf/config/GENERIC-RESOURCE-API:services/service/" + serviceInstanceId;
-        File file = new File(ClassLoader.getSystemResource("sdncResponse.json").getFile());
-        String sdResonse = Files.read(file);
-        this.sdncRule.stubFor(get(urlStr).willReturn(okJson(sdResonse)));
 
         HttpHeaders mockHttpHeaders = mock( HttpHeaders.class);
         final MultivaluedMap<String, String> multivaluedMapImpl = buildHeaders(
                 "testVerifyServiceDecomposition", "test1", sdncCtxBuilderBasicAuthorization);
-
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl);
 
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
-        addResponse(queryNodeUrl, "junit/queryNodeData-1.json", aaiEnricherRule);
-        String customerUrl = aaiPathToCustomerQuery + customerId;
-        addResponse(customerUrl, "junit/customerData-1.json", aaiEnricherRule);
+        // First try a vFW service instance
 
-        Response response = this.service.getContext(mockHttpHeaders, serviceInstanceId);
+        String queryNodeVfwUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        addResponse(queryNodeVfwUrl, "junit/queryNodeDataVfw.json", aaiEnricherRule);
+
+        String customerVfwUrl = aaiPathToCustomerQuery + customerIdVfw;
+        addResponse(customerVfwUrl, "junit/customerData.json", aaiEnricherRule);
+
+        String serviceInstanceUrl = aaiPathToCustomerQuery
+                                    + customerIdVfw
+                                    + servicePath
+                                    + serviceInstanceIdVfw;
+        addResponse(serviceInstanceUrl, "junit/serviceInstance.json", aaiEnricherRule);
+
+        String vnfApiUrl = vnfPath + moduleId;
+        addResponse(vnfApiUrl, "junit/vnfApiResponse.json", sdncRule);
+
+        String genericVnfUrl = genericVnfPath + genericVnfId;
+        addResponse(genericVnfUrl, "junit/genericVnf.json", aaiEnricherRule);
+        Response response = this.service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVfw);
+        assertEquals(Status.OK.getStatusCode(), response.getStatus());
+
+        // Now try a vCPE service instance
+
+        String queryNodeUrlVcpe = aaiPathToSearchNodeQuery + serviceInstanceIdVcpe;
+        addResponse(queryNodeUrlVcpe, "junit/queryNodeDataVcpe.json", aaiEnricherRule);
+
+        String customerVcpeUrl = aaiPathToCustomerQuery + customerIdVcpe;
+        addResponse(customerVcpeUrl, "junit/customerData.json", aaiEnricherRule);
+
+
+        String urlStr = genericResourcePath + serviceInstanceIdVcpe;
+        addResponse(urlStr, "junit/sdncGenericResponse.json", sdncRule);
+
+        response = this.service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVcpe);
         assertEquals(Status.OK.getStatusCode(), response.getStatus());
 
         // Try again with no transcactionId
         final MultivaluedMap<String, String> multivaluedMapImpl1 = buildHeaders(
                 "testVerifyServiceDecomposition", null, sdncCtxBuilderBasicAuthorization);
-
         when(mockHttpHeaders.getRequestHeaders()).thenReturn(multivaluedMapImpl1);
-        response = this.service.getContext(mockHttpHeaders, serviceInstanceId);
+        response = this.service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVcpe);
         assertEquals(Status.OK.getStatusCode(), response.getStatus());
-    }*/
+    }
+
+
+    //AAI related
+
+    @Test
+    public void testObtainResouceLinkBasedOnServiceInstanceFromAai() throws Exception {
+        String transactionId = UUID.randomUUID().toString();
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        addResponse(queryNodeUrl, "junit/queryNodeDataVfw.json", aaiEnricherRule);
+        String customerUrl = aaiPathToCustomerQuery + customerIdVfw;
+        addResponse(customerUrl, "junit/customerData.json", aaiEnricherRule);
+
+        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient,
+                                                                aaiBaseUrl,
+                                                                aaiBasicAuthorization,
+                                                                aaiPathToSearchNodeQuery,
+                                                                aaiPathToCustomerQuery,
+                                                                serviceInstanceIdVfw,
+                                                                transactionId);
+
+        assertEquals(serviceInstanceIdVfw, serviceEntity.getServiceInstanceId());
+        assertEquals("vFW", serviceEntity.getServiceType());  // customerData.json
+        assertEquals(customerIdVfw, serviceEntity.getCustomerId());  // queryNodeData-1.json
+        assertEquals("DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2",
+                     serviceEntity.getCustomerName());  //  customerData.json
+        assertEquals("CUST", serviceEntity.getCustomerType()); // customerData.json
+    }
+
+    @Test
+    public void testObtainResouceLinkBasedOnServiceInstanceFromAaiNullResourceLink() throws Exception {
+        String transactionId = UUID.randomUUID().toString();
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        addResponse(queryNodeUrl, "junit/queryNodeDataNullResourceLink.json", aaiEnricherRule);
+
+        try {
+            RestUtil.getServiceEntity(aaiClient,
+                                      aaiBaseUrl,
+                                      aaiBasicAuthorization,
+                                      aaiPathToSearchNodeQuery,
+                                      aaiPathToCustomerQuery,
+                                      serviceInstanceIdVfw,
+                                      transactionId);
+        } catch (Exception e) {
+            assertTrue(e.getMessage().contains("JSONObject[\"resource-link\"] not found"));
+        }
+    }
+
+    @Test
+    public void testObtainResouceLinkBasedOnServiceInstanceFromAaiNullCustomerType() throws Exception {
+        String transactionId = UUID.randomUUID().toString();
+        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        addResponse(queryNodeUrl, "junit/queryNodeDataVfw.json", aaiEnricherRule);
+        String customerUrl = aaiPathToCustomerQuery + customerIdVfw;
+        addResponse(customerUrl, "junit/customerDataCustomerIdNotFound.json", aaiEnricherRule);
+
+        try {
+            RestUtil.getServiceEntity(aaiClient,
+                                      aaiBaseUrl,
+                                      aaiBasicAuthorization,
+                                      aaiPathToSearchNodeQuery,
+                                      aaiPathToCustomerQuery,
+                                      serviceInstanceIdVfw,
+                                      transactionId);
+        } catch (Exception e) {
+            assertTrue(e.getMessage().contains("Customer ID cannot be found from AAI"));
+        }
+    }
+
+    private void addResponse(String url, String responseFile, WireMockRule thisMock) throws IOException {
+        File file = new File(ClassLoader.getSystemResource(responseFile).getFile());
+        String payload = Files.read(file);
+        thisMock.stubFor(get(url).willReturn(okJson(payload)));
+    }
 
     private static MultivaluedMap<String, String> buildHeaders(
             String partnerName, String transactionId, String authorization) {
@@ -182,67 +294,4 @@ public class SdncContextBuilderTest {
         return headers;
     }
 
-    //AAI related
-
-    @Test
-    public void testObtainResouceLinkBasedOnServiceInstanceFromAAI() throws Exception {
-        String transactionId = UUID.randomUUID().toString();
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
-        addResponse(queryNodeUrl, "junit/queryNodeData-1.json", aaiEnricherRule);
-        String customerUrl = aaiPathToCustomerQuery + customerId;
-        addResponse(customerUrl, "junit/customerData-1.json", aaiEnricherRule);
-
-        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient,aaiBaseUrl,aaiBasicAuthorization,  aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
-
-        assertEquals(serviceInstanceId, serviceEntity.getServiceInstanceId());
-        assertEquals("vFW", serviceEntity.getServiceType());   // serviceType is hard-coded in queryNodeData-1.json
-        assertEquals(customerId, serviceEntity.getCustomerId());   // customerId is hard-coded in queryNodeData-1.json
-        assertEquals("DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2", serviceEntity.getCustomerName());   // customerName is hard-coded in queryNodeData-1.json
-        assertEquals("CUST", serviceEntity.getCustomerType()); //customerType is hard-coded in customerData-1.json
-    }
-
-    @Test
-    public void testObtainResouceLinkBasedOnServiceInstanceFromAAI_nullResourceLink() throws Exception {
-        String transactionId = UUID.randomUUID().toString();
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
-        addResponse(queryNodeUrl, "junit/queryNodeData-nullResourceLink.json", aaiEnricherRule);
-
-        try {
-            RestUtil.getServiceEntity(aaiClient,aaiBaseUrl,aaiBasicAuthorization,  aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("JSONObject[\"resource-link\"] not found"));
-        }
-    }
-
-    @Test
-    public void testObtainResouceLinkBasedOnServiceInstanceFromAAI_nullCustomerType() throws Exception {
-        String transactionId = UUID.randomUUID().toString();
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceId;
-        addResponse(queryNodeUrl, "junit/queryNodeData-1.json", aaiEnricherRule);
-        String customerUrl = aaiPathToCustomerQuery + customerId;
-        addResponse(customerUrl, "junit/customerData-CustomerIdNotFound.json", aaiEnricherRule);
-
-        try {
-            RestUtil.getServiceEntity(aaiClient,aaiBaseUrl,aaiBasicAuthorization,  aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("Customer ID cannot be found from AAI"));
-        }
-    }
-
-    private void addResponse(String path, String classpathResource, WireMockRule thisMock) throws IOException {
-        String payload = readFully(ClassLoader.getSystemResourceAsStream(classpathResource));
-        thisMock.stubFor(get(path).willReturn(okJson(payload)));
-    }
-
-    private String readFully(InputStream in) throws IOException {
-        char[] cbuf = new char[1024];
-        StringBuilder content = new StringBuilder();
-        try (InputStreamReader reader = new InputStreamReader(in, "UTF-8")) {
-            int count;
-            while ((count = reader.read(cbuf)) >= 0) {
-                content.append(cbuf, 0, count);
-            }
-        }
-        return content.toString();
-    }
 }

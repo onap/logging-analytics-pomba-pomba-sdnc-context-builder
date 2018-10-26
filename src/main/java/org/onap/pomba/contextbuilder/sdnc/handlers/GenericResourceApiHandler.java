@@ -43,11 +43,11 @@ public class GenericResourceApiHandler {
     @Autowired
     private String sdncGenericResourcePath;
 
-
+    private String specPath = "config/sdncgenericresource.spec";
 
     public ModelContext process(Exchange exchange) throws Exception {
 
-        ModelContext context;
+        ModelContext context = new ModelContext();
         log.info("in GENERIC-RESOURCE-API HANDLER: ");
 
         ServiceEntity serviceEntity = (ServiceEntity)exchange.getIn().getBody();
@@ -55,7 +55,7 @@ public class GenericResourceApiHandler {
 
         try {
             String sdncResponse = RestUtil.getSdncGenericResource(jerseyClient, sdncBaseUrl, sdncBasicAuthorization, sdncGenericResourcePath, serviceInstanceId);
-            context = RestUtil.transform(sdncResponse);
+            context = RestUtil.transformGenericResource(sdncResponse, specPath);
         } catch (AuditException ae) {
             throw ae;
         } catch (Exception e) {

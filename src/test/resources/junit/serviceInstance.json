@@ -1,0 +1,66 @@
+{
+    "service-instance-id": "68352304-7bba-4609-8551-0d0b819376c3",
+    "service-instance-name": "vcpe_svc_vcpesvc_vgmux_201809061919",
+    "environment-context": "General_Revenue-Bearing",
+    "workload-context": "Production",
+    "model-invariant-id": "58f20afd-6ed1-4451-a19d-4fbee4aefa08",
+    "model-version-id": "7b4beec3-04a6-4513-8341-959589d2bd01",
+    "resource-version": "1536261835931",
+    "orchestration-status": "Active",
+    "relationship-list": {
+        "relationship": [
+            {
+                "related-to": "project",
+                "related-link": "/aai/v11/business/projects/project/Project-Demonstration",
+                "relationship-data": [
+                    {
+                        "relationship-key": "project.project-name",
+                        "relationship-value": "Project-Demonstration"
+                    }
+                ]
+            },
+            {
+                "related-to": "generic-vnf",
+                "related-link": "/aai/v11/network/generic-vnfs/generic-vnf/d94daff6-7d5b-4d2e-bc99-c9af0754b59d",
+                "relationship-data": [
+                    {
+                        "relationship-key": "generic-vnf.vnf-id",
+                        "relationship-value": "d94daff6-7d5b-4d2e-bc99-c9af0754b59d"
+                    }
+                ],
+                "related-to-property": [
+                    {
+                        "property-key": "generic-vnf.vnf-name",
+                        "property-value": "vcpe_vnf_vcpevsp_vgmux_0830_201809061919"
+                    }
+                ]
+            },
+            {
+                "related-to": "l3-network",
+                "related-link": "/aai/v11/network/l3-networks/l3-network/ca6f5cdc-cf66-4d03-b5c0-3604da0709a6",
+                "relationship-data": [
+                    {
+                        "relationship-key": "l3-network.network-id",
+                        "relationship-value": "ca6f5cdc-cf66-4d03-b5c0-3604da0709a6"
+                    }
+                ],
+                "related-to-property": [
+                    {
+                        "property-key": "l3-network.network-name",
+                        "property-value": "vcpe_net_mux_gw_201809061919"
+                    }
+                ]
+            },
+            {
+                "related-to": "owning-entity",
+                "related-link": "/aai/v11/business/owning-entities/owning-entity/520cc603-a3c4-4ec2-9ef4-ca70facd79c0",
+                "relationship-data": [
+                    {
+                        "relationship-key": "owning-entity.owning-entity-id",
+                        "relationship-value": "520cc603-a3c4-4ec2-9ef4-ca70facd79c0"
+                    }
+                ]
+            }
+        ]
+    }
+}
