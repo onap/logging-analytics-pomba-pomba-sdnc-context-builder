@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="vnfApiHandler" class="org.onap.pomba.contextbuilder.sdnc.handlers.VnfApiHandler" >
+    </bean>
+
+    <bean id="genericResourceApiHandler" class="org.onap.pomba.contextbuilder.sdnc.handlers.GenericResourceApiHandler" >
+    </bean>
+
+</beans>
