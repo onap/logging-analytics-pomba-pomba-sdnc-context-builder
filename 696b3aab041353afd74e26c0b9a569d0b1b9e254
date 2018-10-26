@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Prudence Au <prudence.au@amdocs.com>
+Submitted-by: Prudence Au <prudence.au@amdocs.com>
+Submitted-at: Fri, 26 Oct 2018 15:34:22 +0000
+Reviewed-on: https://gerrit.onap.org/r/70365
+Project: logging-analytics/pomba/pomba-sdnc-context-builder
+Branch: refs/heads/master
