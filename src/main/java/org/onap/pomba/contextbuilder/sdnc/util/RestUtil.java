@@ -21,35 +21,50 @@ package org.onap.pomba.contextbuilder.sdnc.util;
 import com.bazaarvoice.jolt.Chainr;
 import com.bazaarvoice.jolt.JsonUtils;
 import com.google.gson.Gson;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.onap.aai.restclient.client.OperationResult;
+import org.onap.aai.restclient.client.RestClient;
 import org.onap.pomba.common.datatypes.ModelContext;
+import org.onap.pomba.common.datatypes.Service;
+import org.onap.pomba.common.datatypes.VF;
+import org.onap.pomba.common.datatypes.VFModule;
+import org.onap.pomba.common.datatypes.VNFC;
+import org.onap.pomba.contextbuilder.sdnc.exception.AuditError;
 import org.onap.pomba.contextbuilder.sdnc.exception.AuditException;
+import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
+import org.onap.pomba.contextbuilder.sdnc.model.VfModule;
+import org.onap.pomba.contextbuilder.sdnc.model.VmName;
+import org.onap.pomba.contextbuilder.sdnc.model.Vnf;
+import org.onap.pomba.contextbuilder.sdnc.model.VnfInstance;
+import org.onap.pomba.contextbuilder.sdnc.model.VnfList;
+import org.onap.pomba.contextbuilder.sdnc.model.VnfTopologyIdentifier;
+import org.onap.pomba.contextbuilder.sdnc.model.VnfVm;
 import org.onap.pomba.contextbuilder.sdnc.service.rs.RestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.onap.aai.restclient.client.OperationResult;
-import org.onap.aai.restclient.client.RestClient;
-import javax.ws.rs.core.MediaType;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
-import java.util.Map;
-import java.util.Collections;
-import javax.ws.rs.core.MultivaluedMap;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
 
 public class RestUtil {
 
     private static Logger log = LoggerFactory.getLogger(RestService.class);
-
-    public static final String INTERNAL_SERVER_ERROR   = "Internal Server Error";
 
     // HTTP headers
     public static final String TRANSACTION_ID = "X-TransactionId";
@@ -59,18 +74,19 @@ public class RestUtil {
     // AAI related
     private static final String APP_NAME = "sdncCtxBuilder";
     private static final String EMPTY_JSON_STRING = "{}";
-    private static final String JSON_ATT_RESOURCE_TYPE = "resource-type";
-    private static final String JSON_ATT_RESOURCE_LINK = "resource-link";
+    private static final String JSON_RESOURCE_TYPE = "resource-type";
+    private static final String JSON_RESOURCE_LINK = "resource-link";
+    private static final String JSON_GLOBAL_CUSTOMER_ID = "global-customer-id";
+    private static final String JSON_SUBSCRIBER_TYPE = "subscriber-type";
+    private static final String JSON_SUBSCRIBER_NAME = "subscriber-name";
     private static final String RESULT_DATA = "result-data";
     private static final String CATALOG_SERVICE_INSTANCE = "service-instance";
     private static final String CUSTOMER_ID_STRING = "/customers/customer/";
     private static final String SERVICE_TYPE_STRING = "/service-subscriptions/service-subscription/";
-    private static final String CUSTOMER = "customer";
-    private static final String JSON_ATT_GLOBAL_CUSTOMER_ID = "global-customer-id";
-    private static final String JSON_ATT_SUBSCRIBER_TYPE = "subscriber-type";
-    private static final String JSON_ATT_SUBSCRIBER_NAME = "subscriber-name";
 
     private static final String FORWARD_SLASH = "/";
+    // SDNC vnf Json Path
+    private static final String specPath = "config/vnflist.spec";
 
     // Parameters for Query SDNC Model Data REST API  URL
     private static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
@@ -89,7 +105,11 @@ public class RestUtil {
     }
 
 
-    public static void validateHeader(HttpHeaders headers, String sdncCtxBuilderBasicAuthorization) throws AuditException {
+    public static String validateHeader(HttpHeaders headers, String sdncCtxBuilderBasicAuthorization) throws AuditException {
+
+        /*
+         * Validate that the headers are there and return the FROM_APP_ID
+         */
 
         String fromAppId = headers.getRequestHeaders().getFirst(FROM_APP_ID);
         if((fromAppId == null) || fromAppId.trim().isEmpty()) {
@@ -103,13 +123,15 @@ public class RestUtil {
         if((!headerAuthorization.contentEquals(sdncCtxBuilderBasicAuthorization))) {
             throw new AuditException("Failed Basic "+ AUTHORIZATION, Status.UNAUTHORIZED);
         }
+
+        return fromAppId;
     }
 
 
     /*
      * The purpose is to keep same transaction Id from north bound interface to south bound interface
      */
-    public static String extractTranIdHeader(HttpHeaders headers)  {
+    public static String extractTranactionIdHeader(HttpHeaders headers)  {
         String transactionId = null;
         transactionId = headers.getRequestHeaders().getFirst(TRANSACTION_ID);
         if((transactionId == null) || transactionId.trim().isEmpty()) {
@@ -133,14 +155,55 @@ public class RestUtil {
      */
     public static String getSdncGenericResource(Client sdncClient, String sdncBaseUrl, String authorization, String sdncGenericResourcePath,
                                                         String serviceInstaceId) throws AuditException {
-        String vnfSdncURL = sdncBaseUrl+generateSdncInstanceURL(sdncGenericResourcePath, serviceInstaceId);
-        // send rest request to SDNC VNF-API
-        return getSdncResource(sdncClient, vnfSdncURL, authorization);
+        String genericResourceSdncURL = sdncBaseUrl+generateSdncInstanceURL(sdncGenericResourcePath, serviceInstaceId);
+        // send rest request to SDNC GENERIC-RESOURCE-API
+        return getSdncResource(sdncClient, genericResourceSdncURL, authorization);
+    }
+
+    /**
+     * For each AAI VnfInstance, use the AAI Vf_module_id to make a rest call to SDNC VNF-API to create a list of all SDNC Vnfs.
+     * The URL for VNF-API is https://<SDN-C_HOST_NAME>:8543/restconf/config/VNF-API:vnfs/vnf-list/<vnf-id>
+     * @param sdncClient
+     * @param sdncBaseUrl
+     * @param sdncVnfInstancePath
+     * @param transactionId
+     * @param genericVNFPayload
+     * @param vnfInstance
+     * @return
+     * @throws AuditException
+     */
+    public static Map<String,List<Vnf>> getSdncVnfList(Client sdncClient, String sdncBaseUrl, String sdncVnfInstancePath,
+                                                        String authorization, List<VnfInstance> vnfList) throws AuditException {
+
+        // define map [key: vnf-id, value: list of SDNC vnfs, which in fact are vf_modules]
+        Map<String,List<Vnf>> sdncVnfMap = new HashMap<String,List<Vnf>>();
+        for (VnfInstance vnfInstance: vnfList) {
+            if (vnfInstance.getVfModules() != null) {
+                List<Vnf> sdncVnfList = new ArrayList<>();
+                List<VfModule> vfModuleList = vnfInstance.getVfModules().getVfModule();
+                if (vfModuleList != null && !vfModuleList.isEmpty()) {
+                    for (VfModule vfModuleInstance : vfModuleList) {
+                        // create SDNC VNF-API url using AAI VnfInstance VfModule Vf_module_id
+                        String vnfSdncURL = sdncBaseUrl+generateSdncInstanceURL(sdncVnfInstancePath, vfModuleInstance.getVfModuleId());
+                        // send rest request to SDNC VNF-API
+                        String sndcVNFPayload = getSdncResource(sdncClient, vnfSdncURL, authorization);
+                        if (isEmptyJson(sndcVNFPayload)) {
+                            log.info("VNF with vf-module-id is not found from SDNC");
+                        } else {
+                            List<Vnf> vnfsList = extractVnfList(sndcVNFPayload);
+                            sdncVnfList.addAll(vnfsList);
+                        }
+                    }
+                }
+                sdncVnfMap.put(vnfInstance.getVnfId(),sdncVnfList);
+            }
+        }
+        return sdncVnfMap;
     }
 
 
-    public static ModelContext transform(String sdncResponse) {
-        List<Object> jsonSpec = JsonUtils.filepathToList("config/sdnccontextbuilder.spec");
+    public static ModelContext transformGenericResource(String sdncResponse, String specPath) {
+        List<Object> jsonSpec = JsonUtils.filepathToList(specPath);
         Object jsonInput = JsonUtils.jsonToObject(sdncResponse);
         Chainr chainr = Chainr.fromSpec(jsonSpec);
         Object transObject = chainr.transform(jsonInput);
@@ -149,9 +212,66 @@ public class RestUtil {
 
     }
 
+    /**
+     * Transform the AAI and SDNC models to the audit common model
+     * @param aaiVnfLst
+     * @param sdncVnfMap
+     * @return
+     * @throws AuditException
+     */
+    public static ModelContext transformVnfList(List<VnfInstance> aaiVnfLst, Map<String,List<Vnf>> sdncVnfMap) {
+        ModelContext context = new ModelContext();
+        Service service = new Service();
+        List<VF> vfList = new ArrayList<>();
 
-    private static String getSdncResource(Client sdncClient, String url, String authorization) throws AuditException  {
+        // Initialize common model members to null
+        service.setInvariantUuid("null");
+        service.setUuid("null");
+        service.setName("null");
 
+        for(VnfInstance aaiVnfInstance : aaiVnfLst)  {
+            VF  vf = new VF();
+            // Initialize common model members to null
+            vf.setName("null");
+            vf.setType("null");
+            vf.setInvariantUuid("null");
+            vf.setUuid("null");
+            List<Vnf> sdncVnfList = sdncVnfMap.get(aaiVnfInstance.getVnfId());
+            try {
+                // Set the common model VF name and type from the SDNC topology info
+                VnfTopologyIdentifier vnfTopologyId = null;
+                if (sdncVnfList != null && !sdncVnfList.isEmpty()) {
+                    for(Vnf sdncVnf : sdncVnfList) {
+                        vnfTopologyId = sdncVnf.getServiceData().getVnfTopologyInformation().getVnfTopologyIdentifier();
+                        if (vf.getName().contentEquals("null")) {
+                            vf.setName(vnfTopologyId.getGenericVnfName());
+                        }
+                        if (vf.getType().contentEquals("null")) {
+                            vf.setType(vnfTopologyId.getGenericVnfType());
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.info(e.getMessage());
+            }
+            // Get the common model list of VFModule from the SDNC VNF List
+            List<VFModule> vfmoduleLst = getVfModuleList(aaiVnfInstance, sdncVnfList);
+            vf.setVfModules(vfmoduleLst);
+
+            // Get the common model list of VNFC from the SDNC Vnf
+            List<VNFC> vnfcList = getVnfcList(sdncVnfList);
+            vf.setVnfcs(vnfcList);
+            vfList.add(vf);
+        }
+
+        context.setService(service);
+        context.setVfs(vfList);
+        return context;
+    }
+
+    public static String getSdncResource(Client sdncClient, String url, String authorization) throws AuditException  {
+
+        log.info("SDNC GET request at url = " + url);
         Response response = sdncClient.target(url).request()
                 .header("Accept", "application/json")
                 .header(AUTHORIZATION, authorization).get();
@@ -164,7 +284,7 @@ public class RestUtil {
             return new JSONObject().toString();
 
         } else {
-            throw new AuditException(INTERNAL_SERVER_ERROR + " with " + response.getStatus());
+            throw new AuditException(AuditError.INTERNAL_SERVER_ERROR + " with " + response.getStatus());
         }
     }
 
@@ -191,10 +311,10 @@ public class RestUtil {
                                                 String aaiPathToSearchNodeQuery,
                                                 String aaiPathToCustomerQuery,
                                                 String serviceInstanceId,
-                                                String transactionId)throws AuditException {
+                                                String transactionId) throws AuditException {
 
-        String obtainResourceLink_url = generateUrl_ForResourceLink(aaiBaseUrl, aaiPathToSearchNodeQuery, serviceInstanceId);
-        String aaiResourceData  = getAaiResource(aaiClient, obtainResourceLink_url, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
+        String getResourceLinkUrl = generateAaiUrl(aaiBaseUrl, aaiPathToSearchNodeQuery, serviceInstanceId);
+        String aaiResourceData  = getAaiResource(aaiClient, getResourceLinkUrl, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
 
         // Handle the case if the service instance is not found in AAI
         if (isEmptyJson(aaiResourceData)) {
@@ -203,22 +323,23 @@ public class RestUtil {
             return null;
         }
 
-        String resourceLink = extractResourceLinkBasedOnServiceInstance(aaiResourceData, CATALOG_SERVICE_INSTANCE);
+        String resourceLink = extractResourceLink(aaiResourceData, CATALOG_SERVICE_INSTANCE);
 
         ServiceEntity serviceEntityObj =  createServiceEntityObj (resourceLink); //customerId and serviceType are updated here.
         if (serviceEntityObj != null) {
-           serviceEntityObj.setServiceInstanceId(serviceInstanceId);
-           String customerId = serviceEntityObj.getCustomerId();
-           // Obtain customerType and customerName
-           String obtainCustomer_url = generateUrl_ForCustomer (aaiBaseUrl, aaiPathToCustomerQuery, customerId);
-           String aaiCustomerData  = getAaiResource(aaiClient, obtainCustomer_url, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
-           if (isEmptyJson(aaiCustomerData)) {
-               log.info(" Customer name {} is not found from AAI", customerId);
-               // Only return the empty Json on the root level. i.e service instance
-               throw new AuditException(INTERNAL_SERVER_ERROR + ": Customer ID cannot be found from AAI :" + customerId);
-           }
-           // Update customerType and customerName to the existing serviceEntityObj
-           updateServiceEntityObj ( aaiCustomerData , serviceEntityObj);
+            serviceEntityObj.setTransactionId(transactionId);
+            serviceEntityObj.setServiceInstanceId(serviceInstanceId);
+            String customerId = serviceEntityObj.getCustomerId();
+            // Obtain customerType and customerName
+            String getCustomerUrl = generateAaiUrl (aaiBaseUrl, aaiPathToCustomerQuery, customerId);
+            String aaiCustomerData  = getAaiResource(aaiClient, getCustomerUrl, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
+            if (isEmptyJson(aaiCustomerData)) {
+                log.info(" Customer name {} is not found from AAI", customerId);
+                // Only return the empty Json on the root level. i.e service instance
+                throw new AuditException(AuditError.INTERNAL_SERVER_ERROR + ": Customer ID cannot be found from AAI :" + customerId);
+            }
+            // Update customerType and customerName to the existing serviceEntityObj
+            updateServiceEntityObj ( aaiCustomerData , serviceEntityObj);
         }
 
         return serviceEntityObj;
@@ -228,15 +349,10 @@ public class RestUtil {
         return (serviceInstancePayload.equals(EMPTY_JSON_STRING));
     }
 
-    private static String generateUrl_ForResourceLink (String aaiBaseURL, String aaiPathToSearchNodeQuery ,String serviceInstanceId) {
-        return aaiBaseURL + aaiPathToSearchNodeQuery + serviceInstanceId;
+    public static String generateAaiUrl (String aaiBaseURL, String aaiPathToCustomerQuery, String parameter) {
+        return aaiBaseURL + aaiPathToCustomerQuery + (parameter != null ? parameter : "");
     }
 
-    private static String generateUrl_ForCustomer (String aaiBaseURL, String aaiPathToCustomerQuery ,String customerId) {
-        return aaiBaseURL + aaiPathToCustomerQuery + customerId;
-    }
-
-    @SuppressWarnings("unchecked")
     private static Map<String, List<String>> buildHeaders(String aaiBasicAuthorization, String transactionId) {
         MultivaluedMap<String, String> headers = new MultivaluedMapImpl();
         headers.put(TRANSACTION_ID, Collections.singletonList(transactionId));
@@ -245,9 +361,9 @@ public class RestUtil {
         return headers;
     }
 
-    private static String getAaiResource(RestClient client, String url, String aaiBasicAuthorization, String transId, MediaType mediaType)
+    public static String getAaiResource(RestClient client, String url, String aaiBasicAuthorization, String transactionId, MediaType mediaType)
             throws AuditException {
-        OperationResult result = client.get(url, buildHeaders(aaiBasicAuthorization, transId), MediaType.valueOf(MediaType.APPLICATION_JSON));
+        OperationResult result = client.get(url, buildHeaders(aaiBasicAuthorization, transactionId), MediaType.valueOf(MediaType.APPLICATION_JSON));
 
         if (result.getResultCode() == 200) {
             return result.getResult();
@@ -257,7 +373,7 @@ public class RestUtil {
             return new JSONObject().toString();
 
         } else {
-            throw new AuditException(INTERNAL_SERVER_ERROR + " with " + result.getFailureCause());
+            throw new AuditException(AuditError.INTERNAL_SERVER_ERROR + " with " + result.getFailureCause());
         }
     }
 
@@ -272,7 +388,7 @@ public class RestUtil {
      *     ]
      * }
      */
-    private static String extractResourceLinkBasedOnServiceInstance(String payload, String catalog) throws AuditException {
+    private static String extractResourceLink(String payload, String catalog) throws AuditException {
         String resourceLink = null;
         log.info("Fetching the resource-link based on resource-type=" + catalog);
 
@@ -281,8 +397,8 @@ public class RestUtil {
             if (result_data_list != null) {
                 for (int i = 0; i < result_data_list.length(); i++) {
                     JSONObject obj = result_data_list.optJSONObject(i);
-                    if (obj.has(JSON_ATT_RESOURCE_TYPE) && (obj.getString(JSON_ATT_RESOURCE_TYPE).equals(catalog) ))  {
-                        resourceLink = obj.getString(JSON_ATT_RESOURCE_LINK);
+                    if (obj.has(JSON_RESOURCE_TYPE) && (obj.getString(JSON_RESOURCE_TYPE).equals(catalog) ))  {
+                        resourceLink = obj.getString(JSON_RESOURCE_LINK);
                         log.info(resourceLink);
                         return resourceLink;
                     }
@@ -290,13 +406,14 @@ public class RestUtil {
             }
         } catch (JSONException e) {
             log.error(e.getMessage());
-            throw new AuditException("Json Reader Parse Error " + e.getMessage());
+            throw new AuditException(AuditError.JSON_PARSE_ERROR + e.getMessage());
         }
 
         log.warn("resource-link CANNOT be found: ", payload );
 
         return resourceLink;
     }
+
 
     /*
      * Extract the "subscriber-name" and "subscriber-type" from Json payload. For example
@@ -316,9 +433,9 @@ public class RestUtil {
 
         try {
             JSONObject obj = new JSONObject (payload);
-            if (obj.has(JSON_ATT_GLOBAL_CUSTOMER_ID) && (obj.getString(JSON_ATT_GLOBAL_CUSTOMER_ID).equals(customerId) ))  {
-                serviceEntityObj.setCustomerType(obj.getString(JSON_ATT_SUBSCRIBER_TYPE));
-                serviceEntityObj.setCustomerName(obj.getString(JSON_ATT_SUBSCRIBER_NAME));
+            if (obj.has(JSON_GLOBAL_CUSTOMER_ID) && (obj.getString(JSON_GLOBAL_CUSTOMER_ID).equals(customerId) ))  {
+                serviceEntityObj.setCustomerType(obj.getString(JSON_SUBSCRIBER_TYPE));
+                serviceEntityObj.setCustomerName(obj.getString(JSON_SUBSCRIBER_NAME));
                 return;
             }
         } catch (JSONException e) {
@@ -353,9 +470,106 @@ public class RestUtil {
         return serviceEntity;
     }
 
+
+    /*
+     * Extract the vnf-list from the Json payload.
+     */
+    private static List<Vnf> extractVnfList(String payload) throws AuditException  {
+        List<Object> jsonSpec = JsonUtils.filepathToList(specPath);
+        Object jsonInput = JsonUtils.jsonToObject(payload);
+        Chainr chainr = Chainr.fromSpec(jsonSpec);
+        Object transObject = chainr.transform(jsonInput);
+        String vnfListString = JsonUtils.toPrettyJsonString(transObject);
+        VnfList vnfList = VnfList.fromJson(vnfListString);
+        return vnfList.getVnfList();
+    }
+
     private static String abstractStrInfo (String origStr, String matchStr) {
         String after = origStr.substring( origStr.indexOf(matchStr) + matchStr.length());
 
         return after.substring(0, after.indexOf(FORWARD_SLASH));
     }
+
+    /**
+     * Get the common model list of AAI exist in SDNC per each  (AAI GenericVNF > vf-modules > vf-module > model-version-id )
+     * @param aaiVnf
+     * @param sdncVnfList
+     * @return
+     * @throws AuditException
+     */
+    private static List<VFModule> getVfModuleList(VnfInstance aaiVnf, List<Vnf> sdncVnfList) {
+        List<VFModule> vfmoduleLst = new ArrayList<>();
+        if (aaiVnf.getVfModules() != null && aaiVnf.getVfModules().getVfModule() != null ) {
+            ConcurrentMap<String, AtomicInteger> vnfModulemap = buildMaxInstanceMap(aaiVnf.getVfModules().getVfModule()) ;
+            for (Map.Entry<String, AtomicInteger> entry : vnfModulemap.entrySet()) {
+                String modelVersionId = entry.getKey();
+                for (Vnf sdncVnf : sdncVnfList) {
+                    if ( sdncVnf.getVnfId().equals(modelVersionId)) {
+                        VFModule vfModule = new VFModule();
+                        vfModule.setUuid(modelVersionId);
+                        vfModule.setMaxInstances(entry.getValue().intValue());
+                        vfmoduleLst.add(vfModule);
+                    }
+                }
+            }
+        }
+        log.debug("The size of vfmoduleLst:"+ vfmoduleLst.size());
+        return vfmoduleLst;
+    }
+
+    /*
+     * Build the map with key (model_version_id) and with the max occurrences of the value in the map
+     * @param vf_module_List
+     * @return
+     */
+    private static ConcurrentMap<String, AtomicInteger> buildMaxInstanceMap(List<VfModule> vfModuleList) {
+
+        ConcurrentMap<String, AtomicInteger> map = new ConcurrentHashMap<>();
+
+        for (VfModule  vfModule: vfModuleList) {
+            String vfModuleId = vfModule.getVfModuleId();
+            map.putIfAbsent(vfModuleId, new AtomicInteger(0));
+            map.get(vfModuleId).incrementAndGet();
+        }
+        return map;
+    }
+
+    /*
+     * Get the common model list of VNFC from the SDNC Vnfs
+     * @param sdncVnfMap
+     * @return
+     */
+    private static List<VNFC> getVnfcList(List<Vnf> sdncVnfList) {
+        List<VNFC> vnfcList = new ArrayList<>();
+        if (sdncVnfList != null && !sdncVnfList.isEmpty()) {
+            for (Vnf sdncVnf : sdncVnfList) {
+                try {
+                    List<VnfVm> sdncVnfVmLst = sdncVnf.getServiceData().getVnfTopologyInformation().getVnfAssignments().getVnfVms();
+                    if (sdncVnfVmLst != null && !sdncVnfVmLst.isEmpty()) {
+                        for (VnfVm sdncVnfVm : sdncVnfVmLst) {
+                            List<VmName> sdncVmNameLst = sdncVnfVm.getVmNames();
+                            if (sdncVmNameLst != null && !sdncVmNameLst.isEmpty()) {
+                                for (VmName sdncVmName : sdncVmNameLst) {
+                                    VNFC vnfc = new VNFC();
+                                    // Initialize common model members to null
+                                    vnfc.setInvariantUuid("null");
+                                    vnfc.setUuid("null");
+                                    vnfc.setType(sdncVnfVm.getVmType() == null ? "null" : sdncVnfVm.getVmType());
+                                    vnfc.setName(sdncVmName.getVmName() == null ? "null" : sdncVmName.getVmName());
+                                    vnfcList.add(vnfc);
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    log.info(e.getMessage());
+                }
+            }
+        }
+        log.debug("The size of vnfcList:"+ vnfcList.size());
+        return vnfcList;
+    }
+
+
+
 }

@@ -3,7 +3,7 @@
   // any changes to this file
 
   {
-    // This section converts the updated json from service-decompostion
+    // This section converts the GENERIC-RESOURCES-API response from sdnc
     // to org.onap.pomba.common.datatypes.ModelContext
     "operation": "shift",
     "spec": {
@@ -62,6 +62,24 @@
                             }
                           }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "networks": {
+              "network": {
+                "*": {
+                  "network-data": {
+                    "network-topology": {
+                      "onap-model-information": {
+                        "model-uuid": "vfList[0].vfModuleList[0].networkList[&4].uuid",
+                        "model-invariant-uuid": "vfList[0].vfModuleList[0].networkList[&4].invariantUUID"
+                      },
+                      "network-topology-identifier-structure": {
+                        "network-type": "vfList[0].vfModuleList[0].networkList[&4].type",
+                        "network-name": "vfList[0].vfModuleList[0].networkList[&4].name"
                       }
                     }
                   }

@@ -22,6 +22,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -33,12 +34,12 @@ import javax.ws.rs.core.Response;
 
 
 @Api
-@Path("/service")
+@Path("/")
 @Produces({MediaType.APPLICATION_JSON})
 public interface RestService {
 
     @GET
-    @Path("/context")
+    @Path("service/context")
     @Produces({MediaType.APPLICATION_JSON})
     @ApiOperation(
             value = "Respond SDNCContext Model Data",
@@ -52,7 +53,29 @@ public interface RestService {
                     @ApiResponse(code = 404, message = "Service not available"),
                     @ApiResponse(code = 500, message = "Unexpected Runtime error")
                     })
-    public Response getContext(@Context HttpHeaders headers,
-            @QueryParam("serviceInstanceId") String serviceInstanceId
+    public Response getContext(@Context HttpServletRequest request,
+                               @Context HttpHeaders headers,
+                               @QueryParam("serviceInstanceId") String serviceInstanceId
             );
+
+    @GET
+    @Path("v1/service/context")
+    @Produces({MediaType.APPLICATION_JSON})
+    @ApiOperation(
+            value = "Respond SDNCContext V1 Model Data",
+            notes = "Returns a JSON object which represents the SDNCConetxt V1 model data",
+            response = Response.class
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "OK"),
+                    @ApiResponse(code = 400, message = "Bad Request"),
+                    @ApiResponse(code = 404, message = "Service not available"),
+                    @ApiResponse(code = 500, message = "Unexpected Runtime error")
+                    })
+    public Response getV1Context(@Context HttpServletRequest request,
+                               @Context HttpHeaders headers,
+                               @QueryParam("serviceInstanceId") String serviceInstanceId
+            );
+
 }

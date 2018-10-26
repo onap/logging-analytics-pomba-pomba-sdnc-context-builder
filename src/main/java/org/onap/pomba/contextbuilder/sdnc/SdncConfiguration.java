@@ -21,10 +21,10 @@ package org.onap.pomba.contextbuilder.sdnc;
 import java.util.Base64;
 import javax.ws.rs.ApplicationPath;
 import org.eclipse.jetty.util.security.Password;
+import org.onap.aai.restclient.client.RestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.onap.aai.restclient.client.RestClient;
 
 @Component
 @ApplicationPath("/")
@@ -54,14 +54,22 @@ public class SdncConfiguration {
     @Value("${sdnc.genericResourcePath}")
     private String genericResourcePath;
 
+    @Value("${sdnc.vnfPath}")
+    private String vnfPath;
+
     @Bean(name="sdncBaseUrl")
     public String getURL() {
         return httpProtocol + "://" + serviceName + ":" + servicePort;
     }
 
     @Bean(name="sdncGenericResourcePath")
-    public String getgenericResourcePath() {
+    public String getGenericResourcePath() {
         return genericResourcePath;
+    }
+
+    @Bean(name="sdncVnfPath")
+    public String getVnfPath() {
+        return vnfPath;
     }
 
     @Bean(name = "sdncBasicAuthorization")
@@ -97,6 +105,10 @@ public class SdncConfiguration {
 
     @Value("${aai.customerQuery}")
     private String aaiCustomerQuery;
+
+    @Value("${aai.serviceInstancePath}")
+    private String serviceInstancePath;
+
 
     @Bean(name="aaiHttpBasicAuthorization")
     public String getHttpBasicAuth() {
@@ -136,6 +148,11 @@ public class SdncConfiguration {
     @Bean(name="aaiPathToCustomerQuery")
     public String getAaiPathToCustomerQuery() {
         return aaiCustomerQuery.trim();
+    }
+
+    @Bean(name="aaiServiceInstancePath")
+    public String getserviceInstancePathL() {
+        return serviceInstancePath;
     }
 
 }

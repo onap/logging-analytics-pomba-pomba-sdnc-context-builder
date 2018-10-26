@@ -25,6 +25,7 @@ public class ServiceEntity {
     private String apiName;
     private String serviceInstanceId;
     private String customerId;
+    private String transactionId;
 
     public String getCustomerId() {
         return customerId;
@@ -68,6 +69,14 @@ public class ServiceEntity {
 
     public void setApiName(String apiName) {
         this.apiName = apiName;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
 }
