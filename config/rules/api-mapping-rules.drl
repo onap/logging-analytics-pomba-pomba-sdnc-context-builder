@@ -23,7 +23,7 @@ rule "ApiMapping-1"
     no-loop  true
     lock-on-active true
     when
-      $s : ServiceEntity( serviceType not contains "vFW" )
+      $s : ServiceEntity( (serviceType not contains "vFW") && (serviceType not contains "vDNS") )
     then
       $s.setApiName("GENERIC-RESOURCE-API");
 end
@@ -33,7 +33,7 @@ rule "ApiMapping-2"
     no-loop  true
     lock-on-active true
     when
-      $s : ServiceEntity( serviceType contains "vFW" )
+      $s : ServiceEntity( (serviceType contains "vFW") || (serviceType contains "vDNS") )
     then
       $s.setApiName("VNF-API");
 end

@@ -20,6 +20,7 @@ package org.onap.pomba.contextbuilder.sdnc.service.rs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -43,20 +44,22 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
-    public Response getContext(HttpHeaders headers, String serviceInstanceId) {
+    public Response getContext(HttpServletRequest request, HttpHeaders headers, String serviceInstanceId) {
 
         Response response = null;
         ModelContext sdncContext= null;
         Gson gson = new GsonBuilder().create();
         try {
-            // Do some validation on Http headers and URL parameters
-            RestUtil.validateHeader(headers, service.getSdncAuthoriztion());
+            // Validate URL parameters
             RestUtil.validateURL(serviceInstanceId);
 
-            // Keep the same transaction id for logging purposeString transactionId
-            String transactionId = RestUtil.extractTranIdHeader(headers);
+            // Validate Headers and extract Partner Name
+            String partnerName = RestUtil.validateHeader(headers, service.getSdncAuthoriztion());
 
-            sdncContext = service.getContext(serviceInstanceId, transactionId);
+            // Keep the same transaction id for logging purposeString transactionId
+            String transactionId = RestUtil.extractTranactionIdHeader(headers);
+
+            sdncContext = service.getContext(request, serviceInstanceId, transactionId, partnerName);
 
             if (sdncContext==null) {
                 // Return empty JSON
@@ -77,5 +80,11 @@ public class RestServiceImpl implements RestService {
 
         return response;
     }
+
+    @Override
+    public Response getV1Context(HttpServletRequest request, HttpHeaders headers, String serviceInstanceId) {
+        return getContext(request, headers, serviceInstanceId);
+    }
+
 
 }

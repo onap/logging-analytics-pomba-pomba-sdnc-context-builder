@@ -1,0 +1,100 @@
+{
+    "vnf-id": "d94daff6-7d5b-4d2e-bc99-c9af0754b59d",
+    "vnf-name": "vcpe_vnf_vcpevsp_vgmux_0830_201809061919",
+    "vnf-type": "vcpesvc_vgmux/vcpevsp_vgmux_0830 0",
+    "service-id": "f9457e8c-4afd-45da-9389-46acd9bf5116",
+    "prov-status": "PROV",
+    "orchestration-status": "Active",
+    "in-maint": false,
+    "is-closed-loop-disabled": false,
+    "resource-version": "1536261950146",
+    "model-invariant-id": "17e561e9-d0c2-4959-a709-9335b2233966",
+    "model-version-id": "eaabc15d-c084-4e40-9d46-4d963a4c079b",
+    "model-customization-id": "71c4be60-c6a3-4874-a06e-8ebdc2f0f87b",
+    "nf-type": "",
+    "nf-function": "",
+    "nf-role": "",
+    "nf-naming-code": "",
+    "relationship-list": {
+        "relationship": [
+            {
+                "related-to": "service-instance",
+                "related-link": "/aai/v11/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vCPE/service-instances/service-instance/68352304-7bba-4609-8551-0d0b819376c3",
+                "relationship-data": [
+                    {
+                        "relationship-key": "customer.global-customer-id",
+                        "relationship-value": "SDN-ETHERNET-INTERNET"
+                    },
+                    {
+                        "relationship-key": "service-subscription.service-type",
+                        "relationship-value": "vCPE"
+                    },
+                    {
+                        "relationship-key": "service-instance.service-instance-id",
+                        "relationship-value": "68352304-7bba-4609-8551-0d0b819376c3"
+                    }
+                ],
+                "related-to-property": [
+                    {
+                        "property-key": "service-instance.service-instance-name",
+                        "property-value": "vcpe_svc_vcpesvc_vgmux_201809061919"
+                    }
+                ]
+            },
+            {
+                "related-to": "platform",
+                "related-link": "/aai/v11/business/platforms/platform/Platform-Demonstration",
+                "relationship-data": [
+                    {
+                        "relationship-key": "platform.platform-name",
+                        "relationship-value": "Platform-Demonstration"
+                    }
+                ]
+            },
+            {
+                "related-to": "vserver",
+                "related-link": "/aai/v11/cloud-infrastructure/cloud-regions/cloud-region/CloudOwner/RegionOne/tenants/tenant/bc43d50ffcb84750bac0c1707a9a765b/vservers/vserver/0714ea3e-2126-4c31-b405-6796ffc955fb",
+                "relationship-data": [
+                    {
+                        "relationship-key": "cloud-region.cloud-owner",
+                        "relationship-value": "CloudOwner"
+                    },
+                    {
+                        "relationship-key": "cloud-region.cloud-region-id",
+                        "relationship-value": "RegionOne"
+                    },
+                    {
+                        "relationship-key": "tenant.tenant-id",
+                        "relationship-value": "bc43d50ffcb84750bac0c1707a9a765b"
+                    },
+                    {
+                        "relationship-key": "vserver.vserver-id",
+                        "relationship-value": "0714ea3e-2126-4c31-b405-6796ffc955fb"
+                    }
+                ],
+                "related-to-property": [
+                    {
+                       "property-key": "vserver.vserver-name",
+                        "property-value": "zdcpe1cpe01mux01_201809061919"
+                    }
+                ]
+            }
+        ]
+    },
+    "vf-modules": {
+        "vf-module": [
+            {
+                "vf-module-id": "2c3f8902-f278-4ee3-93cf-9d2364cbafca",
+                "vf-module-name": "vcpe_vfmodule_vcpevspvgmux0830_201809061919",
+                "heat-stack-id": "vcpe_vfmodule_vcpevspvgmux0830_201809061919/f421ea6a-04e9-422a-8a8e-a6a01cbf87d2",
+                "orchestration-status": "active",
+                "is-base-vf-module": true,
+                "resource-version": "1536261945277",
+                "model-invariant-id": "ced468ed-46ec-4e18-9bb7-1a861c98087c",
+                "model-version-id": "d2f0ea48-d996-4d9e-893e-f649cbb969aa",
+                "model-customization-id": "52314e9a-e963-44d4-94b9-0de1ed2268c5",
+                "module-index": 0
+            }
+        ]
+    }
+}

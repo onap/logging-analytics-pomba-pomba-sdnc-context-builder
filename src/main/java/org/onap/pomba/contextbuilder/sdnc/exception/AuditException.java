@@ -26,7 +26,6 @@ public class AuditException extends Exception {
 
   private Status httpStatus;
 
-
   public AuditException(String message) {
     super(message);
   }
@@ -36,6 +35,10 @@ public class AuditException extends Exception {
     this.setHttpStatus(httpStatus);
   }
 
+  public AuditException(String message, Throwable cause) {
+      super(message, cause);
+  }
+
   public Status getHttpStatus() {
     return httpStatus;
   }
@@ -43,4 +46,6 @@ public class AuditException extends Exception {
   public void setHttpStatus(Status httpStatus) {
     this.httpStatus = httpStatus;
   }
+
+
 }

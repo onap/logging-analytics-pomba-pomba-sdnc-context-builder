@@ -1,0 +1,187 @@
+{
+  "vnfs": {
+    "vnf-list": [
+      {
+        "vnf-id": "2c3f8902-f278-4ee3-93cf-9d2364cbafca",
+        "service-data": {
+          "vnf-request-information": {
+            "vnf-type": "VshakenIst09042018..base_alb..module-3",
+            "generic-vnf-name": "zdyh3bsflb0001v_01",
+            "vnf-id": "2c3f8902-f278-4ee3-93cf-9d2364cbafca",
+            "use-preload": "Y",
+            "generic-vnf-type": "vShaken_DNS_ns592n/vSHAKEN_IST_09042018 0",
+            "tenant": "f2e24e16c51244539b1f00123809cf4f",
+            "vnf-name": "zdyh3bsflb0001v_base_module_01",
+            "aic-cloud-region": "dyh3b",
+            "generic-vnf-id": "6bd2296e-d3e8-4eb8-ad65-a54d7bdb86d6"
+          },
+          "vnf-topology-information": {
+            "vnf-assignments": {
+              "vnf-networks": [
+                {
+                  "network-role": "signaling",
+                  "network-name": "vshaken_signal",
+                  "ipv6-subnet-id": "936e0970-7403-48ef-9cf3-6374b42c5497",
+                  "neutron-id": "5755dd95-b8f4-469a-931f-200727ed1933",
+                  "network-id": "77747167-c41f-43e4-a5be-9a39b21949c8",
+                  "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_signal",
+                  "ipv6-subnet-name": "vshaken_signal_v6_s1"
+                },
+                {
+                  "network-role": "management",
+                  "subnet-name": "vshaken_mgmt_v4_s1",
+                  "network-name": "vshaken_mgmt",
+                  "subnet-id": "1bf746bc-aace-4575-b8e6-4c8f9ccddd42",
+                  "neutron-id": "96f4178f-ef7a-4754-acd0-269e9c5f0fc4",
+                  "network-id": "1dc87784-3359-4a47-a868-458c13545624",
+                  "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_mgmt"
+                }
+              ],
+              "vnf-vms": [
+                {
+                  "vm-type": "alb",
+                  "vm-networks": [
+                    {
+                      "network-role": "management",
+                      "network-ips": [
+                        {
+                          "ip-address": "135.50.172.132"
+                        },
+                        {
+                          "ip-address": "135.50.172.133"
+                       }
+                      ],
+                      "use-dhcp": "Y"
+                    },
+                    {
+                      "network-role": "signaling",
+                      "network-ips-v6": [
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:1"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:2"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:3"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:4"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:5"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:6"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:7"
+                        },
+                        {
+                          "ip-address-ipv6": "2001:1890:1001:2652::7:8"
+                        }
+                      ],
+                      "use-dhcp": "Y"
+                    }
+                  ],
+                  "vm-names": [
+                    {
+                      "vm-name": "dyh3bsflb0001vm001"
+                    },
+                    {
+                      "vm-name": "dyh3bsflb0001vm002"
+                    }
+                  ],
+                  "vm-count": 2
+                }
+              ],
+              "availability-zones": [
+                {
+                  "availability-zone": "dyh3b-kvm-az01"
+                },
+                {
+                  "availability-zone": "dyh3b-kvm-az02"
+                }
+              ]
+            },
+            "vnf-parameters": [
+              {
+                "vnf-parameter-name": "license_server_ip",
+                "vnf-parameter-value": "135.69.241.53"
+              },
+              {
+                "vnf-parameter-name": "alb_admin_password",
+                "vnf-parameter-value": "foobar"
+              },
+              {
+                "vnf-parameter-name": "vf_module_id",
+                "vnf-parameter-value": "zdyh3bsflb0001v"
+              },
+              {
+                "vnf-parameter-name": "alb_root_password",
+                "vnf-parameter-value": "boofar"
+              },
+              {
+                "vnf-parameter-name": "vnf_id",
+                "vnf-parameter-value": "zdyh3bsflb0001v"
+              },
+              {
+                "vnf-parameter-name": "license_server_password",
+                "vnf-parameter-value": "root"
+              },
+              {
+                "vnf-parameter-name": "license_pool_name",
+                "vnf-parameter-value": "vshaken_pool"
+              },
+              {
+                "vnf-parameter-name": "signaling_netmask",
+                "vnf-parameter-value": "64"
+              },
+              {
+                "vnf-parameter-name": "alb_ssh_public_key",
+                "vnf-parameter-value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpbEGYuDm2azRRqDHmaNeeN1w7in2TeK8y+8hTc7BtwQFjuoZBdZb7Hexf4JbYMzNc7QMaVvGa/paFS5GHoYl+gDWhci9CB3LoHHaCDB9YbBm4VaTf/04tWmur9OAl+h7EnoL+7ksRp1+7aLy3ictdimJlvlbIVgio4pINobXRqzOFr+QP+LWH92sjFGlGe61WjU/19QGyQSq0EOMU7vIxo5QaxZHpwkdQy8R1rJjoXdMj/rh3COiXWlVy3hZi3eGtK50M7vQbXn56azF4hPeN6kxkIwn2syFE0Jmw4J1aj2mnJDsix7tTlf6DL6wi54G8M21ZHHnobzKPiojjYLfh"
+              }
+            ],
+            "vnf-topology-identifier": {
+              "service-type": "SDN-MOBILITY",
+              "vnf-type": "VshakenIst09042018..base_alb..module-3",
+              "generic-vnf-name": "zdyh3bsflb0001v_01",
+              "generic-vnf-type": "vShaken_DNS_ns592n/vSHAKEN_IST_09042018 0",
+              "vnf-name": "zdyh3bsflb0001v_base_module_01"
+            }
+          },
+          "service-information": {
+            "service-id": "null",
+            "service-type": "null",
+            "service-instance-id": "ccce0f34-6603-419a-b916-acc741f4ceb4",
+            "subscriber-name": "notsurewecare"
+          },
+          "vnf-id": "2c3f8902-f278-4ee3-93cf-9d2364cbafca",
+          "sdnc-request-header": {
+            "svc-notification-url": "https://mso-sdnc-ist3.ecomp.idns.cip.att.com:30254/adapters/rest/SDNCNotify",
+            "svc-request-id": "906ece4b-d07f-4479-adbf-b7d476002808-1539182393957",
+            "svc-action": "assign"
+          },
+          "oper-status": {
+            "order-status": "PendingCreate"
+          },
+          "request-information": {
+            "source": "VID",
+            "request-action": "VNFActivateRequest",
+            "request-id": "906ece4b-d07f-4479-adbf-b7d476002808"
+          }
+        },
+        "service-status": {
+          "final-indicator": "Y",
+          "request-status": "synccomplete",
+          "response-code": "200",
+          "rpc-name": "vnf-topology-operation",
+          "vnfsdn-action": "VNFActivateRequest",
+          "rpc-action": "assign",
+          "response-timestamp": "2018-10-10T14:39:55.433Z"
+        }
+      }
+
+    ]
+  }
+}
