@@ -336,6 +336,63 @@ limitations under the License.
                                 </configuration>
                             </execution>
                             <execution>
+                                <id>copy-properties-dynamic-conf-directory</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config/dynamic/conf</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config/dynamic/conf</directory>
+                                            <includes>
+                                                <include>*.xml</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-properties-dynamic-routes-directory</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config/dynamic/routes</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config/dynamic/routes</directory>
+                                            <includes>
+                                                <include>*.route</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-properties-rules-directory</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config/rules</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config/rules</directory>
+                                            <includes>
+                                                <include>*.drl</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>copy-script</id>
                                 <goals>
                                     <goal>copy-resources</goal>
