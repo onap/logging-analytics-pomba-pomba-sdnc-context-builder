@@ -32,20 +32,9 @@ public class VnfList {
 
     @SerializedName("vnf-list")
     @Expose
-    private List<Vnf> vnfList = new ArrayList<Vnf>();
+    private List<Vnf> vnfList = new ArrayList<>();
 
     private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
-    public static VnfList fromJson(String payload) throws AuditException {
-        try {
-            if (payload == null || payload.isEmpty()) {
-                throw new Exception(AuditError.JSON_EMPTY_RESPONSE);
-            }
-            return gson.fromJson(payload, VnfList.class);
-        } catch (Exception ex) {
-            throw new AuditException(AuditError.JSON_PARSE_ERROR, ex);
-        }
-    }
 
 
     /**
@@ -62,6 +51,17 @@ public class VnfList {
     public VnfList(List<Vnf> vnfList) {
         super();
         this.vnfList = vnfList;
+    }
+
+    public static VnfList fromJson(String payload) throws AuditException {
+        try {
+            if (payload == null || payload.isEmpty()) {
+                throw new AuditException(AuditError.JSON_EMPTY_RESPONSE);
+            }
+            return gson.fromJson(payload, VnfList.class);
+        } catch (Exception ex) {
+            throw new AuditException(AuditError.JSON_PARSE_ERROR, ex);
+        }
     }
 
     public List<Vnf> getVnfList() {
@@ -100,7 +100,7 @@ public class VnfList {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfList) == false) {
+        if (!(other instanceof VnfList)) {
             return false;
         }
         VnfList rhs = ((VnfList) other);

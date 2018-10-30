@@ -30,6 +30,8 @@ public class VnfParameter {
     @Expose
     private String vnfParameterValue;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -70,11 +72,11 @@ public class VnfParameter {
         sb.append(VnfParameter.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("vnfParameterName");
         sb.append('=');
-        sb.append(((this.vnfParameterName == null)?"<null>":this.vnfParameterName));
+        sb.append(((this.vnfParameterName == null)?NULL_STR:this.vnfParameterName));
         sb.append(',');
         sb.append("vnfParameterValue");
         sb.append('=');
-        sb.append(((this.vnfParameterValue == null)?"<null>":this.vnfParameterValue));
+        sb.append(((this.vnfParameterValue == null)?NULL_STR:this.vnfParameterValue));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -97,7 +99,7 @@ public class VnfParameter {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfParameter) == false) {
+        if (!(other instanceof VnfParameter)) {
             return false;
         }
         VnfParameter rhs = ((VnfParameter) other);

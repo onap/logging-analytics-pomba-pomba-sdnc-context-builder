@@ -45,17 +45,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class JerseyConfiguration extends ResourceConfig {
     private static final Logger log = Logger.getLogger(JerseyConfiguration.class.getName());
 
-    @Bean
-    @Primary
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
-        objectMapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
-        return objectMapper;
-    }
-
     @Autowired
     public JerseyConfiguration() {
         register(RestServiceImpl.class);
@@ -68,4 +57,16 @@ public class JerseyConfiguration extends ResourceConfig {
         return ClientBuilder.newClient(
                 new ClientConfig());
     }
+
+    @Bean
+    @Primary
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
+        objectMapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
+        return objectMapper;
+    }
+
 }

@@ -72,7 +72,7 @@ public class RelationshipList {
         if (other == this) {
             return true;
         }
-        if ((other instanceof RelationshipList) == false) {
+        if (!(other instanceof RelationshipList)) {
             return false;
         }
         RelationshipList rhs = ((RelationshipList) other);

@@ -45,6 +45,8 @@ public class ServiceStatus {
     @Expose
     private String requestStatus;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -135,31 +137,31 @@ public class ServiceStatus {
         sb.append(ServiceStatus.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("responseTimestamp");
         sb.append('=');
-        sb.append(((this.responseTimestamp == null)?"<null>":this.responseTimestamp));
+        sb.append(((this.responseTimestamp == null)?NULL_STR:this.responseTimestamp));
         sb.append(',');
         sb.append("vnfsdnAction");
         sb.append('=');
-        sb.append(((this.vnfsdnAction == null)?"<null>":this.vnfsdnAction));
+        sb.append(((this.vnfsdnAction == null)?NULL_STR:this.vnfsdnAction));
         sb.append(',');
         sb.append("rpcAction");
         sb.append('=');
-        sb.append(((this.rpcAction == null)?"<null>":this.rpcAction));
+        sb.append(((this.rpcAction == null)?NULL_STR:this.rpcAction));
         sb.append(',');
         sb.append("rpcName");
         sb.append('=');
-        sb.append(((this.rpcName == null)?"<null>":this.rpcName));
+        sb.append(((this.rpcName == null)?NULL_STR:this.rpcName));
         sb.append(',');
         sb.append("responseCode");
         sb.append('=');
-        sb.append(((this.responseCode == null)?"<null>":this.responseCode));
+        sb.append(((this.responseCode == null)?NULL_STR:this.responseCode));
         sb.append(',');
         sb.append("finalIndicator");
         sb.append('=');
-        sb.append(((this.finalIndicator == null)?"<null>":this.finalIndicator));
+        sb.append(((this.finalIndicator == null)?NULL_STR:this.finalIndicator));
         sb.append(',');
         sb.append("requestStatus");
         sb.append('=');
-        sb.append(((this.requestStatus == null)?"<null>":this.requestStatus));
+        sb.append(((this.requestStatus == null)?NULL_STR:this.requestStatus));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -187,7 +189,7 @@ public class ServiceStatus {
         if (other == this) {
             return true;
         }
-        if ((other instanceof ServiceStatus) == false) {
+        if (!(other instanceof ServiceStatus)) {
             return false;
         }
         ServiceStatus rhs = ((ServiceStatus) other);

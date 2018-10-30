@@ -86,7 +86,7 @@ public class RestUtil {
 
     private static final String FORWARD_SLASH = "/";
     // SDNC vnf Json Path
-    private static final String specPath = "config/vnflist.spec";
+    private static final String SPEC_PATH = "config/vnflist.spec";
 
     // Parameters for Query SDNC Model Data REST API  URL
     private static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
@@ -176,7 +176,7 @@ public class RestUtil {
                                                         String authorization, List<VnfInstance> vnfList) throws AuditException {
 
         // define map [key: vnf-id, value: list of SDNC vnfs, which in fact are vf_modules]
-        Map<String,List<Vnf>> sdncVnfMap = new HashMap<String,List<Vnf>>();
+        Map<String,List<Vnf>> sdncVnfMap = new HashMap<>();
         for (VnfInstance vnfInstance: vnfList) {
             if (vnfInstance.getVfModules() != null) {
                 List<Vnf> sdncVnfList = new ArrayList<>();
@@ -314,7 +314,7 @@ public class RestUtil {
                                                 String transactionId) throws AuditException {
 
         String getResourceLinkUrl = generateAaiUrl(aaiBaseUrl, aaiPathToSearchNodeQuery, serviceInstanceId);
-        String aaiResourceData  = getAaiResource(aaiClient, getResourceLinkUrl, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
+        String aaiResourceData  = getAaiResource(aaiClient, getResourceLinkUrl, aaiBasicAuthorization, transactionId);
 
         // Handle the case if the service instance is not found in AAI
         if (isEmptyJson(aaiResourceData)) {
@@ -332,7 +332,7 @@ public class RestUtil {
             String customerId = serviceEntityObj.getCustomerId();
             // Obtain customerType and customerName
             String getCustomerUrl = generateAaiUrl (aaiBaseUrl, aaiPathToCustomerQuery, customerId);
-            String aaiCustomerData  = getAaiResource(aaiClient, getCustomerUrl, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
+            String aaiCustomerData  = getAaiResource(aaiClient, getCustomerUrl, aaiBasicAuthorization, transactionId);
             if (isEmptyJson(aaiCustomerData)) {
                 log.info(" Customer name {} is not found from AAI", customerId);
                 // Only return the empty Json on the root level. i.e service instance
@@ -361,7 +361,7 @@ public class RestUtil {
         return headers;
     }
 
-    public static String getAaiResource(RestClient client, String url, String aaiBasicAuthorization, String transactionId, MediaType mediaType)
+    public static String getAaiResource(RestClient client, String url, String aaiBasicAuthorization, String transactionId)
             throws AuditException {
         OperationResult result = client.get(url, buildHeaders(aaiBasicAuthorization, transactionId), MediaType.valueOf(MediaType.APPLICATION_JSON));
 
@@ -377,26 +377,27 @@ public class RestUtil {
         }
     }
 
+
     /*
-     * Extract the resource-Link from Json payload. For example
-     * {
-     *     "result-data": [
-     *         {
-     *             "resource-type": "service-instance",
-     *             "resource-link": "/aai/v11/business/customers/customer/DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2/service-subscriptions/service-subscription/vFW/service-instances/service-instance/adc3cc2a-c73e-414f-8ddb-367de81300cb"
-     *         }
-     *     ]
-     * }
-     */
+    * Extract the resource-Link from Json payload. For example
+    * {
+    *     "result-data": [
+    *         {
+    *             "resource-type": "service-instance",
+    *             "resource-link": "/aai/v11/business/customers/customer/DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2/service-subscriptions/service-subscription/vFW/service-instances/service-instance/adc3cc2a-c73e-414f-8ddb-367de81300cb"
+    *         }
+    *     ]
+    * }
+    */
     private static String extractResourceLink(String payload, String catalog) throws AuditException {
         String resourceLink = null;
         log.info("Fetching the resource-link based on resource-type=" + catalog);
 
         try {
-            JSONArray result_data_list = new JSONObject(payload).getJSONArray(RESULT_DATA);
-            if (result_data_list != null) {
-                for (int i = 0; i < result_data_list.length(); i++) {
-                    JSONObject obj = result_data_list.optJSONObject(i);
+            JSONArray resultDataList = new JSONObject(payload).getJSONArray(RESULT_DATA);
+            if (resultDataList != null) {
+                for (int i = 0; i < resultDataList.length(); i++) {
+                    JSONObject obj = resultDataList.optJSONObject(i);
                     if (obj.has(JSON_RESOURCE_TYPE) && (obj.getString(JSON_RESOURCE_TYPE).equals(catalog) ))  {
                         resourceLink = obj.getString(JSON_RESOURCE_LINK);
                         log.info(resourceLink);
@@ -413,7 +414,6 @@ public class RestUtil {
 
         return resourceLink;
     }
-
 
     /*
      * Extract the "subscriber-name" and "subscriber-type" from Json payload. For example
@@ -455,12 +455,14 @@ public class RestUtil {
      *    customerId = DemoCust_651800ed-2a3c-45f5-b920-85c1ed155fc2
      *    serviceType = vFW
      * */
-
     private static ServiceEntity createServiceEntityObj (String resourceLink) {
-        int customer_id_idx = resourceLink.indexOf(CUSTOMER_ID_STRING);
-        int service_type_idx = resourceLink.indexOf(SERVICE_TYPE_STRING);
+        if ((null == resourceLink) || resourceLink.isEmpty()) {
+            return null;
+        }
+        int customerIdIdx = resourceLink.indexOf(CUSTOMER_ID_STRING);
+        int serviceTypeIdx = resourceLink.indexOf(SERVICE_TYPE_STRING);
 
-        if (( customer_id_idx < 0 ) || ( service_type_idx < 0 )) {
+        if (( customerIdIdx < 0 ) || ( serviceTypeIdx < 0 )) {
            return null;
         }
 
@@ -475,7 +477,7 @@ public class RestUtil {
      * Extract the vnf-list from the Json payload.
      */
     private static List<Vnf> extractVnfList(String payload) throws AuditException  {
-        List<Object> jsonSpec = JsonUtils.filepathToList(specPath);
+        List<Object> jsonSpec = JsonUtils.filepathToList(SPEC_PATH);
         Object jsonInput = JsonUtils.jsonToObject(payload);
         Chainr chainr = Chainr.fromSpec(jsonSpec);
         Object transObject = chainr.transform(jsonInput);

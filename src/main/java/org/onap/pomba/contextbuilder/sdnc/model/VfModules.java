@@ -72,7 +72,7 @@ public class VfModules {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VfModules) == false) {
+        if (!(other instanceof VfModules)) {
             return false;
         }
         VfModules rhs = ((VfModules) other);

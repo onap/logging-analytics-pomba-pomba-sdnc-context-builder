@@ -82,7 +82,7 @@ public class RelationshipDatum {
         if (other == this) {
             return true;
         }
-        if ((other instanceof RelationshipDatum) == false) {
+        if (!(other instanceof RelationshipDatum)) {
             return false;
         }
         RelationshipDatum rhs = ((RelationshipDatum) other);

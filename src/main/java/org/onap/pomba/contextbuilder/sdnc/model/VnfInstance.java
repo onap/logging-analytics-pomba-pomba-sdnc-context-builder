@@ -118,16 +118,6 @@ public class VnfInstance {
 
     private static final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
-    public static VnfInstance fromJson(String payload) throws AuditException {
-        try {
-            if (payload == null || payload.isEmpty()) {
-                throw new Exception(AuditError.JSON_EMPTY_RESPONSE);
-            }
-            return gson.fromJson(payload, VnfInstance.class);
-        } catch (Exception ex) {
-            throw new AuditException(AuditError.JSON_PARSE_ERROR, ex);
-        }
-    }
 
     /**
      * No args constructor for use in serialization
@@ -196,6 +186,18 @@ public class VnfInstance {
         this.relationshipList = relationshipList;
         this.vfModules = vfModules;
     }
+
+    public static VnfInstance fromJson(String payload) throws AuditException {
+        try {
+            if (payload == null || payload.isEmpty()) {
+                throw new AuditException(AuditError.JSON_EMPTY_RESPONSE);
+            }
+            return gson.fromJson(payload, VnfInstance.class);
+        } catch (Exception ex) {
+            throw new AuditException(AuditError.JSON_PARSE_ERROR, ex);
+        }
+    }
+
 
     public String getVnfId() {
         return vnfId;
@@ -428,7 +430,7 @@ public class VnfInstance {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfInstance) == false) {
+        if (!(other instanceof VnfInstance)) {
             return false;
         }
         VnfInstance rhs = ((VnfInstance) other);

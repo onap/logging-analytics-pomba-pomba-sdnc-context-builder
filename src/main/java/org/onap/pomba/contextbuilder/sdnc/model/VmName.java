@@ -79,7 +79,7 @@ public class VmName {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VmName) == false) {
+        if (!(other instanceof VmName)) {
             return false;
         }
         VmName rhs = ((VmName) other);

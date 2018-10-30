@@ -201,7 +201,7 @@ public class VfModule {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VfModule) == false) {
+        if (!(other instanceof VfModule)) {
             return false;
         }
         VfModule rhs = ((VfModule) other);

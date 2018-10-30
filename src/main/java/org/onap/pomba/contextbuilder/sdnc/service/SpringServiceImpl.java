@@ -58,14 +58,6 @@ public class SpringServiceImpl implements SpringService {
     private String aaiPathToSearchNodeQuery;
     @Autowired
     private String aaiPathToCustomerQuery;
-    @Autowired
-    public SpringServiceImpl(KieContainer kieContainer) {
-        this.kieContainer = kieContainer;
-    }
-
-    public SpringServiceImpl() {
-        // needed for instantiation
-    }
 
     public static final String APP_NAME = "SdncContextBuilder";
     public static final String MDC_REQUEST_ID = "RequestId";
@@ -81,6 +73,15 @@ public class SpringServiceImpl implements SpringService {
     public static final String MDC_INSTANCE_UUID = "InstanceUUID";
 
     private static UUID instanceUUID = UUID.randomUUID();
+
+    public SpringServiceImpl() {
+        // needed for instantiation
+    }
+
+    @Autowired
+    public SpringServiceImpl(KieContainer kieContainer) {
+        this.kieContainer = kieContainer;
+    }
 
     @Override
     public ModelContext getContext(HttpServletRequest request, String serviceInstanceId, String transactionId, String partnerName) throws AuditException {
@@ -120,9 +121,8 @@ public class SpringServiceImpl implements SpringService {
             MDC.put(MDC_SERVER_FQDN, InetAddress.getLocalHost().getCanonicalHostName());
         } catch (Exception e) {
             // If, for some reason we are unable to get the canonical host name,
-            // we
-            // just want to leave the field null.
-            log.info("Could not get canonical host name for " + MDC_SERVER_FQDN + ", leaving field null");
+            // we just want to leave the field null.
+            log.info("Could not get canonical host name for " + MDC_SERVER_FQDN + ", leaving field null", e);
         }
     }
 

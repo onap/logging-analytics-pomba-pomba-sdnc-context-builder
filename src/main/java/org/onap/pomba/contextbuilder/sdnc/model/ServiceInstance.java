@@ -202,7 +202,7 @@ public class ServiceInstance {
         if (other == this) {
             return true;
         }
-        if ((other instanceof ServiceInstance) == false) {
+        if (!(other instanceof ServiceInstance)) {
             return false;
         }
         ServiceInstance rhs = ((ServiceInstance) other);

@@ -33,6 +33,7 @@ public class OperStatus {
     @Expose
     private String lastOrderStatus;
 
+    private static final String NULL_STR = "<null>";
     /**
      * No args constructor for use in serialization
      *
@@ -83,15 +84,15 @@ public class OperStatus {
         sb.append(OperStatus.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("lastAction");
         sb.append('=');
-        sb.append(((this.lastAction == null)?"<null>":this.lastAction));
+        sb.append(((this.lastAction == null)?NULL_STR:this.lastAction));
         sb.append(',');
         sb.append("orderStatus");
         sb.append('=');
-        sb.append(((this.orderStatus == null)?"<null>":this.orderStatus));
+        sb.append(((this.orderStatus == null)?NULL_STR:this.orderStatus));
         sb.append(',');
         sb.append("lastOrderStatus");
         sb.append('=');
-        sb.append(((this.lastOrderStatus == null)?"<null>":this.lastOrderStatus));
+        sb.append(((this.lastOrderStatus == null)?NULL_STR:this.lastOrderStatus));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -115,7 +116,7 @@ public class OperStatus {
         if (other == this) {
             return true;
         }
-        if ((other instanceof OperStatus) == false) {
+        if (!(other instanceof OperStatus)) {
             return false;
         }
         OperStatus rhs = ((OperStatus) other);
