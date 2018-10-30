@@ -79,7 +79,7 @@ public class NetworkIpV6 {
         if (other == this) {
             return true;
         }
-        if ((other instanceof NetworkIpV6) == false) {
+        if (!(other instanceof NetworkIpV6)) {
             return false;
         }
         NetworkIpV6 rhs = ((NetworkIpV6) other);

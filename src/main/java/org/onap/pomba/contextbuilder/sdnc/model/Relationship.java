@@ -112,7 +112,7 @@ public class Relationship {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Relationship) == false) {
+        if (!(other instanceof Relationship)) {
             return false;
         }
         Relationship rhs = ((Relationship) other);

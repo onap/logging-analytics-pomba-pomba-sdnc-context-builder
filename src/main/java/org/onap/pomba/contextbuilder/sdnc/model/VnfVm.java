@@ -30,14 +30,15 @@ public class VnfVm {
     private String vmType;
     @SerializedName("vm-networks")
     @Expose
-    private List<VmNetwork> vmNetworks = new ArrayList<VmNetwork>();
+    private List<VmNetwork> vmNetworks = new ArrayList<>();
     @SerializedName("vm-count")
     @Expose
     private Integer vmCount;
     @SerializedName("vm-names")
     @Expose
-    private List<VmName> vmNames = new ArrayList<VmName>();
+    private List<VmName> vmNames = new ArrayList<>();
 
+    private final static String NULL_STR = "<null>";
 
     /**
      * No args constructor for use in serialization
@@ -99,19 +100,19 @@ public class VnfVm {
         sb.append(VnfVm.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("vmType");
         sb.append('=');
-        sb.append(((this.vmType == null)?"<null>":this.vmType));
+        sb.append(((this.vmType == null)?NULL_STR:this.vmType));
         sb.append(',');
         sb.append("vmNetworks");
         sb.append('=');
-        sb.append(((this.vmNetworks == null)?"<null>":this.vmNetworks));
+        sb.append(((this.vmNetworks == null)?NULL_STR:this.vmNetworks));
         sb.append(',');
         sb.append("vmCount");
         sb.append('=');
-        sb.append(((this.vmCount == null)?"<null>":this.vmCount));
+        sb.append(((this.vmCount == null)?NULL_STR:this.vmCount));
         sb.append(',');
         sb.append("vmNames");
         sb.append('=');
-        sb.append(((this.vmNames == null)?"<null>":this.vmNames));
+        sb.append(((this.vmNames == null)?NULL_STR:this.vmNames));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -136,7 +137,7 @@ public class VnfVm {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfVm) == false) {
+        if (!(other instanceof VnfVm)) {
             return false;
         }
         VnfVm rhs = ((VnfVm) other);

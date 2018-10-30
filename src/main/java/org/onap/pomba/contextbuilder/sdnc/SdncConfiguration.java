@@ -57,40 +57,24 @@ public class SdncConfiguration {
     @Value("${sdnc.vnfPath}")
     private String vnfPath;
 
-    @Bean(name="sdncBaseUrl")
-    public String getURL() {
-        return httpProtocol + "://" + serviceName + ":" + servicePort;
-    }
-
-    @Bean(name="sdncGenericResourcePath")
-    public String getGenericResourcePath() {
-        return genericResourcePath;
-    }
-
-    @Bean(name="sdncVnfPath")
-    public String getVnfPath() {
-        return vnfPath;
-    }
-
-    @Bean(name = "sdncBasicAuthorization")
-    public String getSdncBasicAuth() {
-        String auth = this.user + ":"+ Password.deobfuscate(this.password);
-        return ("Basic " + Base64.getEncoder().encodeToString(auth.getBytes()));
-    }
-
-    /* AAI related interfaces */
     @Value("${aai.serviceName}")
     private String aaiHost;
+
     @Value("${aai.servicePort}")
     private String aaiPort;
+
     @Value("${aai.username}")
     private String aaiUsername;
+
     @Value("${aai.password}")
     private String aaiPassword;
+
     @Value("${aai.httpProtocol}")
     private String aaiHttpProtocol;
+
     @Value("${aai.connectionTimeout}")
     private Integer aaiConnectionTimeout;
+
     @Value("${aai.readTimeout}")
     private Integer aaiReadTimeout;
 
@@ -109,20 +93,42 @@ public class SdncConfiguration {
     @Value("${aai.serviceInstancePath}")
     private String serviceInstancePath;
 
+    private final static String BASIC = "Basic ";
+
+    @Bean(name="sdncBaseUrl")
+    public String getURL() {
+        return httpProtocol + "://" + serviceName + ":" + servicePort;
+    }
+
+    @Bean(name="sdncGenericResourcePath")
+    public String getGenericResourcePath() {
+        return genericResourcePath;
+    }
+
+    @Bean(name="sdncVnfPath")
+    public String getVnfPath() {
+        return vnfPath;
+    }
+
+    @Bean(name = "sdncBasicAuthorization")
+    public String getSdncBasicAuth() {
+        String auth = this.user + ":"+ Password.deobfuscate(this.password);
+        return (BASIC + Base64.getEncoder().encodeToString(auth.getBytes()));
+    }
+
 
     @Bean(name="aaiHttpBasicAuthorization")
     public String getHttpBasicAuth() {
         String auth = new String(this.aaiHttpUserId + ":" + Password.deobfuscate(this.aaiHttpPassword));
-
         String encodedAuth =  Base64.getEncoder().encodeToString(auth.getBytes());
-        return ("Basic " + encodedAuth);
+        return (BASIC + encodedAuth);
     }
 
     @Bean(name="aaiBasicAuthorization")
     public String getAAIBasicAuth() {
         String auth = new String(this.aaiUsername + ":" + Password.deobfuscate(this.aaiPassword));
         String encodedAuth =  Base64.getEncoder().encodeToString(auth.getBytes());
-        return ("Basic " + encodedAuth);
+        return (BASIC + encodedAuth);
     }
 
     @Bean(name="aaiClient")
@@ -137,7 +143,6 @@ public class SdncConfiguration {
     @Bean(name="aaiBaseUrl")
     public String getAaiURL() {
         return httpProtocol + "://" + aaiHost + ":" + aaiPort;
-
     }
 
     @Bean(name="aaiPathToSearchNodeQuery")

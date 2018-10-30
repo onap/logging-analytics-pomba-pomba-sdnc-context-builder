@@ -30,7 +30,7 @@ public class VmNetwork {
     private String networkRole;
     @SerializedName("network-ips-v6")
     @Expose
-    private List<NetworkIpV6> networkIpsV6 = new ArrayList<NetworkIpV6>();
+    private List<NetworkIpV6> networkIpsV6 = new ArrayList<>();
     @SerializedName("floating-ip")
     @Expose
     private String floatingIp;
@@ -39,10 +39,12 @@ public class VmNetwork {
     private String useDhcp;
     @SerializedName("network-ips")
     @Expose
-    private List<NetworkIp> networkIps = new ArrayList<NetworkIp>();
+    private List<NetworkIp> networkIps = new ArrayList<>();
     @SerializedName("floating-ip-v6")
     @Expose
     private String floatingIpV6;
+
+    private final static String NULL_STR = "<null>";
 
     /**
      * No args constructor for use in serialization
@@ -124,27 +126,27 @@ public class VmNetwork {
         sb.append(VmNetwork.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("networkRole");
         sb.append('=');
-        sb.append(((this.networkRole == null)?"<null>":this.networkRole));
+        sb.append(((this.networkRole == null)?NULL_STR:this.networkRole));
         sb.append(',');
         sb.append("networkIpsV6");
         sb.append('=');
-        sb.append(((this.networkIpsV6 == null)?"<null>":this.networkIpsV6));
+        sb.append(((this.networkIpsV6 == null)?NULL_STR:this.networkIpsV6));
         sb.append(',');
         sb.append("floatingIp");
         sb.append('=');
-        sb.append(((this.floatingIp == null)?"<null>":this.floatingIp));
+        sb.append(((this.floatingIp == null)?NULL_STR:this.floatingIp));
         sb.append(',');
         sb.append("useDhcp");
         sb.append('=');
-        sb.append(((this.useDhcp == null)?"<null>":this.useDhcp));
+        sb.append(((this.useDhcp == null)?NULL_STR:this.useDhcp));
         sb.append(',');
         sb.append("networkIps");
         sb.append('=');
-        sb.append(((this.networkIps == null)?"<null>":this.networkIps));
+        sb.append(((this.networkIps == null)?NULL_STR:this.networkIps));
         sb.append(',');
         sb.append("floatingIpV6");
         sb.append('=');
-        sb.append(((this.floatingIpV6 == null)?"<null>":this.floatingIpV6));
+        sb.append(((this.floatingIpV6 == null)?NULL_STR:this.floatingIpV6));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -171,7 +173,7 @@ public class VmNetwork {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VmNetwork) == false) {
+        if (!(other instanceof VmNetwork)) {
             return false;
         }
         VmNetwork rhs = ((VmNetwork) other);

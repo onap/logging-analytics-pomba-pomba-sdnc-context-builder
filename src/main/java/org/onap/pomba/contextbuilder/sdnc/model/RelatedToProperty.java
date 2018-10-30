@@ -82,7 +82,7 @@ public class RelatedToProperty {
         if (other == this) {
             return true;
         }
-        if ((other instanceof RelatedToProperty) == false) {
+        if (!(other instanceof RelatedToProperty)) {
             return false;
         }
         RelatedToProperty rhs = ((RelatedToProperty) other);

@@ -79,7 +79,7 @@ public class NetworkIp {
         if (other == this) {
             return true;
         }
-        if ((other instanceof NetworkIp) == false) {
+        if (!(other instanceof NetworkIp)) {
             return false;
         }
         NetworkIp rhs = ((NetworkIp) other);

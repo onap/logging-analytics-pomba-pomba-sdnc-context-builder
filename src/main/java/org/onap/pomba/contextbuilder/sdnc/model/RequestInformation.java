@@ -33,6 +33,8 @@ public class RequestInformation {
     @Expose
     private String requestAction;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -83,15 +85,15 @@ public class RequestInformation {
         sb.append(RequestInformation.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("requestId");
         sb.append('=');
-        sb.append(((this.requestId == null)?"<null>":this.requestId));
+        sb.append(((this.requestId == null)?NULL_STR:this.requestId));
         sb.append(',');
         sb.append("source");
         sb.append('=');
-        sb.append(((this.source == null)?"<null>":this.source));
+        sb.append(((this.source == null)?NULL_STR:this.source));
         sb.append(',');
         sb.append("requestAction");
         sb.append('=');
-        sb.append(((this.requestAction == null)?"<null>":this.requestAction));
+        sb.append(((this.requestAction == null)?NULL_STR:this.requestAction));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -115,7 +117,7 @@ public class RequestInformation {
         if (other == this) {
             return true;
         }
-        if ((other instanceof RequestInformation) == false) {
+        if (!(other instanceof RequestInformation)) {
             return false;
         }
         RequestInformation rhs = ((RequestInformation) other);

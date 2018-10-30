@@ -45,7 +45,7 @@ public class GenericResourceApiHandler {
 
     private String specPath = "config/sdncgenericresource.spec";
 
-    public ModelContext process(Exchange exchange) throws Exception {
+    public ModelContext process(Exchange exchange) throws AuditException {
 
         ModelContext context = new ModelContext();
         log.info("in GENERIC-RESOURCE-API HANDLER: ");

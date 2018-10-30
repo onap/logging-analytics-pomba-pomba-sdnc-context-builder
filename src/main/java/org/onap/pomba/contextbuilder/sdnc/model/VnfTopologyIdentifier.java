@@ -39,6 +39,8 @@ public class VnfTopologyIdentifier {
     @Expose
     private String vnfType;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -109,23 +111,23 @@ public class VnfTopologyIdentifier {
         sb.append(VnfTopologyIdentifier.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("genericVnfType");
         sb.append('=');
-        sb.append(((this.genericVnfType == null)?"<null>":this.genericVnfType));
+        sb.append(((this.genericVnfType == null)?NULL_STR:this.genericVnfType));
         sb.append(',');
         sb.append("serviceType");
         sb.append('=');
-        sb.append(((this.serviceType == null)?"<null>":this.serviceType));
+        sb.append(((this.serviceType == null)?NULL_STR:this.serviceType));
         sb.append(',');
         sb.append("vnfName");
         sb.append('=');
-        sb.append(((this.vnfName == null)?"<null>":this.vnfName));
+        sb.append(((this.vnfName == null)?NULL_STR:this.vnfName));
         sb.append(',');
         sb.append("genericVnfName");
         sb.append('=');
-        sb.append(((this.genericVnfName == null)?"<null>":this.genericVnfName));
+        sb.append(((this.genericVnfName == null)?NULL_STR:this.genericVnfName));
         sb.append(',');
         sb.append("vnfType");
         sb.append('=');
-        sb.append(((this.vnfType == null)?"<null>":this.vnfType));
+        sb.append(((this.vnfType == null)?NULL_STR:this.vnfType));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -151,7 +153,7 @@ public class VnfTopologyIdentifier {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfTopologyIdentifier) == false) {
+        if (!(other instanceof VnfTopologyIdentifier)) {
             return false;
         }
         VnfTopologyIdentifier rhs = ((VnfTopologyIdentifier) other);

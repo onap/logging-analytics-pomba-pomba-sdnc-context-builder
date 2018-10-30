@@ -51,6 +51,8 @@ public class VnfRequestInformation {
     @Expose
     private String genericVnfId;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -161,39 +163,39 @@ public class VnfRequestInformation {
         sb.append(VnfRequestInformation.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("vnfName");
         sb.append('=');
-        sb.append(((this.vnfName == null)?"<null>":this.vnfName));
+        sb.append(((this.vnfName == null)?NULL_STR:this.vnfName));
         sb.append(',');
         sb.append("tenant");
         sb.append('=');
-        sb.append(((this.tenant == null)?"<null>":this.tenant));
+        sb.append(((this.tenant == null)?NULL_STR:this.tenant));
         sb.append(',');
         sb.append("aicCloudRegion");
         sb.append('=');
-        sb.append(((this.aicCloudRegion == null)?"<null>":this.aicCloudRegion));
+        sb.append(((this.aicCloudRegion == null)?NULL_STR:this.aicCloudRegion));
         sb.append(',');
         sb.append("usePreload");
         sb.append('=');
-        sb.append(((this.usePreload == null)?"<null>":this.usePreload));
+        sb.append(((this.usePreload == null)?NULL_STR:this.usePreload));
         sb.append(',');
         sb.append("vnfType");
         sb.append('=');
-        sb.append(((this.vnfType == null)?"<null>":this.vnfType));
+        sb.append(((this.vnfType == null)?NULL_STR:this.vnfType));
         sb.append(',');
         sb.append("vnfId");
         sb.append('=');
-        sb.append(((this.vnfId == null)?"<null>":this.vnfId));
+        sb.append(((this.vnfId == null)?NULL_STR:this.vnfId));
         sb.append(',');
         sb.append("genericVnfType");
         sb.append('=');
-        sb.append(((this.genericVnfType == null)?"<null>":this.genericVnfType));
+        sb.append(((this.genericVnfType == null)?NULL_STR:this.genericVnfType));
         sb.append(',');
         sb.append("genericVnfName");
         sb.append('=');
-        sb.append(((this.genericVnfName == null)?"<null>":this.genericVnfName));
+        sb.append(((this.genericVnfName == null)?NULL_STR:this.genericVnfName));
         sb.append(',');
         sb.append("genericVnfId");
         sb.append('=');
-        sb.append(((this.genericVnfId == null)?"<null>":this.genericVnfId));
+        sb.append(((this.genericVnfId == null)?NULL_STR:this.genericVnfId));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -223,7 +225,7 @@ public class VnfRequestInformation {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfRequestInformation) == false) {
+        if (!(other instanceof VnfRequestInformation)) {
             return false;
         }
         VnfRequestInformation rhs = ((VnfRequestInformation) other);

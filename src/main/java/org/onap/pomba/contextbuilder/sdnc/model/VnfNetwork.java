@@ -39,6 +39,8 @@ public class VnfNetwork {
     @Expose
     private String neutronId;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -109,23 +111,23 @@ public class VnfNetwork {
         sb.append(VnfNetwork.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("networkRole");
         sb.append('=');
-        sb.append(((this.networkRole == null)?"<null>":this.networkRole));
+        sb.append(((this.networkRole == null)?NULL_STR:this.networkRole));
         sb.append(',');
         sb.append("contrailNetworkFqdn");
         sb.append('=');
-        sb.append(((this.contrailNetworkFqdn == null)?"<null>":this.contrailNetworkFqdn));
+        sb.append(((this.contrailNetworkFqdn == null)?NULL_STR:this.contrailNetworkFqdn));
         sb.append(',');
         sb.append("networkName");
         sb.append('=');
-        sb.append(((this.networkName == null)?"<null>":this.networkName));
+        sb.append(((this.networkName == null)?NULL_STR:this.networkName));
         sb.append(',');
         sb.append("networkId");
         sb.append('=');
-        sb.append(((this.networkId == null)?"<null>":this.networkId));
+        sb.append(((this.networkId == null)?NULL_STR:this.networkId));
         sb.append(',');
         sb.append("neutronId");
         sb.append('=');
-        sb.append(((this.neutronId == null)?"<null>":this.neutronId));
+        sb.append(((this.neutronId == null)?NULL_STR:this.neutronId));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -151,7 +153,7 @@ public class VnfNetwork {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfNetwork) == false) {
+        if (!(other instanceof VnfNetwork)) {
             return false;
         }
         VnfNetwork rhs = ((VnfNetwork) other);

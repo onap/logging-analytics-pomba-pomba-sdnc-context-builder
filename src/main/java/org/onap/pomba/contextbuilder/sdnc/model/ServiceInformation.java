@@ -36,6 +36,8 @@ public class ServiceInformation {
     @Expose
     private String serviceInstanceId;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -96,19 +98,19 @@ public class ServiceInformation {
         sb.append(ServiceInformation.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("serviceId");
         sb.append('=');
-        sb.append(((this.serviceId == null)?"<null>":this.serviceId));
+        sb.append(((this.serviceId == null)?NULL_STR:this.serviceId));
         sb.append(',');
         sb.append("serviceType");
         sb.append('=');
-        sb.append(((this.serviceType == null)?"<null>":this.serviceType));
+        sb.append(((this.serviceType == null)?NULL_STR:this.serviceType));
         sb.append(',');
         sb.append("subscriberName");
         sb.append('=');
-        sb.append(((this.subscriberName == null)?"<null>":this.subscriberName));
+        sb.append(((this.subscriberName == null)?NULL_STR:this.subscriberName));
         sb.append(',');
         sb.append("serviceInstanceId");
         sb.append('=');
-        sb.append(((this.serviceInstanceId == null)?"<null>":this.serviceInstanceId));
+        sb.append(((this.serviceInstanceId == null)?NULL_STR:this.serviceInstanceId));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -133,7 +135,7 @@ public class ServiceInformation {
         if (other == this) {
             return true;
         }
-        if ((other instanceof ServiceInformation) == false) {
+        if (!(other instanceof ServiceInformation)) {
             return false;
         }
         ServiceInformation rhs = ((ServiceInformation) other);

@@ -27,13 +27,15 @@ public class VnfAssignments {
 
     @SerializedName("vnf-networks")
     @Expose
-    private List<VnfNetwork> vnfNetworks = new ArrayList<VnfNetwork>();
+    private List<VnfNetwork> vnfNetworks = new ArrayList<>();
     @SerializedName("availability-zones")
     @Expose
-    private List<AvailabilityZone> availabilityZones = new ArrayList<AvailabilityZone>();
+    private List<AvailabilityZone> availabilityZones = new ArrayList<>();
     @SerializedName("vnf-vms")
     @Expose
-    private List<VnfVm> vnfVms = new ArrayList<VnfVm>();
+    private List<VnfVm> vnfVms = new ArrayList<>();
+
+    private final static String NULL_STR = "<null>";
 
     /**
      * No args constructor for use in serialization
@@ -85,15 +87,15 @@ public class VnfAssignments {
         sb.append(VnfAssignments.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("vnfNetworks");
         sb.append('=');
-        sb.append(((this.vnfNetworks == null)?"<null>":this.vnfNetworks));
+        sb.append(((this.vnfNetworks == null)?NULL_STR:this.vnfNetworks));
         sb.append(',');
         sb.append("availabilityZones");
         sb.append('=');
-        sb.append(((this.availabilityZones == null)?"<null>":this.availabilityZones));
+        sb.append(((this.availabilityZones == null)?NULL_STR:this.availabilityZones));
         sb.append(',');
         sb.append("vnfVms");
         sb.append('=');
-        sb.append(((this.vnfVms == null)?"<null>":this.vnfVms));
+        sb.append(((this.vnfVms == null)?NULL_STR:this.vnfVms));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -117,7 +119,7 @@ public class VnfAssignments {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfAssignments) == false) {
+        if (!(other instanceof VnfAssignments)) {
             return false;
         }
         VnfAssignments rhs = ((VnfAssignments) other);

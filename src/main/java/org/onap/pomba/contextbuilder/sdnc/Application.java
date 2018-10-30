@@ -64,7 +64,6 @@ public class Application extends SpringBootServletInitializer {
 
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
-        KieContainer kContainer = kServices.newKieContainer(kr.getDefaultReleaseId());
-        return kContainer;
+        return kServices.newKieContainer(kr.getDefaultReleaseId());
     }
 }

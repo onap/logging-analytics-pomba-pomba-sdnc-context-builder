@@ -73,7 +73,6 @@ public class VnfApiHandler {
     public ModelContext process(Exchange exchange) throws Exception {
 
         log.info("in VNF-API HANDLER: ");
-        ModelContext context = new ModelContext();
         Service service = new Service();
         ServiceEntity serviceEntity = (ServiceEntity)exchange.getIn().getBody();
         service.setUuid(serviceEntity.getServiceInstanceId());
@@ -81,7 +80,7 @@ public class VnfApiHandler {
 
         // GET the list of VNF related-to links from AAI
         String url= aaiBaseUrl+generateServiceInstanceURL(aaiServiceInstancePath, serviceEntity.getCustomerId(), serviceEntity.getServiceType(), serviceEntity.getServiceInstanceId());
-        String serviceInstancePayload = RestUtil.getAaiResource(aaiClient, url, aaiBasicAuthorization, serviceEntity.getTransactionId(), MediaType.valueOf(MediaType.APPLICATION_JSON));
+        String serviceInstancePayload = RestUtil.getAaiResource(aaiClient, url, aaiBasicAuthorization, serviceEntity.getTransactionId());
         List<String> genericVnfLinks = extractGenericVnfRelatedLink(serviceInstancePayload);
 
         // GET the VNF list (module-id) from AAI
@@ -93,7 +92,7 @@ public class VnfApiHandler {
                 sdncBasicAuthorization, vnfList);
 
         // Transform the AAI and SDNC models to the audit common model
-        context = RestUtil.transformVnfList(vnfList, sdncVnfMap);
+        ModelContext context = RestUtil.transformVnfList(vnfList, sdncVnfMap);
 
         context.setService(service);
 
@@ -104,15 +103,8 @@ public class VnfApiHandler {
         return MessageFormat.format(siPath, customerId, serviceType, serviceInstanceId);
     }
 
-    /*
-     * Extract the generic-vnf related-linkfrom Json payload. For example
-     * {
-     *    "related-to": "generic-vnf",
-     *    "related-link": "/aai/v11/network/generic-vnfs/generic-vnf/d94daff6-7d5b-4d2e-bc99-c9af0754b59d",
-     * }
-     */
     private static List<String> extractGenericVnfRelatedLink(String serviceInstancePayload) throws AuditException {
-        List<String> genericVnfLinks = new ArrayList<String>();;
+        List<String> genericVnfLinks = new ArrayList<>();;
 
         try {
             JSONObject relationshipList = new JSONObject(serviceInstancePayload).getJSONObject(JSON_RELATIONSHIP_LIST);
@@ -133,10 +125,10 @@ public class VnfApiHandler {
     }
 
     private static List<VnfInstance> retrieveAaiVnfList(RestClient aaiClient, String aaiBaseUrl, String aaiBasicAuthorization, String transactionId, List <String>genericVnfLinks) throws AuditException {
-        List<VnfInstance> vnfList = new ArrayList<VnfInstance>();
+        List<VnfInstance> vnfList = new ArrayList<>();
         for (String genericVnfLink : genericVnfLinks) {
             String genericVnfUrl = RestUtil.generateAaiUrl(aaiBaseUrl, genericVnfLink, null);
-            String genericVnfPayload = RestUtil.getAaiResource(aaiClient, genericVnfUrl, aaiBasicAuthorization, transactionId, MediaType.valueOf(MediaType.APPLICATION_JSON));
+            String genericVnfPayload = RestUtil.getAaiResource(aaiClient, genericVnfUrl, aaiBasicAuthorization, transactionId);
             if (genericVnfPayload.equals(EMPTY_JSON_STRING)) {
                 log.info("retrieveAaiVnfList "+ genericVnfPayload +" is not found, " + "return empty Json ");
             } else {

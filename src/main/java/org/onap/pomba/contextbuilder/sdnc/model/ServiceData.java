@@ -45,6 +45,8 @@ public class ServiceData {
     @Expose
     private VnfTopologyInformation vnfTopologyInformation;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -135,31 +137,31 @@ public class ServiceData {
         sb.append(ServiceData.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("requestInformation");
         sb.append('=');
-        sb.append(((this.requestInformation == null)?"<null>":this.requestInformation));
+        sb.append(((this.requestInformation == null)?NULL_STR:this.requestInformation));
         sb.append(',');
         sb.append("erviceInformation");
         sb.append('=');
-        sb.append(((this.serviceInformation == null)?"<null>":this.serviceInformation));
+        sb.append(((this.serviceInformation == null)?NULL_STR:this.serviceInformation));
         sb.append(',');
         sb.append("vnfId");
         sb.append('=');
-        sb.append(((this.vnfId == null)?"<null>":this.vnfId));
+        sb.append(((this.vnfId == null)?NULL_STR:this.vnfId));
         sb.append(',');
         sb.append("sdncRequestHeader");
         sb.append('=');
-        sb.append(((this.sdncRequestHeader == null)?"<null>":this.sdncRequestHeader));
+        sb.append(((this.sdncRequestHeader == null)?NULL_STR:this.sdncRequestHeader));
         sb.append(',');
         sb.append("vnfRequestInformation");
         sb.append('=');
-        sb.append(((this.vnfRequestInformation == null)?"<null>":this.vnfRequestInformation));
+        sb.append(((this.vnfRequestInformation == null)?NULL_STR:this.vnfRequestInformation));
         sb.append(',');
         sb.append("operStatus");
         sb.append('=');
-        sb.append(((this.operStatus == null)?"<null>":this.operStatus));
+        sb.append(((this.operStatus == null)?NULL_STR:this.operStatus));
         sb.append(',');
         sb.append("vnfTopologyInformation");
         sb.append('=');
-        sb.append(((this.vnfTopologyInformation == null)?"<null>":this.vnfTopologyInformation));
+        sb.append(((this.vnfTopologyInformation == null)?NULL_STR:this.vnfTopologyInformation));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -187,7 +189,7 @@ public class ServiceData {
         if (other == this) {
             return true;
         }
-        if ((other instanceof ServiceData) == false) {
+        if (!(other instanceof ServiceData)) {
             return false;
         }
         ServiceData rhs = ((ServiceData) other);

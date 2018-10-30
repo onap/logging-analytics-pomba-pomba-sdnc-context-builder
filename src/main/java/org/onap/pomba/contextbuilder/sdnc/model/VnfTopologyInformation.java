@@ -33,7 +33,9 @@ public class VnfTopologyInformation {
     private VnfAssignments vnfAssignments;
     @SerializedName("vnf-parameters")
     @Expose
-    private List<VnfParameter> vnfParameters = new ArrayList<VnfParameter>();
+    private List<VnfParameter> vnfParameters = new ArrayList<>();
+
+    private final static String NULL_STR = "<null>";
 
     /**
      * No args constructor for use in serialization
@@ -85,15 +87,15 @@ public class VnfTopologyInformation {
         sb.append(VnfTopologyInformation.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("vnfTopologyIdentifier");
         sb.append('=');
-        sb.append(((this.vnfTopologyIdentifier == null)?"<null>":this.vnfTopologyIdentifier));
+        sb.append(((this.vnfTopologyIdentifier == null)?NULL_STR:this.vnfTopologyIdentifier));
         sb.append(',');
         sb.append("vnfAssignments");
         sb.append('=');
-        sb.append(((this.vnfAssignments == null)?"<null>":this.vnfAssignments));
+        sb.append(((this.vnfAssignments == null)?NULL_STR:this.vnfAssignments));
         sb.append(',');
         sb.append("vnfParameters");
         sb.append('=');
-        sb.append(((this.vnfParameters == null)?"<null>":this.vnfParameters));
+        sb.append(((this.vnfParameters == null)?NULL_STR:this.vnfParameters));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -117,7 +119,7 @@ public class VnfTopologyInformation {
         if (other == this) {
             return true;
         }
-        if ((other instanceof VnfTopologyInformation) == false) {
+        if (!(other instanceof VnfTopologyInformation)) {
             return false;
         }
         VnfTopologyInformation rhs = ((VnfTopologyInformation) other);

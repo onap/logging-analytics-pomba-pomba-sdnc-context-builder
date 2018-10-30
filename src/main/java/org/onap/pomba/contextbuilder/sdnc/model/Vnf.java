@@ -33,6 +33,7 @@ public class Vnf {
     @Expose
     private ServiceData serviceData;
 
+    private final static String NULL_STR = "<null>";
 
     /**
      * No args constructor for use in serialization
@@ -84,15 +85,15 @@ public class Vnf {
         sb.append(Vnf.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("vnfId");
         sb.append('=');
-        sb.append(((this.vnfId == null)?"<null>":this.vnfId));
+        sb.append(((this.vnfId == null)?NULL_STR:this.vnfId));
         sb.append(',');
         sb.append("serviceStatus");
         sb.append('=');
-        sb.append(((this.serviceStatus == null)?"<null>":this.serviceStatus));
+        sb.append(((this.serviceStatus == null)?NULL_STR:this.serviceStatus));
         sb.append(',');
         sb.append("serviceData");
         sb.append('=');
-        sb.append(((this.serviceData == null)?"<null>":this.serviceData));
+        sb.append(((this.serviceData == null)?NULL_STR:this.serviceData));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -116,7 +117,7 @@ public class Vnf {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Vnf) == false) {
+        if (!(other instanceof Vnf)) {
             return false;
         }
         Vnf rhs = ((Vnf) other);

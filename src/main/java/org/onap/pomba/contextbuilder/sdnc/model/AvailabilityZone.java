@@ -79,7 +79,7 @@ public class AvailabilityZone {
         if (other == this) {
             return true;
         }
-        if ((other instanceof AvailabilityZone) == false) {
+        if (!(other instanceof AvailabilityZone)) {
             return false;
         }
         AvailabilityZone rhs = ((AvailabilityZone) other);

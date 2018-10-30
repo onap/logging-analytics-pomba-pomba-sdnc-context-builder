@@ -33,6 +33,8 @@ public class SdncRequestHeader {
     @Expose
     private String svcAction;
 
+    private final static String NULL_STR = "<null>";
+
     /**
      * No args constructor for use in serialization
      *
@@ -83,15 +85,15 @@ public class SdncRequestHeader {
         sb.append(SdncRequestHeader.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("svcNotificationUrl");
         sb.append('=');
-        sb.append(((this.svcNotificationUrl == null)?"<null>":this.svcNotificationUrl));
+        sb.append(((this.svcNotificationUrl == null)?NULL_STR:this.svcNotificationUrl));
         sb.append(',');
         sb.append("svcRequestId");
         sb.append('=');
-        sb.append(((this.svcRequestId == null)?"<null>":this.svcRequestId));
+        sb.append(((this.svcRequestId == null)?NULL_STR:this.svcRequestId));
         sb.append(',');
         sb.append("svcAction");
         sb.append('=');
-        sb.append(((this.svcAction == null)?"<null>":this.svcAction));
+        sb.append(((this.svcAction == null)?NULL_STR:this.svcAction));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -115,7 +117,7 @@ public class SdncRequestHeader {
         if (other == this) {
             return true;
         }
-        if ((other instanceof SdncRequestHeader) == false) {
+        if (!(other instanceof SdncRequestHeader)) {
             return false;
         }
         SdncRequestHeader rhs = ((SdncRequestHeader) other);

@@ -40,7 +40,7 @@ public class RestServiceImpl implements RestService {
     private SpringService service;
 
 
-    public RestServiceImpl() throws UnsupportedOperationException{
+    public RestServiceImpl() {
     }
 
     @Override
