@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_24578804",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-11-02T15:04:05Z",
+      "side": 0,
+      "message": "SONAR flagged it as \"Commented out code, should be removed\".\n\nI think the Java code is self documenting but I can add in comments that don\u0027t flag Sonar if it\u0027s necessary.",
+      "parentUuid": "9adffdf1_5e8ff923",
+      "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_7e943d37",
         "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_e440a037",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-11-02T15:04:05Z",
+      "side": 0,
+      "message": "Same as above.",
+      "parentUuid": "9adffdf1_7e943d37",
+      "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_1e99716e",
         "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2018-11-02T01:27:04Z",
       "side": 0,
       "message": "Why was it removed?",
+      "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_043e04b9",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-11-02T15:04:05Z",
+      "side": 0,
+      "message": "Same as above.",
+      "parentUuid": "9adffdf1_1e99716e",
       "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false

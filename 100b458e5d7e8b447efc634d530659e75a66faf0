@@ -16,6 +16,24 @@
       "revId": "100b458e5d7e8b447efc634d530659e75a66faf0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a44a9853",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-11-02T15:04:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_3e879511",
+      "revId": "100b458e5d7e8b447efc634d530659e75a66faf0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
