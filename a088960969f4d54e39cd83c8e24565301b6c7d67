@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_5e8ff923",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 3479
+      },
+      "writtenOn": "2018-11-02T01:27:04Z",
+      "side": 0,
+      "message": "Why was it removed?",
+      "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7e943d37",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 3479
+      },
+      "writtenOn": "2018-11-02T01:27:04Z",
+      "side": 0,
+      "message": "Why was it removed?",
+      "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1e99716e",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 3479
+      },
+      "writtenOn": "2018-11-02T01:27:04Z",
+      "side": 0,
+      "message": "Why was it removed?",
+      "revId": "a088960969f4d54e39cd83c8e24565301b6c7d67",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
