@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_0e105e4d",
+        "filename": "config/sdncgenericresource.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-11-04T21:41:28Z",
+      "side": 1,
+      "message": "Most of this is cleanup of DOS characters",
+      "revId": "3f5ba3e09c2056a83e7376c24b7c44ac3e6d32dd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ae1cb26b",
+        "filename": "config/vnflist.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2018-11-04T21:41:28Z",
+      "side": 1,
+      "message": "This is cleanup of DOS characters",
+      "revId": "3f5ba3e09c2056a83e7376c24b7c44ac3e6d32dd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
