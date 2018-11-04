@@ -49,11 +49,27 @@
                                 "vms": {
                                   "vm": {
                                     "*": {
+                                      "vm-type": "vfList[&11].vfModuleList[&7].vmList[&1].nfNamingCode",
                                       "vm-names": {
                                         "vm-name": {
-                                          "@(2,vm-type)": "vfList[&13].vfModuleList[&9].vmList[&3].nfNamingCode",
                                           "*": "vfList[&13].vfModuleList[&9].vmList[&3].name"
                                         }
+                                      },
+                                      "inMaint": {
+                                        "#lockedBoolean": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[0].name",
+                                        "@(1,inMaint)": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[0].value"
+                                      },
+                                      "prov-status": {
+                                        "#provStatus": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[1].name",
+                                        "@(1,prov-status)": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[1].value"
+                                      },
+                                      "pserver": {
+                                        "#hostName": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[2].name",
+                                        "hostname": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[2].value"
+                                      },
+                                      "image": {
+                                        "#imageId": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[3].name",
+                                        "image-name": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[3].value"
                                       }
                                     }
                                   }

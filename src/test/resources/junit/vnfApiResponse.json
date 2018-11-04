@@ -147,7 +147,15 @@
               "vnf-type": "VshakenIst09042018..base_alb..module-3",
               "generic-vnf-name": "zdyh3bsflb0001v_01",
               "generic-vnf-type": "vShaken_DNS_ns592n/vSHAKEN_IST_09042018 0",
-              "vnf-name": "zdyh3bsflb0001v_base_module_01"
+              "vnf-name": "zdyh3bsflb0001v_base_module_01",
+              "inMaint":"no",
+              "pserver":{
+                 "hostname": "somerandomserver.ottawa.com"
+               },
+               "image":{
+                  "image-name": "cfad8f38-3d4c-4aec-8bd4-f83ad605acbe"
+               },
+               "prov-status": "Available"
             }
           },
           "service-information": {

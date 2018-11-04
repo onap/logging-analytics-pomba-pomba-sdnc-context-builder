@@ -56,7 +56,7 @@ public class VnfTopologyInformationTest {
                                                                                     new VnfAssignments(),
                                                                                     new ArrayList<VnfParameter>());
         assertTrue(vnfTopologyInformation1.equals(vnfTopologyInformation1));
-        assertTrue(vnfTopologyInformation1.hashCode() == 917116897);
+        assertTrue(vnfTopologyInformation1.hashCode() == -1767338143);
     }
 
 }

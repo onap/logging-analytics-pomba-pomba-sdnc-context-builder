@@ -38,6 +38,20 @@ public class VnfTopologyIdentifier {
     @SerializedName("vnf-type")
     @Expose
     private String vnfType;
+    @SerializedName("inMaint")
+    @Expose
+    private String inMaint;
+    @SerializedName("prov-status")
+    @Expose
+    private String provStatus;
+    @SerializedName("pserver")
+    @Expose
+    private Pserver pserver;
+    @SerializedName("image")
+    @Expose
+    private Image image;
+
+
 
     private final static String NULL_STR = "<null>";
 
@@ -56,13 +70,17 @@ public class VnfTopologyIdentifier {
      * @param vnfType
      * @param genericVnfType
      */
-    public VnfTopologyIdentifier(String genericVnfType, String serviceType, String vnfName, String genericVnfName, String vnfType) {
+    public VnfTopologyIdentifier(String genericVnfType, String serviceType, String vnfName, String genericVnfName, String vnfType, String inMaint, String provStatus, Pserver pserver, Image image) {
         super();
         this.genericVnfType = genericVnfType;
         this.serviceType = serviceType;
         this.vnfName = vnfName;
         this.genericVnfName = genericVnfName;
         this.vnfType = vnfType;
+        this.inMaint = inMaint;
+        this.provStatus = provStatus;
+        this.pserver = pserver;
+        this.image = image;
     }
 
     public String getGenericVnfType() {
@@ -105,6 +123,39 @@ public class VnfTopologyIdentifier {
         this.vnfType = vnfType;
     }
 
+    public String getInMaint() {
+        return inMaint;
+    }
+
+    public void setInMaint(String inMaint) {
+        this.inMaint = inMaint;
+    }
+
+    public String getProvStatus() {
+        return provStatus;
+    }
+
+    public void setProvStatus(String provStatus) {
+        this.provStatus = provStatus;
+    }
+
+    public Pserver getPserver() {
+        return pserver;
+    }
+
+    public void setPserver(Pserver pserver) {
+        this.pserver = pserver;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -129,6 +180,15 @@ public class VnfTopologyIdentifier {
         sb.append('=');
         sb.append(((this.vnfType == null)?NULL_STR:this.vnfType));
         sb.append(',');
+        sb.append("inMaint");
+        sb.append('=');
+        sb.append(((this.inMaint == null)?NULL_STR:this.inMaint));
+        sb.append(',');
+        sb.append("provStatus");
+        sb.append('=');
+        sb.append(((this.provStatus == null)?NULL_STR:this.provStatus));
+        sb.append(',');
+
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -145,6 +205,10 @@ public class VnfTopologyIdentifier {
         result = ((result* 31)+((this.genericVnfName == null)? 0 :this.genericVnfName.hashCode()));
         result = ((result* 31)+((this.vnfType == null)? 0 :this.vnfType.hashCode()));
         result = ((result* 31)+((this.genericVnfType == null)? 0 :this.genericVnfType.hashCode()));
+        result = ((result* 31)+((this.inMaint == null)? 0 :this.inMaint.hashCode()));
+        result = ((result* 31)+((this.provStatus == null)? 0 :this.provStatus.hashCode()));
+        result = ((result* 31)+((this.pserver == null)? 0 :this.pserver.hashCode()));
+        result = ((result* 31)+((this.image == null)? 0 :this.image.hashCode()));
         return result;
     }
 

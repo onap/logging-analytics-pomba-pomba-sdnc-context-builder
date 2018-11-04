@@ -22,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.onap.pomba.contextbuilder.sdnc.model.Image;
+import org.onap.pomba.contextbuilder.sdnc.model.Pserver;
 import org.onap.pomba.contextbuilder.sdnc.model.VnfTopologyIdentifier;
 
 public class VnfTopologyIdentifierTest {
@@ -31,12 +33,21 @@ public class VnfTopologyIdentifierTest {
                                                                                 "serviceType",
                                                                                 "vnfName",
                                                                                 "genericVnfName",
-                                                                                "vnfType");
+                                                                                "vnfType",
+                                                                                "inMaint",
+                                                                                "provStatus",
+                                                                                new Pserver(),
+                                                                                new Image());
         assertEquals("genericVnfType", vnfTopologyIdentifier.getGenericVnfType());
         assertEquals("serviceType", vnfTopologyIdentifier.getServiceType());
         assertEquals("vnfName", vnfTopologyIdentifier.getVnfName());
         assertEquals("genericVnfName", vnfTopologyIdentifier.getGenericVnfName());
         assertEquals("vnfType", vnfTopologyIdentifier.getVnfType());
+        assertEquals("inMaint", vnfTopologyIdentifier.getInMaint());
+        assertEquals("provStatus", vnfTopologyIdentifier.getProvStatus());
+        assertEquals(new Pserver(), vnfTopologyIdentifier.getPserver());
+        assertEquals(new Image(), vnfTopologyIdentifier.getImage());
+
     }
 
     @Test
@@ -47,15 +58,23 @@ public class VnfTopologyIdentifierTest {
         vnfTopologyIdentifier.setVnfName("vnfName");
         vnfTopologyIdentifier.setGenericVnfName("genericVnfName");
         vnfTopologyIdentifier.setVnfType("vnfType");
+        vnfTopologyIdentifier.setInMaint("inMaint");
+        vnfTopologyIdentifier.setProvStatus("provStatus");
+        vnfTopologyIdentifier.setPserver(new Pserver());
+        vnfTopologyIdentifier.setImage(new Image());
         assertEquals("genericVnfType", vnfTopologyIdentifier.getGenericVnfType());
         assertEquals("serviceType", vnfTopologyIdentifier.getServiceType());
         assertEquals("vnfName", vnfTopologyIdentifier.getVnfName());
         assertEquals("genericVnfName", vnfTopologyIdentifier.getGenericVnfName());
         assertEquals("vnfType", vnfTopologyIdentifier.getVnfType());
+        assertEquals("inMaint", vnfTopologyIdentifier.getInMaint());
+        assertEquals("provStatus", vnfTopologyIdentifier.getProvStatus());
+        assertEquals(new Pserver(), vnfTopologyIdentifier.getPserver());
+        assertEquals(new Image(), vnfTopologyIdentifier.getImage());
         String vnfTopologyIdentifierString = vnfTopologyIdentifier.toString();
         assertTrue(vnfTopologyIdentifierString
                    .contains("[genericVnfType=genericVnfType,serviceType=serviceType,vnfName=vnfName,"
-                             + "genericVnfName=genericVnfName,vnfType=vnfType]"));
+                             + "genericVnfName=genericVnfName,vnfType=vnfType,inMaint=inMaint,provStatus=provStatus]"));
     }
 
     @Test
@@ -64,9 +83,13 @@ public class VnfTopologyIdentifierTest {
                                                                                  "serviceType1",
                                                                                  "vnfName1",
                                                                                  "genericVnfName1",
-                                                                                 "vnfType1");
+                                                                                 "vnfType1",
+                                                                                 "inMaint",
+                                                                                 "provStatus",
+                                                                                 new Pserver(),
+                                                                                 new Image());
         assertTrue(vnfTopologyIdentifier1.equals(vnfTopologyIdentifier1));
-        assertTrue(vnfTopologyIdentifier1.hashCode() == 1705030683);
+        assertTrue(vnfTopologyIdentifier1.hashCode() == -1409805056);
     }
 
 }

@@ -43,6 +43,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.onap.aai.restclient.client.OperationResult;
 import org.onap.aai.restclient.client.RestClient;
+import org.onap.pomba.common.datatypes.Attribute;
+import org.onap.pomba.common.datatypes.Attribute.Name;
 import org.onap.pomba.common.datatypes.ModelContext;
 import org.onap.pomba.common.datatypes.Service;
 import org.onap.pomba.common.datatypes.VF;
@@ -202,8 +204,8 @@ public class RestUtil {
     }
 
 
-    public static ModelContext transformGenericResource(String sdncResponse, String specPath) {
-        List<Object> jsonSpec = JsonUtils.filepathToList(specPath);
+    public static ModelContext transformGenericResource(String sdncResponse, String SPEC_PATH) {
+        List<Object> jsonSpec = JsonUtils.filepathToList(SPEC_PATH);
         Object jsonInput = JsonUtils.jsonToObject(sdncResponse);
         Chainr chainr = Chainr.fromSpec(jsonSpec);
         Object transObject = chainr.transform(jsonInput);
@@ -248,6 +250,38 @@ public class RestUtil {
                         }
                         if (vf.getType().contentEquals("null")) {
                             vf.setType(vnfTopologyId.getGenericVnfType());
+                        }
+                        if (vf.getAttributes().isEmpty()) {
+                            if ((null != vnfTopologyId.getInMaint()) &&  !(vnfTopologyId.getInMaint().isEmpty())) {
+                                Attribute  lockedBoolean = new Attribute();
+                                lockedBoolean.setName(Name.lockedBoolean);
+                                lockedBoolean.setValue(vnfTopologyId.getInMaint());
+                                vf.addAttribute(lockedBoolean);
+                            }
+                            if ((null != vnfTopologyId.getProvStatus()) &&  !(vnfTopologyId.getProvStatus().isEmpty())) {
+                                Attribute provStatus = new Attribute();
+                             // attribute.setName(Name.provStatus);
+                                provStatus.setValue(vnfTopologyId.getProvStatus());
+                                vf.addAttribute(provStatus);
+                            }
+                            if (null != vnfTopologyId.getPserver()) {
+                                if ((null != vnfTopologyId.getPserver().getHostname()) && !(vnfTopologyId.getPserver().getHostname().isEmpty())) {
+                                    Attribute  hostname = new Attribute();
+                                    hostname.setName(Name.hostName);
+                                    hostname.setValue(vnfTopologyId.getPserver().getHostname());
+                                    vf.addAttribute(hostname);
+
+                                }
+                            }
+                            if (null != vnfTopologyId.getImage()) {
+                                if ((null != vnfTopologyId.getImage().getImageName()) && !(vnfTopologyId.getImage().getImageName().isEmpty())) {
+                                    Attribute  imageName = new Attribute();
+                                    imageName.setName(Name.imageId);
+                                    imageName.setValue(vnfTopologyId.getImage().getImageName());
+                                    vf.addAttribute(imageName);
+
+                                }
+                            }
                         }
                     }
                 }
