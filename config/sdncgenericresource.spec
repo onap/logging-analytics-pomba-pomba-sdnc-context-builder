@@ -49,27 +49,34 @@
                                 "vms": {
                                   "vm": {
                                     "*": {
-                                      "vm-type": "vfList[&11].vfModuleList[&7].vmList[&1].nfNamingCode",
                                       "vm-names": {
                                         "vm-name": {
-                                          "*": "vfList[&13].vfModuleList[&9].vmList[&3].name"
+                                          "*": {
+                                            "@": "vfList[&14].vfModuleList[&10].vmList[&1].name",
+                                            "@(3,vm-type)": "vfList[&14].vfModuleList[&10].vmList[&1].nfNamingCode",
+                                            "@(3,inMaint)": {
+                                              "#lockedBoolean": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[0].name",
+                                              "yes": {
+                                                "#true": "vfList[&16].vfModuleList[&12].vmList[&3].attributeList[0].value"
+                                              },
+                                              "no": {
+                                                "#false": "vfList[&16].vfModuleList[&12].vmList[&3].attributeList[0].value"
+                                              }
+                                            },
+                                            "@(3,prov-status)": {
+                                              "#provStatus": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[1].name",
+                                              "@(4,prov-status)": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[1].value"
+                                            },
+                                            "@(3,pserver)": {
+                                              "#hostName": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[2].name",
+                                              "hostname": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[2].value"
+                                            },
+                                            "@(3,image)": {
+                                              "#imageId": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[3].name",
+                                              "image-name": "vfList[&15].vfModuleList[&11].vmList[&2].attributeList[3].value"
+                                            }
+                                          }
                                         }
-                                      },
-                                      "inMaint": {
-                                        "#lockedBoolean": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[0].name",
-                                        "@(1,inMaint)": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[0].value"
-                                      },
-                                      "prov-status": {
-                                        "#provStatus": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[1].name",
-                                        "@(1,prov-status)": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[1].value"
-                                      },
-                                      "pserver": {
-                                        "#hostName": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[2].name",
-                                        "hostname": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[2].value"
-                                      },
-                                      "image": {
-                                        "#imageId": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[3].name",
-                                        "image-name": "vfList[&12].vfModuleList[&8].vmList[&2].attributeList[3].value"
                                       }
                                     }
                                   }
@@ -95,7 +102,16 @@
                       },
                       "network-topology-identifier-structure": {
                         "network-type": "vfList[0].vfModuleList[0].networkList[&4].type",
-                        "network-name": "vfList[0].vfModuleList[0].networkList[&4].name"
+                        "network-name": "vfList[0].vfModuleList[0].networkList[&4].name",
+                        "isShared": {
+                          "#sharedNetworkBoolean": "vfList[0].vfModuleList[0].networkList[&5].attributeList[0].name",
+                          "yes": {
+                            "#true": "vfList[0].vfModuleList[0].networkList[&6].attributeList[0].value"
+                          },
+                          "no": {
+                            "#false": "vfList[0].vfModuleList[0].networkList[&6].attributeList[0].value"
+                          }
+                        }
                       }
                     }
                   }
