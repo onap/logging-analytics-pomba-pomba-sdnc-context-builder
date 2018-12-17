@@ -22,7 +22,6 @@ import java.util.Base64;
 import javax.ws.rs.ApplicationPath;
 import org.eclipse.jetty.util.security.Password;
 import org.onap.aai.restclient.client.RestClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -159,8 +158,7 @@ public class SdncConfiguration {
     @Bean(name="aaiClient")
     public RestClient restClientWithClientCert() {
         RestClient restClient = new RestClient();
-        System.out.println("in client cert");
-        if (httpProtocol.equals("https"))
+        if ("https".equals(aaiHttpProtocol))
             restClient.validateServerHostname(false).validateServerCertChain(false).trustStore(trustStorePath).clientCertFile(keyStorePath).clientCertPassword(keyStorePassword).connectTimeoutMs(connectionTimeout).readTimeoutMs(readTimeout);
         else
             restClient.validateServerHostname(false).validateServerCertChain(false).connectTimeoutMs(connectionTimeout).readTimeoutMs(readTimeout);
@@ -169,7 +167,7 @@ public class SdncConfiguration {
 
     @Bean(name="aaiBaseUrl")
     public String getAaiURL() {
-        return httpProtocol + "://" + aaiHost + ":" + aaiPort;
+        return aaiHttpProtocol + "://" + aaiHost + ":" + aaiPort;
     }
 
     @Bean(name="aaiPathToSearchNodeQuery")
