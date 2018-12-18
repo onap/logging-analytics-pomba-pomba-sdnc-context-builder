@@ -1,4 +1,4 @@
 [gerrit]
 host=gerrit.onap.org
 port=29418
-project=logging-analytics/pomba/pomba-network-discovery-context-builder.git
+project=logging-analytics/pomba/pomba-sdnc-context-builder.git
