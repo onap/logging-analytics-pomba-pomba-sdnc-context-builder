@@ -22,6 +22,30 @@
       "revId": "b98119f75babfb7957cc5a00fcbf710bcf36dea1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ba43ecad",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2019-01-08T19:13:17Z",
+      "side": 1,
+      "message": "All of the documentation says this (in this case \"inMaint\") is a yes/no value, if the response comes back with inMaint\u003dtheVacuumBagIsVeryHotToday then lockedBoolean will be in the resonse but it will have a null value.",
+      "parentUuid": "9adffdf1_da4030a7",
+      "range": {
+        "startLine": 264,
+        "startChar": 48,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "b98119f75babfb7957cc5a00fcbf710bcf36dea1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
