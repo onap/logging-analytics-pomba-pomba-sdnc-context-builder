@@ -255,7 +255,12 @@ public class RestUtil {
                             if ((null != vnfTopologyId.getInMaint()) &&  !(vnfTopologyId.getInMaint().isEmpty())) {
                                 Attribute  lockedBoolean = new Attribute();
                                 lockedBoolean.setName(Name.lockedBoolean);
-                                lockedBoolean.setValue(vnfTopologyId.getInMaint());
+                                if (vnfTopologyId.getInMaint().equals("yes")) {
+                                    lockedBoolean.setValue("true");
+                                }
+                                if (vnfTopologyId.getInMaint().equals("no")) {
+                                    lockedBoolean.setValue("false");
+                                }
                                 vf.addAttribute(lockedBoolean);
                             }
                             if ((null != vnfTopologyId.getProvStatus()) &&  !(vnfTopologyId.getProvStatus().isEmpty())) {
