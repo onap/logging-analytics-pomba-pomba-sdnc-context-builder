@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_7a8fc42a",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2965
+      },
+      "writtenOn": "2019-01-08T18:02:06Z",
+      "side": 1,
+      "message": "would it be better to use equalsIgnoreCase?\n(same goes for line 261 below)",
+      "range": {
+        "startLine": 258,
+        "startChar": 63,
+        "endLine": 258,
+        "endChar": 69
+      },
+      "revId": "39b35ac54fd8d1bd1312a340f02d834bdfe12a60",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
