@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_da4030a7",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 2965
+      },
+      "writtenOn": "2019-01-08T19:08:23Z",
+      "side": 1,
+      "message": "Can you set a default value when you create the lockedBoolean?  The way it is here, if the in-maintenance value is something unrecognized, the resulting attribute won\u0027t have a value.\n\nAlternatively, you can move addAttribute() inside the if clauses... that way the attribute will be skipped if the value is not valid.",
+      "range": {
+        "startLine": 264,
+        "startChar": 48,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "b98119f75babfb7957cc5a00fcbf710bcf36dea1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
