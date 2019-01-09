@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Pierre Rioux <pierre.rioux@amdocs.com>
+Code-Review+1: Phillip Leigh <phillip.leigh@amdocs.com>
+Code-Review+2: Geora Barsky <georab@amdocs.com>
+Submitted-by: Geora Barsky <georab@amdocs.com>
+Submitted-at: Wed, 09 Jan 2019 17:41:47 +0000
+Reviewed-on: https://gerrit.onap.org/r/75487
+Project: logging-analytics/pomba/pomba-sdnc-context-builder
+Branch: refs/heads/master
