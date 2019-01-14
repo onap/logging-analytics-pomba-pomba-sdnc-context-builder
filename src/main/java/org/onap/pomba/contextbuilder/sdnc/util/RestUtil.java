@@ -47,8 +47,8 @@ import org.onap.pomba.common.datatypes.Attribute;
 import org.onap.pomba.common.datatypes.Attribute.Name;
 import org.onap.pomba.common.datatypes.ModelContext;
 import org.onap.pomba.common.datatypes.Service;
-import org.onap.pomba.common.datatypes.VF;
 import org.onap.pomba.common.datatypes.VFModule;
+import org.onap.pomba.common.datatypes.VNF;
 import org.onap.pomba.common.datatypes.VNFC;
 import org.onap.pomba.contextbuilder.sdnc.exception.AuditError;
 import org.onap.pomba.contextbuilder.sdnc.exception.AuditException;
@@ -224,20 +224,20 @@ public class RestUtil {
     public static ModelContext transformVnfList(List<VnfInstance> aaiVnfLst, Map<String,List<Vnf>> sdncVnfMap) {
         ModelContext context = new ModelContext();
         Service service = new Service();
-        List<VF> vfList = new ArrayList<>();
+        List<VNF> vnfList = new ArrayList<>();
 
         // Initialize common model members to null
-        service.setInvariantUuid("null");
+        service.setModelInvariantUUID("null");
         service.setUuid("null");
         service.setName("null");
 
         for(VnfInstance aaiVnfInstance : aaiVnfLst)  {
-            VF  vf = new VF();
+            VNF  vnf = new VNF();
             // Initialize common model members to null
-            vf.setName("null");
-            vf.setType("null");
-            vf.setInvariantUuid("null");
-            vf.setUuid("null");
+            vnf.setName("null");
+            vnf.setType("null");
+            vnf.setModelInvariantUUID("null");
+            vnf.setUuid("null");
             List<Vnf> sdncVnfList = sdncVnfMap.get(aaiVnfInstance.getVnfId());
             try {
                 // Set the common model VF name and type from the SDNC topology info
@@ -245,13 +245,13 @@ public class RestUtil {
                 if (sdncVnfList != null && !sdncVnfList.isEmpty()) {
                     for(Vnf sdncVnf : sdncVnfList) {
                         vnfTopologyId = sdncVnf.getServiceData().getVnfTopologyInformation().getVnfTopologyIdentifier();
-                        if (vf.getName().contentEquals("null")) {
-                            vf.setName(vnfTopologyId.getGenericVnfName());
+                        if (vnf.getName().contentEquals("null")) {
+                            vnf.setName(vnfTopologyId.getGenericVnfName());
                         }
-                        if (vf.getType().contentEquals("null")) {
-                            vf.setType(vnfTopologyId.getGenericVnfType());
+                        if (vnf.getType().contentEquals("null")) {
+                            vnf.setType(vnfTopologyId.getGenericVnfType());
                         }
-                        if (vf.getAttributes().isEmpty()) {
+                        if (vnf.getAttributes().isEmpty()) {
                             if ((null != vnfTopologyId.getInMaint()) &&  !(vnfTopologyId.getInMaint().isEmpty())) {
                                 Attribute  lockedBoolean = new Attribute();
                                 lockedBoolean.setName(Name.lockedBoolean);
@@ -261,20 +261,20 @@ public class RestUtil {
                                 if (vnfTopologyId.getInMaint().equalsIgnoreCase("no")) {
                                     lockedBoolean.setValue("false");
                                 }
-                                vf.addAttribute(lockedBoolean);
+                                vnf.addAttribute(lockedBoolean);
                             }
                             if ((null != vnfTopologyId.getProvStatus()) &&  !(vnfTopologyId.getProvStatus().isEmpty())) {
                                 Attribute provStatus = new Attribute();
                              // attribute.setName(Name.provStatus);
                                 provStatus.setValue(vnfTopologyId.getProvStatus());
-                                vf.addAttribute(provStatus);
+                                vnf.addAttribute(provStatus);
                             }
                             if (null != vnfTopologyId.getPserver()) {
                                 if ((null != vnfTopologyId.getPserver().getHostname()) && !(vnfTopologyId.getPserver().getHostname().isEmpty())) {
                                     Attribute  hostname = new Attribute();
                                     hostname.setName(Name.hostName);
                                     hostname.setValue(vnfTopologyId.getPserver().getHostname());
-                                    vf.addAttribute(hostname);
+                                    vnf.addAttribute(hostname);
 
                                 }
                             }
@@ -283,7 +283,7 @@ public class RestUtil {
                                     Attribute  imageName = new Attribute();
                                     imageName.setName(Name.imageId);
                                     imageName.setValue(vnfTopologyId.getImage().getImageName());
-                                    vf.addAttribute(imageName);
+                                    vnf.addAttribute(imageName);
 
                                 }
                             }
@@ -295,16 +295,16 @@ public class RestUtil {
             }
             // Get the common model list of VFModule from the SDNC VNF List
             List<VFModule> vfmoduleLst = getVfModuleList(aaiVnfInstance, sdncVnfList);
-            vf.setVfModules(vfmoduleLst);
+            vnf.setVfModules(vfmoduleLst);
 
             // Get the common model list of VNFC from the SDNC Vnf
             List<VNFC> vnfcList = getVnfcList(sdncVnfList);
-            vf.setVnfcs(vnfcList);
-            vfList.add(vf);
+            vnf.setVnfcs(vnfcList);
+            vnfList.add(vnf);
         }
 
         context.setService(service);
-        context.setVfs(vfList);
+        context.setVnfs(vnfList);
         return context;
     }
 
@@ -593,9 +593,8 @@ public class RestUtil {
                                 for (VmName sdncVmName : sdncVmNameLst) {
                                     VNFC vnfc = new VNFC();
                                     // Initialize common model members to null
-                                    vnfc.setInvariantUuid("null");
+                                    vnfc.setModelInvariantUUID("null");
                                     vnfc.setUuid("null");
-                                    vnfc.setType(sdncVnfVm.getVmType() == null ? "null" : sdncVnfVm.getVmType());
                                     vnfc.setName(sdncVmName.getVmName() == null ? "null" : sdncVmName.getVmName());
                                     vnfcList.add(vnfc);
                                 }
