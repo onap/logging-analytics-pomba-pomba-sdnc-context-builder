@@ -46,6 +46,7 @@ import org.onap.aai.restclient.client.RestClient;
 import org.onap.pomba.common.datatypes.Attribute;
 import org.onap.pomba.common.datatypes.Attribute.Name;
 import org.onap.pomba.common.datatypes.ModelContext;
+import org.onap.pomba.common.datatypes.Network;
 import org.onap.pomba.common.datatypes.Service;
 import org.onap.pomba.common.datatypes.VFModule;
 import org.onap.pomba.common.datatypes.VNF;
@@ -56,8 +57,10 @@ import org.onap.pomba.contextbuilder.sdnc.model.ServiceEntity;
 import org.onap.pomba.contextbuilder.sdnc.model.VfModule;
 import org.onap.pomba.contextbuilder.sdnc.model.VmName;
 import org.onap.pomba.contextbuilder.sdnc.model.Vnf;
+import org.onap.pomba.contextbuilder.sdnc.model.VnfAssignments;
 import org.onap.pomba.contextbuilder.sdnc.model.VnfInstance;
 import org.onap.pomba.contextbuilder.sdnc.model.VnfList;
+import org.onap.pomba.contextbuilder.sdnc.model.VnfNetwork;
 import org.onap.pomba.contextbuilder.sdnc.model.VnfTopologyIdentifier;
 import org.onap.pomba.contextbuilder.sdnc.model.VnfVm;
 import org.onap.pomba.contextbuilder.sdnc.service.rs.RestService;
@@ -240,51 +243,58 @@ public class RestUtil {
             vnf.setUuid("null");
             List<Vnf> sdncVnfList = sdncVnfMap.get(aaiVnfInstance.getVnfId());
             try {
-                // Set the common model VF name and type from the SDNC topology info
-                VnfTopologyIdentifier vnfTopologyId = null;
+                // Set the common model VNF name and type from the SDNC topology info
                 if (sdncVnfList != null && !sdncVnfList.isEmpty()) {
                     for(Vnf sdncVnf : sdncVnfList) {
-                        vnfTopologyId = sdncVnf.getServiceData().getVnfTopologyInformation().getVnfTopologyIdentifier();
-                        if (vnf.getName().contentEquals("null")) {
-                            vnf.setName(vnfTopologyId.getGenericVnfName());
+                        if (null == sdncVnf.getServiceData()) {
+                            break;
                         }
-                        if (vnf.getType().contentEquals("null")) {
-                            vnf.setType(vnfTopologyId.getGenericVnfType());
+                        if (null == sdncVnf.getServiceData().getVnfTopologyInformation()) {
+                            break;
                         }
-                        if (vnf.getAttributes().isEmpty()) {
-                            if ((null != vnfTopologyId.getInMaint()) &&  !(vnfTopologyId.getInMaint().isEmpty())) {
-                                Attribute  lockedBoolean = new Attribute();
-                                lockedBoolean.setName(Name.lockedBoolean);
-                                if (vnfTopologyId.getInMaint().equalsIgnoreCase("yes")) {
-                                    lockedBoolean.setValue("true");
-                                }
-                                if (vnfTopologyId.getInMaint().equalsIgnoreCase("no")) {
-                                    lockedBoolean.setValue("false");
-                                }
-                                vnf.addAttribute(lockedBoolean);
+                        VnfTopologyIdentifier vnfTopologyId = sdncVnf.getServiceData().getVnfTopologyInformation().getVnfTopologyIdentifier();
+                        if (null != vnfTopologyId) {
+                            if (vnf.getName().contentEquals("null")) {
+                                vnf.setName(vnfTopologyId.getGenericVnfName());
                             }
-                            if ((null != vnfTopologyId.getProvStatus()) &&  !(vnfTopologyId.getProvStatus().isEmpty())) {
-                                Attribute provStatus = new Attribute();
-                             // attribute.setName(Name.provStatus);
-                                provStatus.setValue(vnfTopologyId.getProvStatus());
-                                vnf.addAttribute(provStatus);
+                            if (vnf.getType().contentEquals("null")) {
+                                vnf.setType(vnfTopologyId.getGenericVnfType());
                             }
-                            if (null != vnfTopologyId.getPserver()) {
-                                if ((null != vnfTopologyId.getPserver().getHostname()) && !(vnfTopologyId.getPserver().getHostname().isEmpty())) {
-                                    Attribute  hostname = new Attribute();
-                                    hostname.setName(Name.hostName);
-                                    hostname.setValue(vnfTopologyId.getPserver().getHostname());
-                                    vnf.addAttribute(hostname);
+                            if (vnf.getAttributes().isEmpty()) {
+                                if ((null != vnfTopologyId.getInMaint()) &&  !(vnfTopologyId.getInMaint().isEmpty())) {
+                                    Attribute  lockedBoolean = new Attribute();
+                                    lockedBoolean.setName(Name.lockedBoolean);
+                                    if (vnfTopologyId.getInMaint().equalsIgnoreCase("yes")) {
+                                        lockedBoolean.setValue("true");
+                                    }
+                                    if (vnfTopologyId.getInMaint().equalsIgnoreCase("no")) {
+                                        lockedBoolean.setValue("false");
+                                    }
+                                    vnf.addAttribute(lockedBoolean);
+                                }
+                                if ((null != vnfTopologyId.getProvStatus()) &&  !(vnfTopologyId.getProvStatus().isEmpty())) {
+                                    Attribute provStatus = new Attribute();
+                                    provStatus.setName(Name.provStatus);
+                                    provStatus.setValue(vnfTopologyId.getProvStatus());
+                                    vnf.addAttribute(provStatus);
+                                }
+                                if (null != vnfTopologyId.getPserver()) {
+                                    if ((null != vnfTopologyId.getPserver().getHostname()) && !(vnfTopologyId.getPserver().getHostname().isEmpty())) {
+                                        Attribute  hostname = new Attribute();
+                                        hostname.setName(Name.hostName);
+                                        hostname.setValue(vnfTopologyId.getPserver().getHostname());
+                                        vnf.addAttribute(hostname);
 
+                                    }
                                 }
-                            }
-                            if (null != vnfTopologyId.getImage()) {
-                                if ((null != vnfTopologyId.getImage().getImageName()) && !(vnfTopologyId.getImage().getImageName().isEmpty())) {
-                                    Attribute  imageName = new Attribute();
-                                    imageName.setName(Name.imageId);
-                                    imageName.setValue(vnfTopologyId.getImage().getImageName());
-                                    vnf.addAttribute(imageName);
+                                if (null != vnfTopologyId.getImage()) {
+                                    if ((null != vnfTopologyId.getImage().getImageName()) && !(vnfTopologyId.getImage().getImageName().isEmpty())) {
+                                        Attribute  imageName = new Attribute();
+                                        imageName.setName(Name.imageId);
+                                        imageName.setValue(vnfTopologyId.getImage().getImageName());
+                                        vnf.addAttribute(imageName);
 
+                                    }
                                 }
                             }
                         }
@@ -549,6 +559,22 @@ public class RestUtil {
                         VFModule vfModule = new VFModule();
                         vfModule.setUuid(modelVersionId);
                         vfModule.setMaxInstances(entry.getValue().intValue());
+                        VnfAssignments vnfAssignments = sdncVnf.getServiceData().getVnfTopologyInformation().getVnfAssignments();
+                        if (null != vnfAssignments) {
+                            List<Network> networks = new ArrayList<>();
+                            for (VnfNetwork vnfNetwork : vnfAssignments.getVnfNetworks()) {
+                                Network network = new Network();
+                                network.setName(vnfNetwork.getNetworkName());
+                                network.setUuid(vnfNetwork.getNetworkId());
+                                if (null != vnfNetwork.getNetworkRole()) {
+                                    Attribute  networkRole = new Attribute();
+                                    networkRole.setName(Name.networkRole);
+                                    networkRole.setValue(vnfNetwork.getNetworkRole());
+                                }
+                                networks.add(network);
+                            }
+                            vfModule.setNetworks(networks);
+                        }
                         vfmoduleLst.add(vfModule);
                     }
                 }

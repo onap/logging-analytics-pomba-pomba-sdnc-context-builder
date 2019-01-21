@@ -42,7 +42,26 @@
                     "vnf-name": "mDNS_Preload_1802_0108_rk_01"
                   },
                   "vnf-resource-assignments": {
-                    "vnf-networks": {}
+                    "vnf-networks": [
+                      {
+                        "network-role": "signaling",
+                        "network-name": "vnfTest1",
+                        "ipv6-subnet-id": "936e0970-7403-48ef-9cf3-6374b42c5497",
+                        "neutron-id": "5755dd95-b8f4-469a-931f-200727ed1933",
+                        "network-id": "vnfTest1-c41f-43e4-a5be-9a39b21949c8",
+                        "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_signal",
+                        "ipv6-subnet-name": "vshaken_signal_v6_s1"
+                      },
+                      {
+                        "network-role": "management",
+                        "subnet-name": "vshaken_mgmt_v4_s1",
+                        "network-name": "vnfTest2",
+                        "subnet-id": "1bf746bc-aace-4575-b8e6-4c8f9ccddd42",
+                        "neutron-id": "96f4178f-ef7a-4754-acd0-269e9c5f0fc4",
+                        "network-id": "vnfTest2-3359-4a47-a868-458c13545624",
+                        "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_mgmt"
+                      }
+                    ]
                   },
                   "aic-cloud-region": "mtn23a"
                 },
@@ -105,6 +124,26 @@
                                       "mDNS_Preload_1802_0108_rk_01dns012"
                                     ]
                                   }
+                                }
+                              ],
+                              "vm-networks": [
+                                {
+                                  "network-role": "signaling",
+                                  "network-name": "vshaken_signal",
+                                  "ipv6-subnet-id": "936e0970-7403-48ef-9cf3-6374b42c5497",
+                                  "neutron-id": "5755dd95-b8f4-469a-931f-200727ed1933",
+                                  "network-id": "77747167-c41f-43e4-a5be-9a39b21949c8",
+                                  "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_signal",
+                                  "ipv6-subnet-name": "vshaken_signal_v6_s1"
+                                },
+                                {
+                                  "network-role": "management",
+                                  "subnet-name": "vshaken_mgmt_v4_s1",
+                                  "network-name": "vshaken_mgmt",
+                                  "subnet-id": "1bf746bc-aace-4575-b8e6-4c8f9ccddd42",
+                                  "neutron-id": "96f4178f-ef7a-4754-acd0-269e9c5f0fc4",
+                                  "network-id": "1dc87784-3359-4a47-a868-458c13545624",
+                                  "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_mgmt"
                                 }
                               ]
                             }
@@ -171,6 +210,27 @@
                       }
                     }
                   ]
+                }
+              }
+            }
+          ]
+        },
+        "networks": {
+          "network": [
+            {
+              "network-data": {
+                "network-topology": {
+                  "tennant": "testNetwork",
+                  "network-topology-identifier-structure": {
+                    "network-id": "testNetworkId",
+                    "network-role": "testNetworkRole",
+                    "network-technology": "testNetworkTechnology",
+                    "network-type": "testNetworkType",
+                    "network-name": "testNetworkName"
+                  },
+                  "onap-model-information": {
+                    "model-invariant-uuid": "testNetworkNameInvariantUUID"
+                  }
                 }
               }
             }
