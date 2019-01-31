@@ -1,23 +1,19 @@
 {
   "port-mirror-configuration-request-input": {
-    "source-port": [
-      {
-        "vnf-information": {
-          "vnf-id": "09a8c1d8-0981-4e3d-a4c0-6007d6f57e1b"
-        },
-        "pnf-information": {
-          "pnf-name": "onapTest1",
-          "pnf-type": "onapSrc"
-        }
+    "source-port": {
+      "vnf-information": {
+        "vnf-id": "09a8c1d8-0981-4e3d-a4c0-6007d6f57e1b"
+      },
+      "pnf-information": {
+        "pnf-name": "onapTest1",
+        "pnf-type": "onapSrc"
       }
-    ],
-    "dest-port": [
-      {
-        "pnf-information": {
-          "pnf-name": "onapTest2",
-          "pnf-type": "onapDest"
-        }
+    },
+    "dest-port": {
+      "pnf-information": {
+        "pnf-name": "onapTest2",
+        "pnf-type": "onapDest"
       }
-    ]
+    }
   }
 }
