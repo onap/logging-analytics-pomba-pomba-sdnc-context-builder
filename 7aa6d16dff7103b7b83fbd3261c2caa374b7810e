@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_dc49d060",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/util/RestUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2019-01-31T14:56:17Z",
+      "side": 1,
+      "message": "One of the PNF in this list could be null, I\u0027m going to test this before patch #2.",
+      "revId": "7aa6d16dff7103b7b83fbd3261c2caa374b7810e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_3c11fc51",
         "filename": "src/test/resources/junit/portMirrorConfigurationsResponse.json",
         "patchSetId": 1
