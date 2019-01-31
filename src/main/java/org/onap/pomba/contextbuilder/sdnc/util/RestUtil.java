@@ -225,6 +225,7 @@ public class RestUtil {
     }
 
     public static List<PNF> getPnfFromSdncResonse(Client sdncClient, String sdncBaseUrl, String authorization, String sdncPortMirrorResourcePath, String sdncResponse) throws AuditException {
+        List<PNF> pnfList = new ArrayList<>();
         List<Object> providedConfigurationsSpec = JsonUtils.filepathToList(PROVIDED_CONFIGURATIONS_SPEC_PATH);
         Object providedConfigurationsInput = JsonUtils.jsonToObject(sdncResponse);
         Chainr providedConfigurations = Chainr.fromSpec(providedConfigurationsSpec);
@@ -240,9 +241,13 @@ public class RestUtil {
             Object portMirrorInput = JsonUtils.jsonToObject(portMirrorResponse);
             Chainr portMirror = Chainr.fromSpec(portMirrorSpec);
             Object portMirrorObject = portMirror.transform(portMirrorInput);
-            return gson.fromJson(JsonUtils.toPrettyJsonString(portMirrorObject), ModelContext.class).getPnfs();
+            for (PNF pnf :gson.fromJson(JsonUtils.toPrettyJsonString(portMirrorObject), ModelContext.class).getPnfs()) {
+                if (null != pnf) {
+                    pnfList.add(pnf);
+                }
+            };
         }
-        return new ArrayList<>();
+        return pnfList;
     }
 
     /**
