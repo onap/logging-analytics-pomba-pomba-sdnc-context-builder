@@ -21,6 +21,9 @@ package org.onap.pomba.contextbuilder.sdnc.util;
 import com.bazaarvoice.jolt.Chainr;
 import com.bazaarvoice.jolt.JsonUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -47,6 +50,7 @@ import org.onap.pomba.common.datatypes.Attribute;
 import org.onap.pomba.common.datatypes.Attribute.Name;
 import org.onap.pomba.common.datatypes.ModelContext;
 import org.onap.pomba.common.datatypes.Network;
+import org.onap.pomba.common.datatypes.PNF;
 import org.onap.pomba.common.datatypes.Service;
 import org.onap.pomba.common.datatypes.VFModule;
 import org.onap.pomba.common.datatypes.VNF;
@@ -91,7 +95,10 @@ public class RestUtil {
 
     private static final String FORWARD_SLASH = "/";
     // SDNC vnf Json Path
-    private static final String SPEC_PATH = "config/vnflist.spec";
+    private static final String VNF_SPEC_PATH = "config/vnflist.spec";
+    private static final String GENERIC_API_SPEC_PATH = "config/sdncgenericresource.spec";
+    private static final String PROVIDED_CONFIGURATIONS_SPEC_PATH = "config/providedConfigurations.spec";
+    private static final String PORT_MIRROR_CONFIGURATIONS_SPEC_PATH = "config/portMirrorConfigurations.spec";
 
     // Parameters for Query SDNC Model Data REST API  URL
     private static final String SERVICE_INSTANCE_ID = "serviceInstanceId";
@@ -207,14 +214,35 @@ public class RestUtil {
     }
 
 
-    public static ModelContext transformGenericResource(String sdncResponse, String SPEC_PATH) {
-        List<Object> jsonSpec = JsonUtils.filepathToList(SPEC_PATH);
+    public static ModelContext transformGenericResource(String sdncResponse) {
+        List<Object> jsonSpec = JsonUtils.filepathToList(GENERIC_API_SPEC_PATH);
         Object jsonInput = JsonUtils.jsonToObject(sdncResponse);
         Chainr chainr = Chainr.fromSpec(jsonSpec);
         Object transObject = chainr.transform(jsonInput);
         Gson gson = new Gson();
         return gson.fromJson(JsonUtils.toPrettyJsonString(transObject), ModelContext.class);
 
+    }
+
+    public static List<PNF> getPnfFromSdncResonse(Client sdncClient, String sdncBaseUrl, String authorization, String sdncPortMirrorResourcePath, String sdncResponse) throws AuditException {
+        List<Object> providedConfigurationsSpec = JsonUtils.filepathToList(PROVIDED_CONFIGURATIONS_SPEC_PATH);
+        Object providedConfigurationsInput = JsonUtils.jsonToObject(sdncResponse);
+        Chainr providedConfigurations = Chainr.fromSpec(providedConfigurationsSpec);
+        Object providedConfigurationsObject = providedConfigurations.transform(providedConfigurationsInput);
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(providedConfigurationsObject);
+        JsonObject jsonObject = (JsonObject) jsonElement;
+        JsonArray jsonArray = jsonObject.getAsJsonArray("configuration-id");
+        for (JsonElement  configurationId : jsonArray) {
+            String pnfId = configurationId.getAsString();
+            String portMirrorResponse = getSdncGenericResource(sdncClient, sdncBaseUrl, authorization, sdncPortMirrorResourcePath, pnfId);
+            List<Object> portMirrorSpec = JsonUtils.filepathToList(PORT_MIRROR_CONFIGURATIONS_SPEC_PATH);
+            Object portMirrorInput = JsonUtils.jsonToObject(portMirrorResponse);
+            Chainr portMirror = Chainr.fromSpec(portMirrorSpec);
+            Object portMirrorObject = portMirror.transform(portMirrorInput);
+            return gson.fromJson(JsonUtils.toPrettyJsonString(portMirrorObject), ModelContext.class).getPnfs();
+        }
+        return new ArrayList<>();
     }
 
     /**
@@ -526,7 +554,7 @@ public class RestUtil {
      * Extract the vnf-list from the Json payload.
      */
     private static List<Vnf> extractVnfList(String payload) throws AuditException  {
-        List<Object> jsonSpec = JsonUtils.filepathToList(SPEC_PATH);
+        List<Object> jsonSpec = JsonUtils.filepathToList(VNF_SPEC_PATH);
         Object jsonInput = JsonUtils.jsonToObject(payload);
         Chainr chainr = Chainr.fromSpec(jsonSpec);
         Object transObject = chainr.transform(jsonInput);

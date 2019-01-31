@@ -55,6 +55,9 @@ public class SdncConfiguration {
     @Value("${sdnc.genericResourcePath}")
     private String genericResourcePath;
 
+    @Value("${sdnc.portMirrorResourcePath}")
+    private String portMirrorResourcePath;
+
     @Value("${sdnc.vnfPath}")
     private String vnfPath;
 
@@ -116,6 +119,11 @@ public class SdncConfiguration {
     @Bean(name="sdncGenericResourcePath")
     public String getGenericResourcePath() {
         return genericResourcePath;
+    }
+
+    @Bean(name="sdncPortMirrorResourcePath")
+    public String getPortMirrorResourcePath() {
+        return portMirrorResourcePath;
     }
 
     @Bean(name="sdncVnfPath")

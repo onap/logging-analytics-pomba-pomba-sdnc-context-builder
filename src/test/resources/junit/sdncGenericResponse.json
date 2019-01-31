@@ -1,232 +1,100 @@
 {
   "service": [
     {
-      "service-instance-id": "b06270ab-99e6-4a58-9bc0-db2df5c36f4d",
+      "service-instance-id": "PombaDemoCust_001-SerivceInst-001",
+      "service-status": {
+        "final-indicator": "Y",
+        "rpc-action": "assign",
+        "rpc-name": "vf-module-topology-operation",
+        "response-code": "200",
+        "response-timestamp": "2018-08-27T01:58:25.652Z",
+        "action": "CreateVfModuleInstance",
+        "response-message": "",
+        "request-status": "synccomplete"
+      },
       "service-data": {
-        "service-information": {
-          "service-instance-id": "b06270ab-99e6-4a58-9bc0-db2df5c36f4d",
-          "global-customer-id": "notsurewecare",
-          "subscription-service-type": "null",
-          "service-id": "null"
+        "provided-configurations": {
+          "provided-configuration": [
+            {
+              "configuration-id": "3c368d8d-efda-49d4-bbb5-a6465330a230"
+            }
+          ]
         },
-        "service-level-oper-status": {
-          "order-status": "Created"
+        "service-request-input": {
+          "service-instance-name": "vfw_svc_vfwsvc_rescust_0822a_201808262153",
+          "service-input-parameters": {
+            "param": [
+              {
+                "name": "BRG_WAN_MAC_Address",
+                "value": "fa:16:3e:79:24:0e"
+              },
+              {
+                "name": "customerLongitude",
+                "value": "-97.040443"
+              },
+              {
+                "name": "customerLatitude",
+                "value": "32.897480"
+              },
+              {
+                "name": "Homing_Solution",
+                "value": "sniro"
+              },
+              {
+                "name": "customerName",
+                "value": "some_company"
+              }
+            ]
+          }
+        },
+        "service-information": {
+          "service-id": "a9a77d5a-123e-4ca2-9eb9-0b015d2ee0fb",
+          "onap-model-information": {
+            "model-invariant-uuid": "3a4e6986-5c5e-434e-b0be-8d718107fa83",
+            "model-name": "vfwsvc_rescust_0822a",
+            "model-version": "1.0",
+            "model-uuid": "209efacc-54d4-4f12-9064-099d47c36a29"
+          },
+          "service-instance-id": "7d518257-49bd-40ac-8d17-017a726ec12a",
+          "global-customer-id": "SDN-ETHERNET-INTERNET",
+          "subscription-service-type": "vFW"
         },
         "service-topology": {
           "service-topology-identifier": {
-            "service-instance-id": "b06270ab-99e6-4a58-9bc0-db2df5c36f4d",
-            "global-customer-id": "notsurewecare",
-            "service-type": "null",
-            "service-id": "null"
+            "service-instance-id": "7d518257-49bd-40ac-8d17-017a726ec12a",
+            "service-instance-name": "vfw_svc_vfwsvc_rescust_0822a_201808262153",
+            "global-customer-id": "SDN-ETHERNET-INTERNET",
+            "service-type": "vFW"
+          },
+          "onap-model-information": {
+            "model-invariant-uuid": "3a4e6986-5c5e-434e-b0be-8d718107fa83",
+            "model-name": "vfwsvc_rescust_0822a",
+            "model-version": "1.0",
+            "model-uuid": "209efacc-54d4-4f12-9064-099d47c36a29"
           }
         },
-        "vnfs": {
-          "vnf": [
-            {
-              "vnf-id": "1239053c-1322-42f2-a425-5fd34536dd98",
-              "vnf-data": {
-                "vnf-level-oper-status": {
-                  "order-status": "Created"
-                },
-                "service-information": {
-                  "service-instance-id": "b06270ab-99e6-4a58-9bc0-db2df5c36f4d",
-                  "global-customer-id": "notsurewecare",
-                  "subscription-service-type": "null",
-                  "service-id": "null"
-                },
-                "vnf-topology": {
-                  "tenant": "d0a030fc9fd942c88d8bbb3165c96456",
-                  "vnf-topology-identifier-structure": {
-                    "vnf-id": "1239053c-1322-42f2-a425-5fd34536dd98",
-                    "vnf-type": "mDNS_Preload_1802_0108/mDNS_Preload_1802_0108 0",
-                    "vnf-name": "mDNS_Preload_1802_0108_rk_01"
-                  },
-                  "vnf-resource-assignments": {
-                    "vnf-networks": [
-                      {
-                        "network-role": "signaling",
-                        "network-name": "vnfTest1",
-                        "ipv6-subnet-id": "936e0970-7403-48ef-9cf3-6374b42c5497",
-                        "neutron-id": "5755dd95-b8f4-469a-931f-200727ed1933",
-                        "network-id": "vnfTest1-c41f-43e4-a5be-9a39b21949c8",
-                        "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_signal",
-                        "ipv6-subnet-name": "vshaken_signal_v6_s1"
-                      },
-                      {
-                        "network-role": "management",
-                        "subnet-name": "vshaken_mgmt_v4_s1",
-                        "network-name": "vnfTest2",
-                        "subnet-id": "1bf746bc-aace-4575-b8e6-4c8f9ccddd42",
-                        "neutron-id": "96f4178f-ef7a-4754-acd0-269e9c5f0fc4",
-                        "network-id": "vnfTest2-3359-4a47-a868-458c13545624",
-                        "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_mgmt"
-                      }
-                    ]
-                  },
-                  "aic-cloud-region": "mtn23a"
-                },
-                "vnf-information": {
-                  "vnf-id": "1239053c-1322-42f2-a425-5fd34536dd98",
-                  "vnf-type": "mDNS_Preload_1802_0108/mDNS_Preload_1802_0108 0",
-                  "vnf-name": "mDNS_Preload_1802_0108_rk_01"
-                },
-                "vnf-request-input": {
-                  "tenant": "d0a030fc9fd942c88d8bbb3165c96456",
-                  "aic-cloud-region": "mtn23a",
-                  "vnf-name": "mDNS_Preload_1802_0108_rk_01"
-                },
-                "vf-modules": {
-                  "vf-module": [
-                    {
-                      "vf-module-id": "c3cae358-5479-4fdf-b3fb-7f51e87b40ca",
-                      "vf-module-data": {
-                        "service-information": {
-                          "service-instance-id": "b06270ab-99e6-4a58-9bc0-db2df5c36f4d",
-                          "global-customer-id": "notsurewecare",
-                          "subscription-service-type": "null",
-                          "service-id": "null"
-                        },
-                        "vf-module-level-oper-status": {
-                          "order-status": "Created"
-                        },
-                        "vf-module-topology": {
-                          "tenant": "d0a030fc9fd942c88d8bbb3165c96456",
-                          "aic-cloud-region": "mtn23a",
-                          "vf-module-topology-identifier": {
-                            "vf-module-type": "MdnsPreload18020108..dns_az_01..module-1",
-                            "vf-module-id": "c3cae358-5479-4fdf-b3fb-7f51e87b40ca",
-                            "vf-module-name": "zmtn23amdns04cmd001"
-                          },
-                          "vf-module-assignments": {
-                            "vms": {
-                              "vm": [
-                                {
-                                  "vm-type": "dns",
-                                  "vm-count": 4,
-                                  "inMaint": "no",
-                                  "pserver": {
-                                    "hostname": "somerandomserver.ottawa.com"
-                                  },
-                                  "image": {
-                                    "image-name": "cfad8f38-3d4c-4aec-8bd4-f83ad605acbe"
-                                  },
-                                  "prov-status": "Available",
-                                  "vm-names": {
-                                    "vnfc-names": [
-                                      {
-                                        "vnfc-name": "mDNS_Preload_1802_0108_rk_01dns012"
-                                      }
-                                    ],
-                                    "vm-name": [
-                                      "mDNS_Preload_1802_0108_rk_01dns009",
-                                      "mDNS_Preload_1802_0108_rk_01dns010",
-                                      "mDNS_Preload_1802_0108_rk_01dns011",
-                                      "mDNS_Preload_1802_0108_rk_01dns012"
-                                    ]
-                                  }
-                                }
-                              ],
-                              "vm-networks": [
-                                {
-                                  "network-role": "signaling",
-                                  "network-name": "vshaken_signal",
-                                  "ipv6-subnet-id": "936e0970-7403-48ef-9cf3-6374b42c5497",
-                                  "neutron-id": "5755dd95-b8f4-469a-931f-200727ed1933",
-                                  "network-id": "77747167-c41f-43e4-a5be-9a39b21949c8",
-                                  "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_signal",
-                                  "ipv6-subnet-name": "vshaken_signal_v6_s1"
-                                },
-                                {
-                                  "network-role": "management",
-                                  "subnet-name": "vshaken_mgmt_v4_s1",
-                                  "network-name": "vshaken_mgmt",
-                                  "subnet-id": "1bf746bc-aace-4575-b8e6-4c8f9ccddd42",
-                                  "neutron-id": "96f4178f-ef7a-4754-acd0-269e9c5f0fc4",
-                                  "network-id": "1dc87784-3359-4a47-a868-458c13545624",
-                                  "contrail-network-fqdn": "default-domain:APP-C-24595-T-IST-05A:vshaken_mgmt"
-                                }
-                              ]
-                            }
-                          },
-                          "vf-module-parameters": {},
-                          "onap-model-information": {
-                            "model-customization-uuid": "912b0ae5-1dd3-417c-b95a-9ed7d5a13ef4"
-                          }
-                        },
-                        "vf-module-request-input": {
-                          "tenant": "d0a030fc9fd942c88d8bbb3165c96456",
-                          "aic-cloud-region": "mtn23a",
-                          "vf-module-name": "zmtn23amdns04cmd001"
-                        },
-                        "vf-module-information": {
-                          "vf-module-type": "MdnsPreload18020108..dns_az_01..module-1",
-                          "from-preload": false
-                        },
-                        "vnf-information": {
-                          "vnf-id": "1239053c-1322-42f2-a425-5fd34536dd98",
-                          "vnf-type": "mDNS_Preload_1802_0108/mDNS_Preload_1802_0108 0"
-                        }
-                      }
-                    },
-                    {
-                      "vf-module-id": "b8cc44e1-fb99-4df4-898a-1ef14a6f4b2b",
-                      "vf-module-data": {
-                        "service-information": {
-                          "service-instance-id": "b06270ab-99e6-4a58-9bc0-db2df5c36f4d",
-                          "global-customer-id": "notsurewecare",
-                          "subscription-service-type": "null",
-                          "service-id": "null"
-                        },
-                        "vf-module-level-oper-status": {
-                          "order-status": "Created"
-                        },
-                        "vf-module-topology": {
-                          "tenant": "d0a030fc9fd942c88d8bbb3165c96456",
-                          "aic-cloud-region": "mtn23a",
-                          "vf-module-topology-identifier": {
-                            "vf-module-type": "MdnsPreload18020108..base_dns..module-0",
-                            "vf-module-id": "b8cc44e1-fb99-4df4-898a-1ef14a6f4b2b",
-                            "vf-module-name": "zmtn23amdns04cmd001_base"
-                          },
-                          "vf-module-assignments": {},
-                          "vf-module-parameters": {},
-                          "onap-model-information": {
-                            "model-customization-uuid": "29af7474-5859-49e9-8947-48d1662c52d4"
-                          }
-                        },
-                        "vf-module-request-input": {
-                          "tenant": "d0a030fc9fd942c88d8bbb3165c96456",
-                          "aic-cloud-region": "mtn23a",
-                          "vf-module-name": "zmtn23amdns04cmd001_base"
-                        },
-                        "vf-module-information": {
-                          "vf-module-type": "MdnsPreload18020108..base_dns..module-0",
-                          "from-preload": false
-                        },
-                        "vnf-information": {
-                          "vnf-id": "1239053c-1322-42f2-a425-5fd34536dd98",
-                          "vnf-type": "mDNS_Preload_1802_0108/mDNS_Preload_1802_0108 0"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          ]
+        "sdnc-request-header": {
+          "svc-action": "assign",
+          "svc-request-id": "dd3dffc8-6a15-4f7f-9787-d835ee247283",
+          "svc-notification-url": "http://c1.vm1.mso.simpledemo.openecomp.org:8080/adapters/rest/SDNCNotify"
+        },
+        "request-information": {
+          "request-id": "2a950a5c-21bf-4496-a592-b51f45719603",
+          "request-action": "CreateServiceInstance",
+          "source": "MSO"
         },
         "networks": {
           "network": [
             {
+              "network-id": "8e32ec2c-47a1-4514-b21a-2806e23f0437",
               "network-data": {
                 "network-topology": {
-                  "tennant": "testNetwork",
                   "network-topology-identifier-structure": {
-                    "network-id": "testNetworkId",
-                    "network-role": "testNetworkRole",
-                    "network-technology": "testNetworkTechnology",
-                    "network-type": "testNetworkType",
-                    "network-name": "testNetworkName"
+                    "network-technology": "contrail",
+                    "network-type": "CONTRAIL30_BASIC",
+                    "network-name": "ONAP-TEST",
+                    "network-id": "8e32ec2c-47a1-4514-b21a-2806e23f0437",
+                    "network-role": "trusted"
                   },
                   "onap-model-information": {
                     "model-invariant-uuid": "testNetworkNameInvariantUUID"
@@ -235,6 +103,279 @@
               }
             }
           ]
+        },
+        "vnfs": {
+          "vnf": [
+            {
+              "vnf-id": "bf2a200d-744f-4900-afc4-d5ef44638467",
+              "vnf-data": {
+                "vf-modules": {
+                  "vf-module": [
+                    {
+                      "vf-module-id": "815e8636-5c2a-41ad-b24d-17c824106bd2",
+                      "vf-module-data": {
+                        "service-information": {
+                          "service-id": "null",
+                          "onap-model-information": {
+                            "model-invariant-uuid": "3a4e6986-5c5e-434e-b0be-8d718107fa83",
+                            "model-name": "vfwsvc_rescust_0822a",
+                            "model-version": "1.0",
+                            "model-uuid": "209efacc-54d4-4f12-9064-099d47c36a29"
+                          },
+                          "service-instance-id": "7d518257-49bd-40ac-8d17-017a726ec12a",
+                          "global-customer-id": "SDN-ETHERNET-INTERNET",
+                          "subscription-service-type": "null"
+                        },
+                        "vf-module-topology": {
+                          "onap-model-information": {
+                            "model-invariant-uuid": "7e91451d-e320-4755-a1a8-fcf140b86779",
+                            "model-name": "VfwvspVgw0822a..base_vfw_vgw..module-0",
+                            "model-version": "1",
+                            "model-customization-uuid": "7fbb59b7-a7ac-4fa6-b0bc-42f47339010a",
+                            "model-uuid": "1908874e-cfae-4ee1-93b9-f4ba46b460ff"
+                          },
+                          "vf-module-parameters": {
+                            "param": [
+                              {
+                                "name": "mux_ip_addr",
+                                "value": "10.5.0.21"
+                              },
+                              {
+                                "name": "mux_gw_private_net_id",
+                                "value": "vfw_net_mux_gw_201808231522"
+                              },
+                              {
+                                "name": "vg_vgmux_tunnel_vni",
+                                "value": "107"
+                              },
+                              {
+                                "name": "repo_url_artifacts",
+                                "value": "https://nexus.onap.org/content/groups/staging"
+                              },
+                              {
+                                "name": "cpe_public_net_id",
+                                "value": "vfw_net_cpe_public_201808231522"
+                              },
+                              {
+                                "name": "key_name",
+                                "value": "vgw_key"
+                              },
+                              {
+                                "name": "onap_private_subnet_id",
+                                "value": "oam_onap_1MdY"
+                              },
+                              {
+                                "name": "cpe_public_net_cidr",
+                                "value": "10.2.0.0/24"
+                              },
+                              {
+                                "name": "mux_gw_private_net_cidr",
+                                "value": "10.5.0.0/24"
+                              },
+                              {
+                                "name": "cloud_env",
+                                "value": "openstack"
+                              },
+                              {
+                                "name": "cpe_public_subnet_id",
+                                "value": "vfw_net_cpe_public_subnet_201808231522"
+                              },
+                              {
+                                "name": "mux_gw_private_subnet_id",
+                                "value": "vfw_net_mux_gw_subnet_201808231522"
+                              },
+                              {
+                                "name": "onap_private_net_id",
+                                "value": "oam_onap_1MdY"
+                              },
+                              {
+                                "name": "repo_url_blob",
+                                "value": "https://nexus.onap.org/content/sites/raw"
+                              },
+                              {
+                                "name": "install_script_version",
+                                "value": "1.1.1"
+                              },
+                              {
+                                "name": "demo_artifacts_version",
+                                "value": "1.1.1"
+                              },
+                              {
+                                "name": "vgw_name_0",
+                                "value": "zdcpe1cpe01gw01_201808261550"
+                              },
+                              {
+                                "name": "vgw_private_ip_1",
+                                "value": "10.0.101.99"
+                              },
+                              {
+                                "name": "vgw_private_ip_0",
+                                "value": "10.5.0.107"
+                              },
+                              {
+                                "name": "public_net_id",
+                                "value": "971040b2-7059-49dc-b220-4fab50cb2ad4"
+                              },
+                              {
+                                "name": "vgw_private_ip_2",
+                                "value": "10.2.0.6"
+                              },
+                              {
+                                "name": "onap_private_net_cidr",
+                                "value": "10.0.0.0/16"
+                              },
+                              {
+                                "name": "pub_key",
+                                "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKXDgoo3+WOqcUG8/5uUbk81+yczgwC4Y8ywTmuQqbNxlY1oQ0YxdMUqUnhitSXs5S/yRuAVOYHwGg2mCs20oAINrP+mxBI544AMIb9itPjCtgqtE2EWo6MmnFGbHB4Sx3XioE7F4VPsh7japsIwzOjbrQe+Mua1TGQ5d4nfEOQaaglXLLPFfuc7WbhbJbK6Q7rHqZfRcOwAMXgDoBqlyqKeiKwnumddo2RyNT8ljYmvB6buz7KnMinzo7qB0uktVT05FH9Rg0CTWH5norlG5qXgP2aukL0gk1ph8iAt7uYLf1ktp+LJI2gaF6L0/qli9EmVCSLr1uJ38Q8CBflhkh"
+                              }
+                            ]
+                          },
+                          "tenant": "7fad299815104c0a8f90a8df80343f03",
+                          "aic-clli": "clli1",
+                          "aic-cloud-region": "RegionOne",
+                          "vf-module-topology-identifier": {
+                            "vf-module-id": "815e8636-5c2a-41ad-b24d-17c824106bd2",
+                            "vf-module-name": "zRegionOne06_base_vfw_vgw_0",
+                            "vf-module-type": "VfwvspVgw0822a..base_vfw_vgw..module-0"
+                          },
+                          "vf-module-assignments": {
+                            "vms": {
+                              "vm": [
+                                {
+                                  "vm-type": "vgw",
+                                  "vm-count": 1,
+                                  "vm-type-tag": "vgw",
+                                  "vm-names": {
+                                    "vm-name": [
+                                      "zRegionOne06001"
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "vf-module-request-input": {
+                          "vf-module-name": "zRegionOne06_base_vfw_vgw_0",
+                          "tenant": "7fad299815104c0a8f90a8df80343f03",
+                          "aic-cloud-region": "RegionOne"
+                        },
+                        "vf-module-information": {
+                          "onap-model-information": {
+                            "model-invariant-uuid": "7e91451d-e320-4755-a1a8-fcf140b86779",
+                            "model-name": "VfwvspVgw0822a..base_vfw_vgw..module-0",
+                            "model-version": "1",
+                            "model-customization-uuid": "7fbb59b7-a7ac-4fa6-b0bc-42f47339010a",
+                            "model-uuid": "1908874e-cfae-4ee1-93b9-f4ba46b460ff"
+                          },
+                          "vf-module-id": "815e8636-5c2a-41ad-b24d-17c824106bd2",
+                          "vf-module-type": "VfwvspVgw0822a..base_vfw_vgw..module-0"
+                        },
+                        "sdnc-request-header": {
+                          "svc-action": "assign",
+                          "svc-request-id": "2a950a5c-21bf-4496-a592-b51f45719603-1535335110722",
+                          "svc-notification-url": "http://c1.vm1.mso.simpledemo.openecomp.org:8080/adapters/rest/SDNCNotify"
+                        },
+                        "vnf-information": {
+                          "vnf-id": "bf2a200d-744f-4900-afc4-d5ef44638467",
+                          "vnf-type": "vfwsvc_rescust_0822a/vfwvsp_vgw_0822a 0",
+                          "onap-model-information": {
+                            "model-invariant-uuid": "71370375-e1b4-4ad2-9832-1b7877428c81",
+                            "model-name": "vfwvsp_vgw_0822a",
+                            "model-version": "1.0",
+                            "model-customization-uuid": "d4484d8e-09c8-4e1e-89f7-b556bf7c57ba",
+                            "model-uuid": "7dd31559-9fc6-4b0d-bbe3-7ba641bf8a9b"
+                          }
+                        },
+                        "request-information": {
+                          "request-id": "2a950a5c-21bf-4496-a592-b51f45719603",
+                          "request-action": "CreateVfModuleInstance",
+                          "source": "VID"
+                        },
+                        "vf-module-level-oper-status": {
+                          "order-status": "PendingCreate",
+                          "last-rpc-action": "assign"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "vnf-level-oper-status": {
+                  "last-rpc-action": "activate",
+                  "order-status": "Created",
+                  "last-action": "CreateVnfInstance"
+                },
+                "service-information": {
+                  "service-id": "a9a77d5a-123e-4ca2-9eb9-0b015d2ee0fb",
+                  "onap-model-information": {
+                    "model-invariant-uuid": "3a4e6986-5c5e-434e-b0be-8d718107fa83",
+                    "model-name": "vfwsvc_rescust_0822a",
+                    "model-version": "1.0",
+                    "model-uuid": "209efacc-54d4-4f12-9064-099d47c36a29"
+                  },
+                  "service-instance-id": "7d518257-49bd-40ac-8d17-017a726ec12a",
+                  "global-customer-id": "SDN-ETHERNET-INTERNET",
+                  "subscription-service-type": "a9a77d5a-123e-4ca2-9eb9-0b015d2ee0fb"
+                },
+                "sdnc-request-header": {
+                  "svc-action": "activate",
+                  "svc-request-id": "2a950a5c-21bf-4496-a592-b51f45719603-1535335104196",
+                  "svc-notification-url": "http://c1.vm1.mso.simpledemo.openecomp.org:8080/adapters/rest/SDNCNotify"
+                },
+                "vnf-information": {
+                  "vnf-id": "bf2a200d-744f-4900-afc4-d5ef44638467",
+                  "vnf-type": "vfwsvc_rescust_0822a/vfwvsp_vgw_0822a 0",
+                  "onap-model-information": {
+                    "model-invariant-uuid": "71370375-e1b4-4ad2-9832-1b7877428c81",
+                    "model-name": "vfwvsp_vgw_0822a",
+                    "model-version": "1.0",
+                    "model-customization-uuid": "d4484d8e-09c8-4e1e-89f7-b556bf7c57ba",
+                    "model-uuid": "7dd31559-9fc6-4b0d-bbe3-7ba641bf8a9b"
+                  }
+                },
+                "request-information": {
+                  "request-id": "2a950a5c-21bf-4496-a592-b51f45719603",
+                  "request-action": "CreateVnfInstance",
+                  "source": "VID"
+                },
+                "vnf-request-input": {
+                  "vnf-name": "zRegionOne06",
+                  "tenant": "7fad299815104c0a8f90a8df80343f03",
+                  "aic-cloud-region": "RegionOne"
+                },
+                "vnf-topology": {
+                  "onap-model-information": {
+                    "model-invariant-uuid": "71370375-e1b4-4ad2-9832-1b7877428c81",
+                    "model-name": "vfwvsp_vgw_0822a",
+                    "model-version": "1.0",
+                    "model-customization-uuid": "d4484d8e-09c8-4e1e-89f7-b556bf7c57ba",
+                    "model-uuid": "7dd31559-9fc6-4b0d-bbe3-7ba641bf8a9b"
+                  },
+                  "tenant": "7fad299815104c0a8f90a8df80343f03",
+                  "aic-clli": "clli1",
+                  "aic-cloud-region": "RegionOne",
+                  "vnf-topology-identifier-structure": {
+                    "vnf-id": "bf2a200d-744f-4900-afc4-d5ef44638467",
+                    "vnf-type": "vfwsvc_rescust_0822a/vfwvsp_vgw_0822a 0",
+                    "vnf-name": "zRegionOne06"
+                  },
+                  "vnf-resource-assignments": {
+                    "availability-zones": {
+                      "availability-zone": [
+                        "nova"
+                      ],
+                      "max-count": 1
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "service-level-oper-status": {
+          "last-rpc-action": "assign",
+          "order-status": "Created",
+          "last-action": "CreateServiceInstance"
         }
       }
     }

@@ -42,8 +42,8 @@ public class GenericResourceApiHandler {
     private String sdncBasicAuthorization;
     @Autowired
     private String sdncGenericResourcePath;
-
-    private String specPath = "config/sdncgenericresource.spec";
+    @Autowired
+    private String sdncPortMirrorResourcePath;
 
     public ModelContext process(Exchange exchange) throws AuditException {
 
@@ -55,7 +55,8 @@ public class GenericResourceApiHandler {
 
         try {
             String sdncResponse = RestUtil.getSdncGenericResource(jerseyClient, sdncBaseUrl, sdncBasicAuthorization, sdncGenericResourcePath, serviceInstanceId);
-            context = RestUtil.transformGenericResource(sdncResponse, specPath);
+            context = RestUtil.transformGenericResource(sdncResponse);
+            context.setPnfs(RestUtil.getPnfFromSdncResonse(jerseyClient, sdncBaseUrl, sdncBasicAuthorization, sdncPortMirrorResourcePath, sdncResponse));
         } catch (AuditException ae) {
             throw ae;
         } catch (Exception e) {

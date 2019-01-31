@@ -73,6 +73,7 @@ public class SdncContextBuilderTest {
     private String servicePath = "/service-subscriptions/service-subscription/vFW/service-instances/service-instance/";
     private String genericVnfPath = "/aai/v11/network/generic-vnfs/generic-vnf/";
     private String genericResourcePath = "/restconf/config/GENERIC-RESOURCE-API:services/service/";
+    private String portMirrorConfigurationsResourcePath = "/restconf/config/GENERIC-RESOURCE-API:port-mirror-configurations/port-mirror-configuration/3c368d8d-efda-49d4-bbb5-a6465330a230/configuration-data/configuration-operation-information/port-mirror-configuration-request-input";
     private String vnfPath = "/restconf/config/VNF-API:vnfs/vnf-list/";
     private String serviceInstanceIdVfw = "7d518257-49bd-40ac-8d17-017a726ec12a"; // customerData.json
     private String serviceInstanceIdVcpe = "68352304-7bba-4609-8551-0d0b819376c3"; // queryNodeDataVcpe.json
@@ -197,6 +198,8 @@ public class SdncContextBuilderTest {
 
         String urlStr = genericResourcePath + serviceInstanceIdVcpe;
         addResponse(urlStr, "junit/sdncGenericResponse.json", sdncRule);
+
+        addResponse(portMirrorConfigurationsResourcePath, "junit/portMirrorConfigurationsResponse.json", sdncRule);
 
         response = this.service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVcpe);
         assertEquals(Status.OK.getStatusCode(), response.getStatus());
