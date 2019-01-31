@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_fc161448",
+        "filename": "config/portMirrorConfigurations.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2019-01-31T14:52:05Z",
+      "side": 1,
+      "message": "This and dest-port should be single items",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 16
+      },
+      "revId": "7aa6d16dff7103b7b83fbd3261c2caa374b7810e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3c11fc51",
+        "filename": "src/test/resources/junit/portMirrorConfigurationsResponse.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2019-01-31T14:52:05Z",
+      "side": 1,
+      "message": "This and dest-port should be single items",
+      "revId": "7aa6d16dff7103b7b83fbd3261c2caa374b7810e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
