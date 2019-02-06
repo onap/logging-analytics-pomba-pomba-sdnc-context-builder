@@ -230,6 +230,9 @@ public class RestUtil {
         Object providedConfigurationsInput = JsonUtils.jsonToObject(sdncResponse);
         Chainr providedConfigurations = Chainr.fromSpec(providedConfigurationsSpec);
         Object providedConfigurationsObject = providedConfigurations.transform(providedConfigurationsInput);
+        if (null == providedConfigurationsObject) {
+            return pnfList;
+        }
         Gson gson = new Gson();
         JsonElement jsonElement = gson.toJsonTree(providedConfigurationsObject);
         JsonObject jsonObject = (JsonObject) jsonElement;
