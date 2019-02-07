@@ -75,7 +75,6 @@ public class VnfApiHandler {
         Service service = new Service();
         ServiceEntity serviceEntity = (ServiceEntity)exchange.getIn().getBody();
         service.setUuid(serviceEntity.getServiceInstanceId());
-        service.setName( serviceEntity.getServiceType() + " service instance");
 
         // GET the list of VNF related-to links from AAI
         String url= aaiBaseUrl+generateServiceInstanceURL(aaiServiceInstancePath, serviceEntity.getCustomerId(), serviceEntity.getServiceType(), serviceEntity.getServiceInstanceId());
