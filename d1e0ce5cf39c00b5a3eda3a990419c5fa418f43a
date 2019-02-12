@@ -46,6 +46,30 @@
       "revId": "d1e0ce5cf39c00b5a3eda3a990419c5fa418f43a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45823778_1f2b73d9",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/handlers/VnfApiHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2965
+      },
+      "writtenOn": "2019-02-12T20:17:45Z",
+      "side": 1,
+      "message": "Well I don\u0027t like it but ok...\nAnything that\u0027s hardcoded will end up being fixed this way instead of simply updating property files.\nI would have preferred a single property, like a URI template:\nuriTemplate\u003d/some/base/url/{0}{1}\nwhere {0} is the custom part and {1} is for parameters.\nSDC-ctx-builder has an example.",
+      "parentUuid": "1b1c6d2a_f9024e26",
+      "range": {
+        "startLine": 128,
+        "startChar": 87,
+        "endLine": 128,
+        "endChar": 99
+      },
+      "revId": "d1e0ce5cf39c00b5a3eda3a990419c5fa418f43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
