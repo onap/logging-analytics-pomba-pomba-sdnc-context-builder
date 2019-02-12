@@ -182,7 +182,7 @@ public class SdncContextBuilderTest {
         String vnfApiUrl = vnfPath + moduleId;
         addResponse(vnfApiUrl, "junit/vnfApiResponse.json", sdncRule);
 
-        String genericVnfUrl = genericVnfPath + genericVnfId;
+        String genericVnfUrl = genericVnfPath + genericVnfId + "?depth=all";
         addResponse(genericVnfUrl, "junit/genericVnf.json", aaiEnricherRule);
         Response response = this.service.getContext(httpServletRequest, mockHttpHeaders, serviceInstanceIdVfw);
         assertEquals(Status.OK.getStatusCode(), response.getStatus());

@@ -568,7 +568,11 @@ public class RestUtil {
         Object transObject = chainr.transform(jsonInput);
         String vnfListString = JsonUtils.toPrettyJsonString(transObject);
         VnfList vnfList = VnfList.fromJson(vnfListString);
-        return vnfList.getVnfList();
+        if (null != vnfList) {
+            return vnfList.getVnfList();
+        }
+        return new ArrayList<>();
+
     }
 
     private static String abstractStrInfo (String origStr, String matchStr) {
