@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b53bf03_646004ae",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/handlers/VnfApiHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2965
+      },
+      "writtenOn": "2019-02-12T15:48:32Z",
+      "side": 1,
+      "message": "Considering that you\u0027re building a URL to an external endpoint, I think it would be safer to provision the list of parameters in a properties file (same as base URL).\nThat way, the URL can be specific to deployments (ex: if a deployment needs to add a timeout or something).",
+      "range": {
+        "startLine": 128,
+        "startChar": 87,
+        "endLine": 128,
+        "endChar": 99
+      },
+      "revId": "d1e0ce5cf39c00b5a3eda3a990419c5fa418f43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
