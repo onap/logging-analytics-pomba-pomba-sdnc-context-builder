@@ -125,7 +125,7 @@ public class VnfApiHandler {
     private static List<VnfInstance> retrieveAaiVnfList(RestClient aaiClient, String aaiBaseUrl, String aaiBasicAuthorization, String transactionId, List <String>genericVnfLinks) throws AuditException {
         List<VnfInstance> vnfList = new ArrayList<>();
         for (String genericVnfLink : genericVnfLinks) {
-            String genericVnfUrl = RestUtil.generateAaiUrl(aaiBaseUrl, genericVnfLink, null);
+            String genericVnfUrl = RestUtil.generateAaiUrl(aaiBaseUrl, genericVnfLink, "?depth=all");
             String genericVnfPayload = RestUtil.getAaiResource(aaiClient, genericVnfUrl, aaiBasicAuthorization, transactionId);
             if (genericVnfPayload.equals(EMPTY_JSON_STRING)) {
                 log.info("retrieveAaiVnfList "+ genericVnfPayload +" is not found, " + "return empty Json ");

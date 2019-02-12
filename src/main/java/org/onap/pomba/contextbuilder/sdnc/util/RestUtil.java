@@ -95,7 +95,6 @@ public class RestUtil {
 
     private static final String FORWARD_SLASH = "/";
     // SDNC vnf Json Path
-    private static final String VNF_SPEC_PATH = "config/vnflist.spec";
     private static final String GENERIC_API_SPEC_PATH = "config/sdncgenericresource.spec";
     private static final String PROVIDED_CONFIGURATIONS_SPEC_PATH = "config/providedConfigurations.spec";
     private static final String PORT_MIRROR_CONFIGURATIONS_SPEC_PATH = "config/portMirrorConfigurations.spec";
@@ -562,13 +561,12 @@ public class RestUtil {
      * Extract the vnf-list from the Json payload.
      */
     private static List<Vnf> extractVnfList(String payload) throws AuditException  {
-        List<Object> jsonSpec = JsonUtils.filepathToList(VNF_SPEC_PATH);
-        Object jsonInput = JsonUtils.jsonToObject(payload);
-        Chainr chainr = Chainr.fromSpec(jsonSpec);
-        Object transObject = chainr.transform(jsonInput);
-        String vnfListString = JsonUtils.toPrettyJsonString(transObject);
-        VnfList vnfList = VnfList.fromJson(vnfListString);
-        return vnfList.getVnfList();
+        VnfList vnfList = VnfList.fromJson(payload);
+        if (null != vnfList) {
+            return vnfList.getVnfList();
+        }
+        return new ArrayList<>();
+
     }
 
     private static String abstractStrInfo (String origStr, String matchStr) {
