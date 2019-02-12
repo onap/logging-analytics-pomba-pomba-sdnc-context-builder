@@ -22,6 +22,30 @@
       "revId": "d1e0ce5cf39c00b5a3eda3a990419c5fa418f43a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b1c6d2a_f9024e26",
+        "filename": "src/main/java/org/onap/pomba/contextbuilder/sdnc/handlers/VnfApiHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 3131
+      },
+      "writtenOn": "2019-02-12T19:26:13Z",
+      "side": 1,
+      "message": "The URL we\u0027re calling here is a resource-link we extract from the previous response so it\u0027s not one that exposed to the user in the application.properties file.  Exposing the depth parameter might not make sense for a URL they don\u0027t know about.\nWe did something similar in service-decomposition where we hard coded the depth value for the query.",
+      "parentUuid": "4b53bf03_646004ae",
+      "range": {
+        "startLine": 128,
+        "startChar": 87,
+        "endLine": 128,
+        "endChar": 99
+      },
+      "revId": "d1e0ce5cf39c00b5a3eda3a990419c5fa418f43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
