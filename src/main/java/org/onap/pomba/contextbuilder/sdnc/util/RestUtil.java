@@ -218,6 +218,9 @@ public class RestUtil {
         Object jsonInput = JsonUtils.jsonToObject(sdncResponse);
         Chainr chainr = Chainr.fromSpec(jsonSpec);
         Object transObject = chainr.transform(jsonInput);
+        if (null == transObject) {
+            return new ModelContext();
+        }
         Gson gson = new Gson();
         return gson.fromJson(JsonUtils.toPrettyJsonString(transObject), ModelContext.class);
 
