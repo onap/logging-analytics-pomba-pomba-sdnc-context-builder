@@ -100,8 +100,8 @@ public class SdncConfiguration {
     @Value("${aai.http.password}")
     private String aaiHttpPassword;
 
-    @Value("${aai.searchNodeQuery}")
-    private String aaiSearchNodeQuery;
+    @Value("${aai.serviceInstanceQuery}")
+    private String aaiServiceInstanceQuery;
 
     @Value("${aai.customerQuery}")
     private String aaiCustomerQuery;
@@ -178,9 +178,9 @@ public class SdncConfiguration {
         return aaiHttpProtocol + "://" + aaiHost + ":" + aaiPort;
     }
 
-    @Bean(name="aaiPathToSearchNodeQuery")
-    public String getAaiPathToSearchNodeQuery() {
-        return aaiSearchNodeQuery.trim();
+    @Bean(name="aaiPathToServiceInstanceQuery")
+    public String getAaiPathToServiceInstanceQuery() {
+        return aaiServiceInstanceQuery.trim();
     }
 
     @Bean(name="aaiPathToCustomerQuery")
@@ -189,7 +189,7 @@ public class SdncConfiguration {
     }
 
     @Bean(name="aaiServiceInstancePath")
-    public String getserviceInstancePathL() {
+    public String getserviceInstancePath() {
         return serviceInstancePath;
     }
 

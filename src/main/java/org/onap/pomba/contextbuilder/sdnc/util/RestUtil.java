@@ -385,7 +385,7 @@ public class RestUtil {
      * @param aaiClient
      * @param aaiBaseUrl
      * @param aaiBasicAuthorization
-     * @param aaiPathToSearchNodeQuery
+     * @param aaiPathToServiceInstanceQuery
      * @param aaiPathToCustomerQuery
      * @param serviceInstaceId
      * @param transactionId
@@ -395,12 +395,12 @@ public class RestUtil {
     public static ServiceEntity getServiceEntity(RestClient aaiClient,
                                                 String aaiBaseUrl,
                                                 String aaiBasicAuthorization,
-                                                String aaiPathToSearchNodeQuery,
+                                                String aaiPathToServiceInstanceQuery,
                                                 String aaiPathToCustomerQuery,
                                                 String serviceInstanceId,
                                                 String transactionId) throws AuditException {
 
-        String getResourceLinkUrl = generateAaiUrl(aaiBaseUrl, aaiPathToSearchNodeQuery, serviceInstanceId);
+        String getResourceLinkUrl = generateAaiUrl(aaiBaseUrl, aaiPathToServiceInstanceQuery, serviceInstanceId);
         String aaiResourceData  = getAaiResource(aaiClient, getResourceLinkUrl, aaiBasicAuthorization, transactionId);
 
         // Handle the case if the service instance is not found in AAI

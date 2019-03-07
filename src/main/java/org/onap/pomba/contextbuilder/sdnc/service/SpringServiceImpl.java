@@ -55,7 +55,7 @@ public class SpringServiceImpl implements SpringService {
     @Autowired
     private String aaiBaseUrl;
     @Autowired
-    private String aaiPathToSearchNodeQuery;
+    private String aaiPathToServiceInstanceQuery;
     @Autowired
     private String aaiPathToCustomerQuery;
 
@@ -92,7 +92,7 @@ public class SpringServiceImpl implements SpringService {
         ModelContext context = null;
 
         // Call AAI system to populate ServiceData
-        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient, aaiBaseUrl, aaiBasicAuthorization, aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
+        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient, aaiBaseUrl, aaiBasicAuthorization, aaiPathToServiceInstanceQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
 
         if (null == serviceEntity) {
             return context;

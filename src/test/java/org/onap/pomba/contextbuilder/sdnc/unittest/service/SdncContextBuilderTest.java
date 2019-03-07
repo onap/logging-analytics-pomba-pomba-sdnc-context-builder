@@ -96,7 +96,7 @@ public class SdncContextBuilderTest {
     @Autowired
     private String aaiBaseUrl;
     @Autowired
-    private String aaiPathToSearchNodeQuery;
+    private String aaiPathToServiceInstanceQuery;
     @Autowired
     private String aaiPathToCustomerQuery;
     @Rule
@@ -167,7 +167,7 @@ public class SdncContextBuilderTest {
 
         // First try a vFW service instance
 
-        String queryNodeVfwUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        String queryNodeVfwUrl = aaiPathToServiceInstanceQuery + serviceInstanceIdVfw;
         addResponse(queryNodeVfwUrl, "junit/queryNodeDataVfw.json", aaiEnricherRule);
 
         String customerVfwUrl = aaiPathToCustomerQuery + customerIdVfw;
@@ -189,7 +189,7 @@ public class SdncContextBuilderTest {
 
         // Now try a vCPE service instance
 
-        String queryNodeUrlVcpe = aaiPathToSearchNodeQuery + serviceInstanceIdVcpe;
+        String queryNodeUrlVcpe = aaiPathToServiceInstanceQuery + serviceInstanceIdVcpe;
         addResponse(queryNodeUrlVcpe, "junit/queryNodeDataVcpe.json", aaiEnricherRule);
 
         String customerVcpeUrl = aaiPathToCustomerQuery + customerIdVcpe;
@@ -218,7 +218,7 @@ public class SdncContextBuilderTest {
     @Test
     public void testObtainResouceLinkBasedOnServiceInstanceFromAai() throws Exception {
         String transactionId = UUID.randomUUID().toString();
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        String queryNodeUrl = aaiPathToServiceInstanceQuery + serviceInstanceIdVfw;
         addResponse(queryNodeUrl, "junit/queryNodeDataVfw.json", aaiEnricherRule);
         String customerUrl = aaiPathToCustomerQuery + customerIdVfw;
         addResponse(customerUrl, "junit/customerData.json", aaiEnricherRule);
@@ -226,7 +226,7 @@ public class SdncContextBuilderTest {
         ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient,
                                                                 aaiBaseUrl,
                                                                 aaiBasicAuthorization,
-                                                                aaiPathToSearchNodeQuery,
+                                                                aaiPathToServiceInstanceQuery,
                                                                 aaiPathToCustomerQuery,
                                                                 serviceInstanceIdVfw,
                                                                 transactionId);
@@ -242,14 +242,14 @@ public class SdncContextBuilderTest {
     @Test
     public void testObtainResouceLinkBasedOnServiceInstanceFromAaiNullResourceLink() throws Exception {
         String transactionId = UUID.randomUUID().toString();
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        String queryNodeUrl = aaiPathToServiceInstanceQuery + serviceInstanceIdVfw;
         addResponse(queryNodeUrl, "junit/queryNodeDataNullResourceLink.json", aaiEnricherRule);
 
         try {
             RestUtil.getServiceEntity(aaiClient,
                                       aaiBaseUrl,
                                       aaiBasicAuthorization,
-                                      aaiPathToSearchNodeQuery,
+                                      aaiPathToServiceInstanceQuery,
                                       aaiPathToCustomerQuery,
                                       serviceInstanceIdVfw,
                                       transactionId);
@@ -261,7 +261,7 @@ public class SdncContextBuilderTest {
     @Test
     public void testObtainResouceLinkBasedOnServiceInstanceFromAaiNullCustomerType() throws Exception {
         String transactionId = UUID.randomUUID().toString();
-        String queryNodeUrl = aaiPathToSearchNodeQuery + serviceInstanceIdVfw;
+        String queryNodeUrl = aaiPathToServiceInstanceQuery + serviceInstanceIdVfw;
         addResponse(queryNodeUrl, "junit/queryNodeDataVfw.json", aaiEnricherRule);
         String customerUrl = aaiPathToCustomerQuery + customerIdVfw;
         addResponse(customerUrl, "junit/customerDataCustomerIdNotFound.json", aaiEnricherRule);
@@ -270,7 +270,7 @@ public class SdncContextBuilderTest {
             RestUtil.getServiceEntity(aaiClient,
                                       aaiBaseUrl,
                                       aaiBasicAuthorization,
-                                      aaiPathToSearchNodeQuery,
+                                      aaiPathToServiceInstanceQuery,
                                       aaiPathToCustomerQuery,
                                       serviceInstanceIdVfw,
                                       transactionId);
