@@ -39,19 +39,15 @@ public class RestServiceImpl implements RestService {
     @Autowired
     private SpringService service;
 
-
-    public RestServiceImpl() {
-    }
-
     @Override
     public Response getContext(HttpServletRequest request, HttpHeaders headers, String serviceInstanceId) {
 
         Response response = null;
-        ModelContext sdncContext= null;
+        ModelContext sdncContext = null;
         Gson gson = new GsonBuilder().create();
         try {
             // Validate URL parameters
-            RestUtil.validateURL(serviceInstanceId);
+            RestUtil.validateUrl(serviceInstanceId);
 
             // Validate Headers and extract Partner Name
             String partnerName = RestUtil.validateHeader(headers, service.getSdncAuthoriztion());
@@ -61,17 +57,18 @@ public class RestServiceImpl implements RestService {
 
             sdncContext = service.getContext(request, serviceInstanceId, transactionId, partnerName);
 
-            if (sdncContext==null) {
+            if (sdncContext == null) {
                 // Return empty JSON
                 response = Response.ok().entity(EMPTY_JSON_STRING).build();
-            }else {
+            } else {
                 response = Response.ok().entity(gson.toJson(sdncContext)).build();
             }
         } catch (AuditException ce) {
-            if (ce.getHttpStatus() !=null) {
+            if (ce.getHttpStatus() != null) {
                 response = Response.status(ce.getHttpStatus()).entity(ce.getMessage()).build();
-            }else {
-                // No response received, could be the cases of network issue: i.e. unreachable host
+            } else {
+                // No response received, could be the cases of network issue: i.e. unreachable
+                // host
                 response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(ce.getMessage()).build();
             }
         } catch (Exception e) {

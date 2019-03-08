@@ -100,97 +100,85 @@ public class SdncConfiguration {
     @Value("${aai.http.password}")
     private String aaiHttpPassword;
 
-    @Value("${aai.searchNodeQuery}")
-    private String aaiSearchNodeQuery;
+    @Value("${aai.serviceInstanceQuery}")
+    private String aaiServiceInstanceQuery;
 
-    @Value("${aai.customerQuery}")
-    private String aaiCustomerQuery;
+    private static final String BASIC = "Basic ";
 
-    @Value("${aai.serviceInstancePath}")
-    private String serviceInstancePath;
-
-    private final static String BASIC = "Basic ";
-
-    @Bean(name="sdncBaseUrl")
-    public String getURL() {
+    @Bean(name = "sdncBaseUrl")
+    public String getUrl() {
         return httpProtocol + "://" + serviceName + ":" + servicePort;
     }
 
-    @Bean(name="sdncGenericResourcePath")
+    @Bean(name = "sdncGenericResourcePath")
     public String getGenericResourcePath() {
         return genericResourcePath;
     }
 
-    @Bean(name="sdncPortMirrorResourcePath")
+    @Bean(name = "sdncPortMirrorResourcePath")
     public String getPortMirrorResourcePath() {
         return portMirrorResourcePath;
     }
 
-    @Bean(name="sdncVnfPath")
+    @Bean(name = "sdncVnfPath")
     public String getVnfPath() {
         return vnfPath;
     }
 
     @Bean(name = "sdncBasicAuthorization")
     public String getSdncBasicAuth() {
-        String auth = this.user + ":"+ Password.deobfuscate(this.password);
+        String auth = this.user + ":" + Password.deobfuscate(this.password);
         return (BASIC + Base64.getEncoder().encodeToString(auth.getBytes()));
     }
 
-
-    @Bean(name="aaiHttpBasicAuthorization")
+    @Bean(name = "aaiHttpBasicAuthorization")
     public String getHttpBasicAuth() {
-        String auth = new String(this.aaiHttpUserId + ":" + Password.deobfuscate(this.aaiHttpPassword));
-        String encodedAuth =  Base64.getEncoder().encodeToString(auth.getBytes());
+        String auth = this.aaiHttpUserId + ":" + Password.deobfuscate(this.aaiHttpPassword);
+        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
         return (BASIC + encodedAuth);
     }
 
-    @Bean(name="aaiBasicAuthorization")
-    public String getAAIBasicAuth() {
-        String auth = new String(this.aaiUsername + ":" + Password.deobfuscate(this.aaiPassword));
-        String encodedAuth =  Base64.getEncoder().encodeToString(auth.getBytes());
+    @Bean(name = "aaiBasicAuthorization")
+    public String getAaiBasicAuth() {
+        String auth = this.aaiUsername + ":" + Password.deobfuscate(this.aaiPassword);
+        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
         return (BASIC + encodedAuth);
     }
 
     @Conditional(AAIBasicAuthCondition.class)
-    @Bean(name="aaiClient")
+    @Bean(name = "aaiClient")
     public RestClient restClientWithBasicAuth() {
         RestClient restClient = new RestClient();
-        restClient.validateServerHostname(false).validateServerCertChain(false).connectTimeoutMs(aaiConnectionTimeout).readTimeoutMs(aaiReadTimeout);
+        restClient.validateServerHostname(false).validateServerCertChain(false).connectTimeoutMs(aaiConnectionTimeout)
+                .readTimeoutMs(aaiReadTimeout);
         restClient.basicAuthUsername(aaiUsername);
         restClient.basicAuthPassword(Password.deobfuscate(aaiPassword));
         return restClient;
     }
 
     @Conditional(AAIClientCertCondition.class)
-    @Bean(name="aaiClient")
+    @Bean(name = "aaiClient")
     public RestClient restClientWithClientCert() {
         RestClient restClient = new RestClient();
-        if ("https".equals(aaiHttpProtocol))
-            restClient.validateServerHostname(false).validateServerCertChain(false).trustStore(trustStorePath).clientCertFile(keyStorePath).clientCertPassword(keyStorePassword).connectTimeoutMs(connectionTimeout).readTimeoutMs(readTimeout);
-        else
-            restClient.validateServerHostname(false).validateServerCertChain(false).connectTimeoutMs(connectionTimeout).readTimeoutMs(readTimeout);
+        if ("https".equals(aaiHttpProtocol)) {
+            restClient.validateServerHostname(false).validateServerCertChain(false).trustStore(trustStorePath)
+                    .clientCertFile(keyStorePath).clientCertPassword(keyStorePassword)
+                    .connectTimeoutMs(connectionTimeout).readTimeoutMs(readTimeout);
+        } else {
+            restClient.validateServerHostname(false).validateServerCertChain(false).connectTimeoutMs(connectionTimeout)
+                    .readTimeoutMs(readTimeout);
+        }
         return restClient;
     }
 
-    @Bean(name="aaiBaseUrl")
-    public String getAaiURL() {
+    @Bean(name = "aaiBaseUrl")
+    public String getAaiUrl() {
         return aaiHttpProtocol + "://" + aaiHost + ":" + aaiPort;
     }
 
-    @Bean(name="aaiPathToSearchNodeQuery")
-    public String getAaiPathToSearchNodeQuery() {
-        return aaiSearchNodeQuery.trim();
-    }
-
-    @Bean(name="aaiPathToCustomerQuery")
-    public String getAaiPathToCustomerQuery() {
-        return aaiCustomerQuery.trim();
-    }
-
-    @Bean(name="aaiServiceInstancePath")
-    public String getserviceInstancePathL() {
-        return serviceInstancePath;
+    @Bean(name = "aaiPathToServiceInstanceQuery")
+    public String getAaiPathToServiceInstanceQuery() {
+        return aaiServiceInstanceQuery.trim();
     }
 
 }

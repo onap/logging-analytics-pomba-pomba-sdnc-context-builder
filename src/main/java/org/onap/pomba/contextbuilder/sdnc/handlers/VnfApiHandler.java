@@ -52,7 +52,7 @@ public class VnfApiHandler {
     @Autowired
     private String aaiBaseUrl;
     @Autowired
-    private String aaiServiceInstancePath;
+    private String aaiPathToServiceInstanceQuery;
     @Autowired
     private Client jerseyClient;
     @Autowired
@@ -73,20 +73,23 @@ public class VnfApiHandler {
 
         log.info("in VNF-API HANDLER: ");
         Service service = new Service();
-        ServiceEntity serviceEntity = (ServiceEntity)exchange.getIn().getBody();
+        ServiceEntity serviceEntity = (ServiceEntity) exchange.getIn().getBody();
         service.setUuid(serviceEntity.getServiceInstanceId());
 
         // GET the list of VNF related-to links from AAI
-        String url= aaiBaseUrl+generateServiceInstanceURL(aaiServiceInstancePath, serviceEntity.getCustomerId(), serviceEntity.getServiceType(), serviceEntity.getServiceInstanceId());
-        String serviceInstancePayload = RestUtil.getAaiResource(aaiClient, url, aaiBasicAuthorization, serviceEntity.getTransactionId());
+        String url = aaiBaseUrl
+                + generateServiceInstanceUrl(aaiPathToServiceInstanceQuery, serviceEntity.getServiceInstanceId());
+        String serviceInstancePayload = RestUtil.getAaiResource(aaiClient, url, aaiBasicAuthorization,
+                serviceEntity.getTransactionId());
+
         List<String> genericVnfLinks = extractGenericVnfRelatedLink(serviceInstancePayload);
 
         // GET the VNF list (module-id) from AAI
-        List <VnfInstance> vnfList = retrieveAaiVnfList(aaiClient, aaiBaseUrl, aaiBasicAuthorization, serviceEntity.getTransactionId(), genericVnfLinks);
-
+        List<VnfInstance> vnfList = retrieveAaiVnfList(aaiClient, aaiBaseUrl, aaiBasicAuthorization,
+                serviceEntity.getTransactionId(), genericVnfLinks);
 
         // GET the module-id from SDNC using VNF-API
-        Map<String,List<Vnf>> sdncVnfMap = RestUtil.getSdncVnfList(jerseyClient, sdncBaseUrl, sdncVnfPath,
+        Map<String, List<Vnf>> sdncVnfMap = RestUtil.getSdncVnfList(jerseyClient, sdncBaseUrl, sdncVnfPath,
                 sdncBasicAuthorization, vnfList);
 
         // Transform the AAI and SDNC models to the audit common model
@@ -97,12 +100,12 @@ public class VnfApiHandler {
         return context;
     }
 
-    private static String generateServiceInstanceURL(String siPath, String customerId, String serviceType, String serviceInstanceId) {
-        return MessageFormat.format(siPath, customerId, serviceType, serviceInstanceId);
+    private static String generateServiceInstanceUrl(String siPath, String serviceInstanceId) {
+        return MessageFormat.format(siPath, serviceInstanceId);
     }
 
     private static List<String> extractGenericVnfRelatedLink(String serviceInstancePayload) throws AuditException {
-        List<String> genericVnfLinks = new ArrayList<>();;
+        List<String> genericVnfLinks = new ArrayList<>();
 
         try {
             JSONObject relationshipList = new JSONObject(serviceInstancePayload).getJSONObject(JSON_RELATIONSHIP_LIST);
@@ -110,7 +113,8 @@ public class VnfApiHandler {
             if (relationship != null) {
                 for (int i = 0; i < relationship.length(); i++) {
                     JSONObject relationshipInstance = relationship.optJSONObject(i);
-                    if (relationshipInstance.has(JSON_RELATED_TO) && (relationshipInstance.getString(JSON_RELATED_TO).equals(JSON_GENERIC_VNF)))  {
+                    if (relationshipInstance.has(JSON_RELATED_TO)
+                            && (relationshipInstance.getString(JSON_RELATED_TO).equals(JSON_GENERIC_VNF))) {
                         genericVnfLinks.add(relationshipInstance.getString(JSON_RELATED_LINK));
                     }
                 }
@@ -122,20 +126,22 @@ public class VnfApiHandler {
         return genericVnfLinks;
     }
 
-    private static List<VnfInstance> retrieveAaiVnfList(RestClient aaiClient, String aaiBaseUrl, String aaiBasicAuthorization, String transactionId, List <String>genericVnfLinks) throws AuditException {
+    private static List<VnfInstance> retrieveAaiVnfList(RestClient aaiClient, String aaiBaseUrl,
+            String aaiBasicAuthorization, String transactionId, List<String> genericVnfLinks) throws AuditException {
         List<VnfInstance> vnfList = new ArrayList<>();
         for (String genericVnfLink : genericVnfLinks) {
-            String genericVnfUrl = RestUtil.generateAaiUrl(aaiBaseUrl, genericVnfLink, "?depth=all");
-            String genericVnfPayload = RestUtil.getAaiResource(aaiClient, genericVnfUrl, aaiBasicAuthorization, transactionId);
+            String genericVnfUrl = aaiBaseUrl + genericVnfLink + "?depth=all";
+            String genericVnfPayload = RestUtil.getAaiResource(aaiClient, genericVnfUrl, aaiBasicAuthorization,
+                    transactionId);
             if (genericVnfPayload.equals(EMPTY_JSON_STRING)) {
-                log.info("retrieveAaiVnfList "+ genericVnfPayload +" is not found, " + "return empty Json ");
+                log.info("retrieveAaiVnfList {} is not found, return empty Json ", genericVnfPayload);
             } else {
                 // Create the AAI VnfInstance from the AAI generic-vnf json
                 VnfInstance vnfInstance = VnfInstance.fromJson(genericVnfPayload);
                 vnfList.add(vnfInstance);
             }
         }
-        log.debug("The size of vnfList:"+ vnfList.size());
+        log.debug("The size of vnfList: {}", vnfList.size());
         return vnfList;
     }
 }

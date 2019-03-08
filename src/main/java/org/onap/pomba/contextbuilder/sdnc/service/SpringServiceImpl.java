@@ -55,9 +55,7 @@ public class SpringServiceImpl implements SpringService {
     @Autowired
     private String aaiBaseUrl;
     @Autowired
-    private String aaiPathToSearchNodeQuery;
-    @Autowired
-    private String aaiPathToCustomerQuery;
+    private String aaiPathToServiceInstanceQuery;
 
     public static final String APP_NAME = "SdncContextBuilder";
     public static final String MDC_REQUEST_ID = "RequestId";
@@ -92,14 +90,14 @@ public class SpringServiceImpl implements SpringService {
         ModelContext context = null;
 
         // Call AAI system to populate ServiceData
-        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient, aaiBaseUrl, aaiBasicAuthorization, aaiPathToSearchNodeQuery, aaiPathToCustomerQuery, serviceInstanceId, transactionId);
+        ServiceEntity serviceEntity = RestUtil.getServiceEntity(aaiClient, aaiBaseUrl, aaiBasicAuthorization, aaiPathToServiceInstanceQuery, serviceInstanceId, transactionId);
 
         if (null == serviceEntity) {
             return context;
         }
 
         processApiMappingRules(serviceEntity);
-        log.info("SDN-C determined API: " + serviceEntity.getApiName());
+        log.info("SDN-C determined API: {}", serviceEntity.getApiName());
 
         context = producerTemplate.requestBody("direct:startRoutingProcess", serviceEntity, ModelContext.class);
 
@@ -126,10 +124,10 @@ public class SpringServiceImpl implements SpringService {
         }
     }
 
-    private void processApiMappingRules(ServiceEntity serviceData){
+    private void processApiMappingRules(ServiceEntity serviceData) {
 
         KieSession kieSession = kieContainer.newKieSession();
-        log.info ("KIE Session is created");
+        log.info("KIE Session is created");
         kieSession.insert(serviceData);
         kieSession.fireAllRules();
         log.info("Rules are fired");
