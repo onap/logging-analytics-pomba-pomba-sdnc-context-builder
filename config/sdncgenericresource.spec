@@ -34,11 +34,13 @@
                       },
                       "vnf-resource-assignments": {
                         "vnf-networks": {
-                          "*": {
-                            "network-name": "vnfList[&6].networkList[&1].name",
-                            "network-id": "vnfList[&6].networkList[&1].uuid",
-                            "#networkRole": "vnfList[&6].networkList[&1].attributeList[0].name",
-                            "network-role": "vnfList[&6].networkList[&1].attributeList[0].value"
+                          "vnf-network": {
+                            "*": {
+                              "network-name": "vnfList[&7].networkList[&1].name",
+                              "network-id": "vnfList[&7].networkList[&1].uuid",
+                              "#networkRole": "vnfList[&7].networkList[&1].attributeList[0].name",
+                              "network-role": "vnfList[&7].networkList[&1].attributeList[0].value"
+                            }
                           }
                         }
                       }
@@ -85,6 +87,16 @@
                                               "#imageId": "vnfList[&15].vfModuleList[&11].vmList[&2].attributeList[3].name",
                                               "image-name": "vnfList[&15].vfModuleList[&11].vmList[&2].attributeList[3].value"
                                             }
+                                          }
+                                        }
+                                      },
+                                      "vm-networks": {
+                                        "vm-network": {
+                                          "*": {
+                                            "network-id": "vnfList[&14].vfModuleList[&10].networkList[&1].uuid",
+                                            "network-name": "vnfList[&14].vfModuleList[&10].networkList[&1].name",
+                                            "#networkRole": "vnfList[&14].vfModuleList[&10].networkList[&1].attributeList[0].name",
+                                            "network-role": "vnfList[&14].vfModuleList[&10].networkList[&1].attributeList[0].value"
                                           }
                                         }
                                       }

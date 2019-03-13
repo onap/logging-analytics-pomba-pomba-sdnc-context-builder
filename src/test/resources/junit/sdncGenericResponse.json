@@ -1,7 +1,7 @@
 {
   "service": [
     {
-      "service-instance-id": "PombaDemoCust_001-SerivceInst-001",
+      "service-instance-id": "PombaDemoCust_001-ServiceInst-001",
       "service-status": {
         "final-indicator": "Y",
         "rpc-action": "assign",
@@ -243,6 +243,13 @@
                               "vm": [
                                 {
                                   "vm-type": "vgw",
+                                  "vm-networks": {
+                                    "vm-network": [
+                                      {
+                                        "network-role": "vf-module-network-test"
+                                      }
+                                    ]
+                                  },
                                   "vm-count": 1,
                                   "vm-type-tag": "vgw",
                                   "vm-names": {
@@ -360,6 +367,15 @@
                     "vnf-name": "zRegionOne06"
                   },
                   "vnf-resource-assignments": {
+                    "vnf-networks": {
+                      "vnf-network": [
+                        {
+                          "network-role": "trusted",
+                          "network-name": "vnf-network-test",
+                          "network-id": "bf2a200d-744f-4900-afc4-d5ef44638853"
+                        }
+                      ]
+                    },
                     "availability-zones": {
                       "availability-zone": [
                         "nova"
