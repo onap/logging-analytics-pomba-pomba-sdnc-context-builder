@@ -266,7 +266,7 @@ limitations under the License.
                                     <locations>
                                         <location>org.onap.pomba.contextbuilder.sdnc.service.rs</location>
                                     </locations>
-                                    <basePath>/{${project.artifactId}</basePath>
+                                    <basePath>/sdnccontextbuilder</basePath>
                                     <info>
                                         <title>SDNC Context Builder API</title>
                                         <version>${project.version}</version>

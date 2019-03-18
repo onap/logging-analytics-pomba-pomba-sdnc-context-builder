@@ -32,6 +32,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.onap.pomba.common.datatypes.ModelContext;
+
 
 @Api
 @Path("/")
@@ -42,9 +44,9 @@ public interface RestService {
     @Path("service/context")
     @Produces({MediaType.APPLICATION_JSON})
     @ApiOperation(
-            value = "Respond SDNCContext Model Data",
-            notes = "Returns a JSON object which represents the SDNCConetxt model data",
-            response = Response.class
+            value = "Respond SDNC Context Model Data",
+            notes = "Returns a JSON object which represents the SDNC Context model data",
+            response = ModelContext.class
     )
     @ApiResponses(
             value = {
@@ -62,8 +64,8 @@ public interface RestService {
     @Path("{version:[vV][1-5]}/service/context")
     @Produces({MediaType.APPLICATION_JSON})
     @ApiOperation(
-            value = "Respond SDNCContext v1 - v5 Model Data",
-            notes = "Returns a JSON object which represents the SDNCConetxt V1 model data",
+            value = "Respond SDNC Context v1 - v5 Model Data",
+            notes = "Returns a JSON object which represents the SDNC Context V1 model data",
             response = Response.class
     )
     @ApiResponses(
