@@ -246,7 +246,15 @@
                                   "vm-networks": {
                                     "vm-network": [
                                       {
-                                        "network-role": "vf-module-network-test"
+                                        "network-role": "vf-module-network-test",
+                                        "related-networks": {
+                                          "related-network": [
+                                            {
+                                              "network-id": "2ea02809-7279-4b5e-931a-62b231615497",
+                                              "network-role": "network-role-sdnc-1"
+                                            }
+                                          ]
+                                        }
                                       }
                                     ]
                                   },

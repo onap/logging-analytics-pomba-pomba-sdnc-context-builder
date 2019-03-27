@@ -97,21 +97,19 @@
                                       "vm-networks": {
                                         "vm-network": {
                                           "*": {
-                                            "network-id": "vnfList[&14].vfModuleList[&10].networkList[&1].uuid",
-                                            "network-name": "vnfList[&14].vfModuleList[&10].networkList[&1].name",
-                                            "#networkRole": "vnfList[&14].vfModuleList[&10].networkList[&1].attributeList[0].name",
-                                            "network-role": "vnfList[&14].vfModuleList[&10].networkList[&1].attributeList[0].value"
+                                            "related-networks": {
+                                              "related-network": {
+                                                "*": {
+                                                  "network-id": "vnfList[&17].vfModuleList[&13].networkList[&1].uuid",
+                                                  "network-name": "vnfList[&17].vfModuleList[&13].networkList[&1].name",
+                                                  "#networkRole": "vnfList[&17].vfModuleList[&13].networkList[&1].attributeList[0].name",
+                                                  "network-role": "vnfList[&17].vfModuleList[&13].networkList[&1].attributeList[0].value"
+                                                }
+                                              }
+                                            }
                                           }
                                         }
                                       }
-                                    }
-                                  },
-                                  "vm-networks": {
-                                    "*": {
-                                      "network-id": "vnfList[&11].vfModuleList[&7].networkList[&1].uuid",
-                                      "network-name": "vnfList[&11].vfModuleList[&7].networkList[&1].name",
-                                      "#networkRole": "vnfList[&11].vfModuleList[&7].networkList[&1].attributeList[0].name",
-                                      "network-role": "vnfList[&11].vfModuleList[&7].networkList[&1].attributeList[0].value"
                                     }
                                   }
                                 }
