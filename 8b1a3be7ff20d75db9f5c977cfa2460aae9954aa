@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cde8506_5f9fd034",
+        "filename": "INFO.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 481
+      },
+      "writtenOn": "2019-08-27T17:14:57Z",
+      "side": 1,
+      "message": "Remove these spaces",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 10
+      },
+      "revId": "8b1a3be7ff20d75db9f5c977cfa2460aae9954aa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
