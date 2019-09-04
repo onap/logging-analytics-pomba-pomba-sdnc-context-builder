@@ -30,6 +30,7 @@ import com.github.jknack.handlebars.internal.Files;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;
@@ -212,7 +213,7 @@ public class SdncContextBuilderTest {
 
     private void addResponse(String url, String responseFile, WireMockRule thisMock) throws IOException {
         File file = new File(ClassLoader.getSystemResource(responseFile).getFile());
-        String payload = Files.read(file);
+        String payload = Files.read(file, Charset.defaultCharset());
         thisMock.stubFor(get(url).willReturn(okJson(payload)));
     }
 
