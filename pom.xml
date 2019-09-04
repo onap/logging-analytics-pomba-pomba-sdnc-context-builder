@@ -31,7 +31,7 @@ limitations under the License.
     </parent>
 
     <properties>
-        <camel-spring-boot.version>2.21.1</camel-spring-boot.version>
+        <camel-spring-boot.version>2.21.5</camel-spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <swagger.directory>${project.build.directory}/generated-resources/swagger</swagger.directory>
         <!--docker -->
@@ -114,6 +114,20 @@ limitations under the License.
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-velocity</artifactId>
             <version>1.4.7.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-beanutils</groupId>
+                    <artifactId>commons-beanutils</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>dom4j</groupId>
+                    <artifactId>dom4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.struts</groupId>
+                    <artifactId>struts-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
            <groupId>com.sun.jersey</groupId>
@@ -131,15 +145,6 @@ limitations under the License.
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-boot-starter</artifactId>
             <version>${camel-spring-boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-            <version>${camel-spring-boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-servlet-starter</artifactId>
         </dependency>
         <!-- swagger dependencies -->
         <dependency>
@@ -184,7 +189,13 @@ limitations under the License.
         <dependency>
             <groupId>org.onap.aai</groupId>
             <artifactId>rest-client</artifactId>
-            <version>1.2.1</version>
+            <version>1.3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Drools dependencies -->
         <dependency>
@@ -196,7 +207,25 @@ limitations under the License.
                     <groupId>commons-codec</groupId>
                     <artifactId>commons-codec</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.thoughtworks.xstream</groupId>
+                    <artifactId>xstream</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.plexus</groupId>
+                    <artifactId>plexus-utils</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>3.0.22</version>
         </dependency>
 
         <!-- Test dependencies -->
@@ -225,6 +254,10 @@ limitations under the License.
                     <groupId>com.fasterxml.jackson.core</groupId>
                     <artifactId>jackson-databind</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.github.jknack</groupId>
+                    <artifactId>handlebars</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -241,6 +274,16 @@ limitations under the License.
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jknack</groupId>
+            <artifactId>handlebars</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
     </dependencies>
 
